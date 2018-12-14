@@ -1,0 +1,28 @@
+/**
+ * Background colors
+ */
+each(@light-colors, {
+	.ca-bg-@{key} {
+		background-color: @value;
+		color: @color-text-dark;
+	}
+});
+
+each(@dark-colors, {
+	.ca-bg-@{key} {
+		background-color: @value;
+		color: @color-text-light;
+	}
+});
+
+each(@light-colors, {
+	.ca-fg-@{key} {
+		color: @value;
+	}
+});
+
+each(@dark-colors, {
+	.ca-fg-@{key} {
+		color: @value;
+	}
+});

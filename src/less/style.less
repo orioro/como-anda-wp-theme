@@ -1,0 +1,37 @@
+/*
+Theme Name: como-anda-wp-theme
+*/
+
+@import (less) '../../node_modules/normalize.css/normalize.css';
+@import './variables.less';
+
+@import './font-faces.less';
+
+/**
+ * Structural elements
+ */
+@import './structure/header.less';
+@import './structure/footer.less';
+@import (less) './components/bootstrap-customized-grid.css';
+
+/**
+ * Components
+ */
+@import './components/containers.less';
+@import './components/page-header.less';
+@import './components/colors.less';
+@import './components/wysiwyg-content.less';
+@import './components/ca-form.less';
+@import './components/typography.less';
+
+/**
+ * Page templates
+ */
+@import './page-templates/home.less';
+@import './page-templates/maintenance.less';
+
+body {
+  font-family: 'News Cycle', sans-serif;
+  font-size: @font-size-base;
+  line-height: 1.5;
+}

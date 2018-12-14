@@ -1,0 +1,17 @@
+.max-width-container {
+	max-width: @website-max-width;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.side-padding-container {
+	padding-left: @side-padding-desktop;
+	padding-right: @side-padding-desktop;
+
+	box-sizing: border-box;
+
+	@media (max-width: @mobile-max-width) {
+		padding-left: @side-padding-mobile;
+		padding-right: @side-padding-mobile;
+	}
+}
