@@ -66,6 +66,7 @@ function ca__setup() {
 	add_action('carbon_fields_register_fields', 'ca__register_carbon_fields');
 	function ca__register_carbon_fields() {
 		require_once('inc/carbon-fields/theme-options.php');
+		require_once('inc/carbon-fields/all-page-templates.php');
 		require_once('inc/carbon-fields/page-template-home.php');
 		require_once('inc/carbon-fields/page-template-blocks.php');
 	}
@@ -76,6 +77,11 @@ function ca__setup() {
 	 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 	 */
 	add_theme_support('post-thumbnails');
+
+	/**
+	 * Enable excerpts for pages
+	 */
+	add_post_type_support('page', 'excerpt');
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(array(

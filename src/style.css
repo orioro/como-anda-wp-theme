@@ -3776,10 +3776,6 @@ html {
   background-color: #3880BD;
   color: white;
 }
-.ca-bg-yellow {
-  background-color: #FFCD20;
-  color: white;
-}
 .ca-bg-brown {
   background-color: #BA9B88;
   color: white;
@@ -3829,9 +3825,6 @@ html {
 }
 .ca-fg-blue {
   color: #3880BD;
-}
-.ca-fg-yellow {
-  color: #FFCD20;
 }
 .ca-fg-brown {
   color: #BA9B88;
@@ -3936,6 +3929,23 @@ ul.ca-link-image-list.ca-link-image-list--vertical-images > li > a > h4 {
   margin-top: 10px;
   margin-bottom: 0;
   text-align: center;
+}
+ul.ca-related-content-link-list {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+ul.ca-related-content-link-list > li {
+  width: 32%;
 }
 a.ca-link-button {
   display: inline-block;

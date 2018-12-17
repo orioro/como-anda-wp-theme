@@ -12,13 +12,16 @@ Container::make('post_meta', 'Blocos da página')
 				Field::make('rich_text', 'content', 'Conteúdo'),
 				Field::make('image', 'image', 'Imagem'),
 				Field::make('complex', 'link_buttons', 'Links (botões)')
+					->set_layout('tabbed-vertical')
 					->add_fields(array(
 						Field::make('text', 'text', 'Texto'),
 						Field::make('text', 'url', 'URL'),
 						Field::make('file', 'file', 'Arquivo'),
 						Field::make('checkbox', 'target_blank', 'Abrir em nova aba'),
-					)),
+					))
+					->set_header_template('<%- $_index + 1 %> <% if (text) { %>- <%- text %><% } %>'),
 				Field::make('complex', 'link_images', 'Links (imagens)')
+					->set_layout('tabbed-vertical')
 					->add_fields(array(
 						Field::make('image', 'image', 'Imagem'),
 						Field::make('text', 'text', 'Texto'),
@@ -26,6 +29,7 @@ Container::make('post_meta', 'Blocos da página')
 						Field::make('file', 'file', 'Arquivo'),
 						Field::make('checkbox', 'target_blank', 'Abrir em nova aba'),
 					))
+					->set_header_template('<%- $_index + 1 %> <% if (text) { %>- <%- text %><% } %>'),
 			))
 			->set_header_template('<%- $_index + 1 %> <% if (title) { %>- <%- title %><% } %>')
 	));
