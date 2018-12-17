@@ -28,6 +28,23 @@ Container::make('post_meta', 'Eixos de atuação')
       ))
       ->set_header_template('<%- $_index + 1 %> <% if (title) { %>- <%- title %><% } %>'),
   ));
+
+Container::make('post_meta', 'Lista de Projetos')
+  ->where('post_template', '=', 'page-templates/home.php')
+  ->add_fields(array(
+    Field::make('text', 'ca_home__project_list_title', 'Título'),
+    Field::make('complex', 'ca_home__project_list_projects', 'Projetos')
+      ->set_layout('tabbed-horizontal')
+      ->add_fields(array(
+        Field::make('text', 'title', 'Título'),
+        Field::make('textarea', 'description', 'Descrição'),
+        Field::make('text', 'button', 'Botão'),
+        Field::make('text', 'url', 'Botão link'),
+        Field::make('image', 'image', 'Imagem'),
+      ))
+    ->set_header_template('<%- $_index + 1 %> <% if (title) { %>- <%- title %><% } %>'),
+  ));
+
 Container::make('post_meta', 'Sobre')
   ->where('post_template', '=', 'page-templates/home.php')
   ->add_fields(array(
@@ -43,21 +60,6 @@ Container::make('post_meta', 'Sobre')
       ->add_fields(array(
         Field::make('image', 'image', 'Imagem'),
       ))
-  ));
-
-Container::make('post_meta', 'Lista de Projetos')
-  ->where('post_template', '=', 'page-templates/home.php')
-  ->add_fields(array(
-    Field::make('text', 'ca_home__project_title', 'Título'),
-    Field::make('complex', 'ca_home__project', 'Projetos')
-      ->set_layout('tabbed-horizontal')
-      ->add_fields(array(
-        Field::make('text', 'title', 'Título'),
-        Field::make('textarea', 'description', 'Descrição'),
-        Field::make('text', 'button', 'Botão'),
-        Field::make('image', 'image', 'Imagem'),
-      ))
-    ->set_header_template('<%- $_index + 1 %> <% if (title) { %>- <%- title %><% } %>'),
   ));
 
 Container::make('post_meta', 'Contato')

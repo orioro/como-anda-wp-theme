@@ -37,15 +37,15 @@ get_header(); ?>
     id="#projetos">
     <div class="max-width-container side-padding-container ">
       <h1 class="ca-heading-1">
-      <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__project_title'); ?>
+      <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__project_list_title'); ?>
       </h1>
-      <?php $ca_home__project = carbon_get_post_meta(get_the_ID(), 'ca_home__project'); ?>
+      <?php $ca_home__project_list_projects = carbon_get_post_meta(get_the_ID(), 'ca_home__project_list_projects'); ?>
       <ul>
-        <?php foreach($ca_home__project as $item) : ?>
+        <?php foreach($ca_home__project_list_projects as $item) : ?>
         <li>
           <h2 class="ca-heading-2"><?php echo $item['title']; ?></h2>
           <p><?php echo $item['description']; ?></p>
-          <button><?php echo $item['button']?></button>
+          <a class="ca-link-button" href=""><?php echo $item['button']?></a>
           <img src="<?php echo wp_get_attachment_image_src($item['image'], 'thumbnail')[0]; ?>">
         </li>
         <?php endforeach; ?>          
@@ -73,9 +73,45 @@ get_header(); ?>
       <h1 class="ca-heading-1">
       <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__contact_title');  ?>
       </h1>
-			<div class="ca-form">
-				<?php echo do_shortcode(carbon_get_post_meta(get_the_ID(), 'ca_home__contact_form_shortcode')); ?>
-			</div>
+      <div>
+        
+        <div class="ca-form">
+          <?php echo do_shortcode(carbon_get_post_meta(get_the_ID(), 'ca_home__contact_form_shortcode')); ?>
+        </div>
+        <div>
+          <?php
+            $ca__email = carbon_get_theme_option('ca__email');
+            $ca__instagram_url = carbon_get_theme_option('ca__instagram_url');
+            $ca__facebook_url = carbon_get_theme_option('ca__facebook_url');
+            $ca__medium_url = carbon_get_theme_option('ca__medium_url');
+          ?>
+          <a href="email">email</a>
+
+          <ul class="contact-icon-link-list">
+            <?php if ($ca__instagram_url) : ?>
+            <li>
+              <a target="_blank" href="<?php echo $ca__instagram_url; ?>">
+                <img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-instagram.svg">
+              </a>
+            </li>
+            <?php endif; ?>
+            <?php if ($ca__facebook_url) : ?>
+            <li>
+              <a target="_blank" href="<?php echo $ca__facebook_url; ?>">
+                <img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-facebook.svg">
+              </a>
+            </li>
+            <?php endif; ?>
+            <?php if ($ca__medium_url) : ?>
+            <li>
+              <a target="_blank" href="<?php echo $ca__medium_url; ?>">
+                <img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-medium.svg">
+              </a>
+            </li>
+            <?php endif; ?>
+          </ul>
+        </div>
+      </div>
 		</div>
 	</section>
 </main>
