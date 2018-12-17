@@ -1,0 +1,36 @@
+ul.ca-link-button-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	> li {
+		margin-bottom: 15px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+ul.ca-link-image-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+
+	> li {
+		width: 24%;
+
+		> a {
+			display: flex;
+			flex-direction: column;
+
+			> img {
+				width: 100%;
+			}
+		}
+	}
+}
