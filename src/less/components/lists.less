@@ -1,7 +1,12 @@
-ul.ca-link-button-list {
+.ca-reset-list {
 	list-style: none;
-	padding: 0;
-	margin: 0;
+	padding-left: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+ul.ca-link-button-list {
+	.ca-reset-list();
 
 	> li {
 		margin-bottom: 15px;
@@ -13,9 +18,7 @@ ul.ca-link-button-list {
 }
 
 ul.ca-link-image-list {
-	list-style: none;
-	padding: 0;
-	margin: 0;
+	.ca-reset-list();
 
 	display: flex;
 	justify-content: space-between;

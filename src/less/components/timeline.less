@@ -1,0 +1,35 @@
+ul.ca-timeline__decades-nav {
+	.ca-reset-list();
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+
+	a.empty {
+		opacity: 0.4;
+		text-decoration: none;
+	}
+}
+
+ul.ca-timeline__decade-list {
+	.ca-reset-list();
+}
+
+ul.ca-timeline__event-list {
+	.ca-reset-list();
+
+	> .ca-timeline-event-list__item {
+		> .ca-timeline-event-list__item__body {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+
+			> * {
+				width: 48%;
+			}
+
+			> img {
+				height: auto;
+			}
+		}
+	}
+}

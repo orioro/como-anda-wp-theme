@@ -69,6 +69,7 @@ function ca__setup() {
 		require_once('inc/carbon-fields/all-page-templates.php');
 		require_once('inc/carbon-fields/page-template-home.php');
 		require_once('inc/carbon-fields/page-template-blocks.php');
+		require_once('inc/carbon-fields/page-template-timeline.php');
 	}
 
 	/*
