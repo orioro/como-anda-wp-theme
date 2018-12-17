@@ -3,7 +3,7 @@
 /**
  * Side paddings
  */
-@side-padding-desktop: 30px;
+@side-padding-desktop: 120px;
 @side-padding-mobile: 20px;
 
 /**
@@ -34,8 +34,11 @@
 @color-green: #5F8C3F;
 @color-green-light: #B1D698;
 
-@color-text-dark: black;
-@color-text-light: white;
+@color-black: black;
+@color-white: white;
+
+@color-text-dark: @color-black;
+@color-text-light: @color-white;
 
 @light-colors: {
 	gray-light: @color-gray-light;
@@ -46,6 +49,7 @@
 	orange-light: @color-orange-light;
 	red-light: @color-red-light;
 	green-light: @color-green-light;
+	white: @color-white;
 }
 
 @dark-colors: {
@@ -57,6 +61,7 @@
 	orange: @color-orange;
 	red: @color-red;
 	green: @color-green;
+	black: @color-black;
 };
 
 /**

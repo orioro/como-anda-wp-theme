@@ -10,10 +10,21 @@ get_header(); ?>
 	<section
 		id="abertura"
 		class="ca-bg-red">
-		<div class="max-width-container side-padding-container container">
-
+		<div class="container max-width-container side-padding-container ca-page-header">
 			<div class="row">
-				<div class="ca-page-header col-md-9 offset-md-3">
+				<h1 class="col-md-10 offset-md-2 ca-heading-1">
+					<?php the_title(); ?>
+				</h1>
+			</div>
+			<div class="row">
+				<div class="col-md-9 offset-md-3 wysiwyg-content">
+					<?php the_content(); ?>
+				</div>
+				
+			</div>
+
+<!-- 			<div class="row">
+				<div class=" col-md-9 offset-md-3">
 					<h1 class="ca-heading-1">
 						<?php the_title(); ?>
 					</h1>
@@ -21,7 +32,7 @@ get_header(); ?>
 						<?php the_content(); ?>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</section>
 
@@ -58,8 +69,8 @@ get_header(); ?>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-9 offset-md-3">
-				<ul class="ca-link-image-list">
+			<div class="col-md-12">
+				<ul class="ca-link-image-list ca-link-image-list--vertical-images">
 					<?php foreach ($block['link_images'] as $image) : ?>
 					<li>
 						<a
