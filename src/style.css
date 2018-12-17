@@ -3848,7 +3848,7 @@ html {
   margin-bottom: 0;
 }
 .ca-heading-1 {
-  font-size: 7rem;
+  font-size: 5rem;
 }
 .ca-heading-2 {
   font-size: 5rem;
@@ -3923,6 +3923,12 @@ a.ca-link-button {
   height: 2px;
   background-color: black;
 }
+@media (max-width: 450px) {
+  .ca-page-section::after {
+    left: 20px;
+    right: 20px;
+  }
+}
 .ca-page-section .ca-page-section__image-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3945,6 +3951,14 @@ a.ca-link-button {
 /**
  * Page templates
  */
+html {
+  font-size: 18px;
+}
+@media (max-width: 450px) {
+  html {
+    font-size: 16px;
+  }
+}
 body {
   font-family: 'News Cycle', sans-serif;
   line-height: 1.5;

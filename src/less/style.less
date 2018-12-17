@@ -34,7 +34,11 @@ Theme Name: como-anda-wp-theme
 @import './page-templates/maintenance.less';
 
 html {
-	// font-size: 100%;
+	font-size: @font-size-base-desktop;
+
+	@media (max-width: @mobile-max-width) {
+		font-size: @font-size-base-mobile;
+	}
 }
 
 body {
