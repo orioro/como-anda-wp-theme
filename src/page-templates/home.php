@@ -8,110 +8,152 @@ get_header(); ?>
 
 <main id="page-template-home">
 	<section
-		id="#abertura"
+		id="abertura"
 		class="ca-bg-red">
-		<div class="max-width-container side-padding-container container">
+		<div class="container max-width-container side-padding-container">
 
 			<div class="row">
-				<div class="ca-page-header col-md-9 offset-md-3">
-					<h1 class="ca-heading-1">
+				<div class="col-md-10 offset-md-2 ca-page-header">
+					<h1 class="ca-heading-1 ca-fg-black">
 					<?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__abertura_title');  ?>
 					</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9 offset-md-3 ca-page-header">
 					<div class="wysiwyg-content">
 						<?php echo apply_filters('the_content',carbon_get_post_meta(get_the_ID(), 'ca_home__abertura_description')); ?>
 					</div>
-				</div>
+        </div>
 			</div>
+      <div class="vertical-padding-container">
       <?php $ca_home__eixos = carbon_get_post_meta(get_the_ID(), 'ca_home__eixos'); ?>
-			<ul>
+        <ul class="ca-topic-list">
         <?php foreach($ca_home__eixos as $eixo) : ?>
-        <li>
-          <?php echo $eixo['title']; ?>
-          <?php echo $eixo['description']; ?>
-        </li>
+          <li>
+            <h2 class="ca-heading-2"><?php echo $eixo['title']; ?></h2>
+            <div class="wysiwyg-content"><?php echo $eixo['description']; ?></div>
+          </li>
         <?php endforeach; ?>          
-      </ul>
-		</div>
+        </ul>
+		  </div>
+    </div>
 	</section>
   <section
-    id="#projetos">
-    <div class="max-width-container side-padding-container ">
-      <h1 class="ca-heading-1">
-      <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__project_list_title'); ?>
-      </h1>
-      <?php $ca_home__project_list_projects = carbon_get_post_meta(get_the_ID(), 'ca_home__project_list_projects'); ?>
-      <ul>
+    id="projetos"
+    class="ca-bg-yellow ca-fg-black">
+    <div class="container max-width-container side-padding-container vertical-padding-container">
+      <div class="row">
+        <div class="col-md-10 offset-md-2 ca-page-header">
+          <h1 class="ca-heading-1">
+          <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__project_list_title'); ?>
+          </h1>
+      </div>
+        <?php $ca_home__project_list_projects = carbon_get_post_meta(get_the_ID(), 'ca_home__project_list_projects'); ?>
+      <ul class="ca-topic-list-vertrical-images offset-md-2">
         <?php foreach($ca_home__project_list_projects as $item) : ?>
         <li>
-          <h2 class="ca-heading-2"><?php echo $item['title']; ?></h2>
-          <p><?php echo $item['description']; ?></p>
-          <a class="ca-link-button" href=""><?php echo $item['button']?></a>
-          <img src="<?php echo wp_get_attachment_image_src($item['image'], 'thumbnail')[0]; ?>">
+          <div class="row">
+            <div class="col-md-3 offset-md-2 align-self-end">
+              <img src="<?php echo wp_get_attachment_image_src($item['image'], 'thumbnail')[0]; ?>">
+            </div>
+            <div class="col-md-6">
+              <h2 class="ca-heading-2"><?php echo $item['title']; ?></h2>
+              <p><?php echo $item['description']; ?></p>
+              <a class="ca-link-button" href=""><?php echo $item['button']?></a>
+            </div>
+          </div>
         </li>
-        <?php endforeach; ?>          
-      </ul>
+        <?php endforeach; ?>         
+      </ul>        
+    
     </div>
   </section>
   <section
-    id="#sobre">
-    <div class="max-width-container side-padding-container">
-      <h1 class="ca-heading-1">
-      <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_title');  ?>
-      </h1>
-      <p><?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_description'); ?></p>
-      <h3><?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_quem_faz_title');?></h3>
-      <?php $ca_home__sobre_quem_faz = carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_quem_faz'); ?>
-      <?php foreach($ca_home__sobre_quem_faz as $item) : ?>
-        <img src="<?php echo wp_get_attachment_image_src($item['image'], 'thumbnail')[0]; ?>">
-      <?php endforeach; ?>  
+    id="sobre"
+    class="ca-bg-green">
+    <div class=" container max-width-container side-padding-container vertical-padding-container">
+      <div class="row">
+        <div class="col-md-10 offset-md-2 ca-page-header">
+          <h1 class="ca-heading-1">
+          <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_title');  ?>
+          </h1>
+        </div>
+      </div>
+      <div class="row section-body">
+        <div class="col-md-9 offset-md-3 ca-page-header wysiwyg-content">
+          <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_description'); ?>
+        </div>
+      </div>
+      <div class="row justify-content-between">
+        <div class="col-md-3 offset-md-3 ca-page-header">
+          <h3 class="ca-heading-3"><?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_title_quem_faz');?></h3>
+          <?php $ca_home__sobre_quem_faz = carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_quem_faz'); ?>
+          <?php foreach($ca_home__sobre_quem_faz as $item) : ?>
+            <img src="<?php echo wp_get_attachment_image_src($item['image'], 'thumbnail')[0]; ?>">
+          <?php endforeach; ?>
+        </div>
+        <div class="col-md-3 ca-page-header">
+          <h3 class="ca-heading-3"><?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_title_quem_apoia');?></h3>
+          <?php $ca_home__sobre_quem_apoia = carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_quem_apoia'); ?>
+          <?php foreach($ca_home__sobre_quem_apoia as $item) : ?>
+            <img src="<?php echo wp_get_attachment_image_src($item['image'], 'thumbnail')[0]; ?>">
+          <?php endforeach; ?>
+        </div>
+      </div>
     </div>
   </section>
 	<section
 		id="contato"
 		class="ca-bg-blue">
-		<div class="max-width-container side-padding-container">
-      <h1 class="ca-heading-1">
-      <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__contact_title');  ?>
-      </h1>
-      <div>
-        
-        <div class="ca-form">
+		<div class="container max-width-container side-padding-container vertical-padding-container">
+      <div class="row ca-page-header">
+        <h1 class="col-md-10 offset-md-2 ca-heading-1">
+        <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__contact_title');  ?>
+        </h1>
+      </div>
+      <div class="row">
+        <div class="col-md-6 offset-md-3 ca-form">
           <?php echo do_shortcode(carbon_get_post_meta(get_the_ID(), 'ca_home__contact_form_shortcode')); ?>
         </div>
-        <div>
-          <?php
-            $ca__email = carbon_get_theme_option('ca__email');
-            $ca__instagram_url = carbon_get_theme_option('ca__instagram_url');
-            $ca__facebook_url = carbon_get_theme_option('ca__facebook_url');
-            $ca__medium_url = carbon_get_theme_option('ca__medium_url');
-          ?>
-          <a href="email">email</a>
+        <div class="col-md-3">
+          <div>
+            <?php
+              $ca__email = carbon_get_theme_option('ca__email');
+              $ca__instagram_url = carbon_get_theme_option('ca__instagram_url');
+              $ca__facebook_url = carbon_get_theme_option('ca__facebook_url');
+              $ca__medium_url = carbon_get_theme_option('ca__medium_url');
+            ?>
+            <a href="mailto:contato@comoanda.org.br">contato@comoanda.org.br</a>
 
-          <ul class="contact-icon-link-list">
-            <?php if ($ca__instagram_url) : ?>
-            <li>
-              <a target="_blank" href="<?php echo $ca__instagram_url; ?>">
-                <img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-instagram.svg">
-              </a>
-            </li>
-            <?php endif; ?>
-            <?php if ($ca__facebook_url) : ?>
-            <li>
-              <a target="_blank" href="<?php echo $ca__facebook_url; ?>">
-                <img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-facebook.svg">
-              </a>
-            </li>
-            <?php endif; ?>
-            <?php if ($ca__medium_url) : ?>
-            <li>
-              <a target="_blank" href="<?php echo $ca__medium_url; ?>">
-                <img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-medium.svg">
-              </a>
-            </li>
-            <?php endif; ?>
-          </ul>
+            <ul class="contact-icon-link-list">
+              <?php if ($ca__instagram_url) : ?>
+              <li>
+                <a target="_blank" href="<?php echo $ca__instagram_url; ?>">
+                  <img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-instagram.svg">
+                </a>
+              </li>
+              <?php endif; ?>
+              <?php if ($ca__facebook_url) : ?>
+              <li>
+                <a target="_blank" href="<?php echo $ca__facebook_url; ?>">
+                  <img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-facebook.svg">
+                </a>
+              </li>
+              <?php endif; ?>
+              <?php if ($ca__medium_url) : ?>
+              <li>
+                <a target="_blank" href="<?php echo $ca__medium_url; ?>">
+                  <img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-medium.svg">
+                </a>
+              </li>
+              <?php endif; ?>
+            </ul>
+          </div>
+          
         </div>
       </div>
+    
 		</div>
 	</section>
 </main>

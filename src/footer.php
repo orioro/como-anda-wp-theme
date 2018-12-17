@@ -11,45 +11,54 @@
 
 ?>
 
-<footer id="main-footer">
+<footer 
+  id="main-footer"
+  class="max-width-container side-padding-container vertical-padding-container ca-bg-gray-light">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+    	<?php
+    		$ca__email = carbon_get_theme_option('ca__email');
+    		$ca__instagram_url = carbon_get_theme_option('ca__instagram_url');
+    		$ca__facebook_url = carbon_get_theme_option('ca__facebook_url');
+    		$ca__medium_url = carbon_get_theme_option('ca__medium_url');
+    	?>
 
-	<?php
-		$ca__email = carbon_get_theme_option('ca__email');
-		$ca__instagram_url = carbon_get_theme_option('ca__instagram_url');
-		$ca__facebook_url = carbon_get_theme_option('ca__facebook_url');
-		$ca__medium_url = carbon_get_theme_option('ca__medium_url');
-	?>
-
-	<ul class="contact-icon-link-list">
-		<?php if ($ca__instagram_url) : ?>
-		<li>
-			<a target="_blank" href="<?php echo $ca__instagram_url; ?>">
-				<img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-instagram.svg">
-			</a>
-		</li>
-		<?php endif; ?>
-		<?php if ($ca__facebook_url) : ?>
-		<li>
-			<a target="_blank" href="<?php echo $ca__facebook_url; ?>">
-				<img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-facebook.svg">
-			</a>
-		</li>
-		<?php endif; ?>
-		<?php if ($ca__medium_url) : ?>
-		<li>
-			<a target="_blank" href="<?php echo $ca__medium_url; ?>">
-				<img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-medium.svg">
-			</a>
-		</li>
-		<?php endif; ?>
-		<?php if ($ca__email) : ?>
-		<li>
-			<a href="mailto:<?php echo $ca__email; ?>">
-				<img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-email.svg">
-			</a>
-		</li>
-		<?php endif; ?>
-	</ul>
+    	<ul class="contact-icon-link-list">
+    		<?php if ($ca__instagram_url) : ?>
+    		<li>
+    			<a target="_blank" href="<?php echo $ca__instagram_url; ?>">
+    				<img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-instagram.svg">
+    			</a>
+    		</li>
+    		<?php endif; ?>
+    		<?php if ($ca__facebook_url) : ?>
+    		<li>
+    			<a target="_blank" href="<?php echo $ca__facebook_url; ?>">
+    				<img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-facebook.svg">
+    			</a>
+    		</li>
+    		<?php endif; ?>
+    		<?php if ($ca__medium_url) : ?>
+    		<li>
+    			<a target="_blank" href="<?php echo $ca__medium_url; ?>">
+    				<img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-medium.svg">
+    			</a>
+    		</li>
+    		<?php endif; ?>
+    		<?php if ($ca__email) : ?>
+    		<li>
+    			<a href="mailto:<?php echo $ca__email; ?>">
+    				<img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-email.svg">
+    			</a>
+    		</li>
+    		<?php endif; ?>
+    	</ul>
+      <img class="decoration"  alt="" src="<?php echo get_template_directory_uri(); ?>/resources/img/.png">  
+    </div>
+    <div class="col-md-3">
+      <img class="decoration"  alt="" src="<?php echo get_template_directory_uri(); ?>/resources/img/.png">
+    </div>
+  </div>
 
 </footer>
 
