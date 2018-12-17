@@ -1,4 +1,20 @@
 #page-template-home {
+  #abertura {
+    li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2 {
+          width: 80%;
+          text-align: center;
+        }
+        > div {
+          text-align: center;
+        }
+    }
+  }
+
 
 	#projetos {
     .ca-heading-2 {
@@ -41,6 +57,10 @@
     }
   }
   #contato {
+    .ca-form {
+      display: flex;
+      justify-content: space-between;
+    }
     p {
       margin-top: 0px;
       margin-bottom: 40px;
