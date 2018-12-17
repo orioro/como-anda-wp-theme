@@ -41,6 +41,11 @@ function ca__setup() {
 	require_once('inc/enqueue-scripts-and-styles.php');
 
 	/**
+	 * Image sizes
+	 */
+	require_once('inc/image-sizes.php');
+
+	/**
 	 * Ensure functions depended upon exist
 	 */
 	ca__function_dependencies();
@@ -62,6 +67,7 @@ function ca__setup() {
 	function ca__register_carbon_fields() {
 		require_once('inc/carbon-fields/theme-options.php');
 		require_once('inc/carbon-fields/page-template-home.php');
+		require_once('inc/carbon-fields/page-template-blocks.php');
 	}
 
 	/*
