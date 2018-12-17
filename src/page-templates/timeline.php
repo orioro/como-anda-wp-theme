@@ -134,6 +134,9 @@ get_header(); ?>
 
 		</div>
 	</section>
+
+	<!-- Related pages -->
+	<?php require(dirname(__DIR__) . '/partials/related-pages.php'); ?>
 </main>
 
 <?php endwhile; ?>

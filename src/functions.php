@@ -62,7 +62,6 @@ function ca__setup() {
   require_once('vendor/autoload.php');
   \Carbon_Fields\Carbon_Fields::boot();
 
-
 	add_action('carbon_fields_register_fields', 'ca__register_carbon_fields');
 	function ca__register_carbon_fields() {
 		require_once('inc/carbon-fields/theme-options.php');
@@ -71,6 +70,11 @@ function ca__setup() {
 		require_once('inc/carbon-fields/page-template-blocks.php');
 		require_once('inc/carbon-fields/page-template-timeline.php');
 	}
+
+	/**
+	 * Custom post types
+	 */
+	require_once('inc/post-types/regulacao/load.php');
 
 	/*
 	 * Enable support for Post Thumbnails on posts and pages.
