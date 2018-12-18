@@ -1,3 +1,31 @@
 .ca-form {
+  p {
+    margin-top: 0px;
+    margin-bottom: 40px;
 
+    &:last-of-type {
+    	margin-bottom: 0;
+    }
+  }
+
+  label {
+    font-size: @font-size-base-desktop;
+  }
+
+  input, textarea {
+    width: 100%;
+    background-color: @color-blue;
+    border: @color-black 1px solid;
+  }
+
+  input{
+    font-size: @font-size-base-desktop;
+    color: @color-white;
+    padding: 16px 20px;
+  }
+
+  .wpcf7-submit {
+    width: 180px;
+    font-weight: bold;
+  }
 }

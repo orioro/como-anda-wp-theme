@@ -37,7 +37,7 @@ Container::make('post_meta', 'Lista de Projetos')
       ->set_layout('tabbed-horizontal')
       ->add_fields(array(
         Field::make('text', 'title', 'Título'),
-        Field::make('textarea', 'description', 'Descrição'),
+        Field::make('rich_text', 'description', 'Descrição'),
         Field::make('text', 'button', 'Botão'),
         Field::make('text', 'url', 'Botão link'),
         Field::make('image', 'image', 'Imagem'),

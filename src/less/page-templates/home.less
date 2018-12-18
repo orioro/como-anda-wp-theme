@@ -1,103 +1,67 @@
 #page-template-home {
   #abertura {
-    li {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-      h2 {
-        width: 80%;
-        text-align: center;
-      }
-      > div {
-        text-align: center;
-      }
-    }
-  }
-
-
-	#projetos {
-    .ca-heading-2 {
-      margin-bottom: 40px;
-    }
-    .section-container {
-      padding: 0px;
-    }
-
-    ul {
-      li {
-        display: flex;
-        justify-content: space-between;
-
-        img {
-          min-width: 260px;
-        }
-
-        div {
-          width: 60%;
-        }
-      }
+    .ca-topic-list {
+      margin-top: 60px;
     }
   }
 
   #sobre {
-    .section-body {
-      margin-bottom: 100px;
-    }
-    .section-image {
+    .ca-supporters {
+      margin-top: 60px;
       display: flex;
+      justify-content: space-between;
 
       > div {
-          width: 40%;
-          flex-shrink: 0;
+        width: 48%;
+        flex-shrink: 0;
 
-          h3 {
-            margin-bottom: 20px;
-          }
-
-        > img {
-          width: 100px;
-          margin-right: 50px;
+        > h3 {
+          margin-bottom: 20px;
         }
 
-        > img:last-child {
-          margin-right: 0;
+        > ul {
+          .ca-reset-list();
+          display: flex;
+          justify-content: space-between;
 
+          > li {
+            width: 46%;
+
+            > img {
+              display: block;
+              width: 100%;
+              height: auto;
+            }
+          }
         }
       }
     }
 
+    @media (max-width: @mobile-max-width) {
+      .ca-supporters {
+        flex-direction: column;
+
+        > div {
+          width: 100%;
+          margin-bottom: 30px;
+        }
+      }
+    }
   }
 
   #contato {
-    .ca-form {
-      display: flex;
-      justify-content: space-between;
-    }
-    p {
-      margin-top: 0px;
-      margin-bottom: 40px;
-    }
+    .ca-section-body {
+      margin-top: 40px;
 
-    label {
-      font-size: @font-size-base-desktop;
-    }
+      .ca-contact-email-link {
+        margin-bottom: 50px;
+        display: flex;
 
-    input, textarea {
-      width: 100%;
-      background-color: @color-blue;
-      border: @color-black 1px solid;
-    }
-
-    input{
-      font-size: @font-size-base-desktop;
-      color: @color-white;
-      padding: 16px 20px;
-    }
-
-    .wpcf7-submit {
-      width: 180px;
-      font-weight: bold;
+        > img {
+          height: 30px;
+          margin-right: 10px;
+        }
+      }
     }
   }
 }

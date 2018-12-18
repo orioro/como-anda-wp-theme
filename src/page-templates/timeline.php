@@ -15,7 +15,7 @@ get_header(); ?>
 	<section
 		id="abertura"
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
-		<div class="container max-width-container side-padding-container ca-page-header">
+		<div class="container max-width-container side-padding-container ca-section-header">
 			<div class="row">
 				<h1 class="col-md-10 offset-md-2 ca-heading-1">
 					<?php the_title(); ?>

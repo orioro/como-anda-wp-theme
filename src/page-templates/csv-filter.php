@@ -6,7 +6,7 @@
 get_header(); ?>
 <?php while (have_posts()) : the_post(); ?>
 
-<main id="page-template-blocks">
+<main id="page-template-csv-filter">
 	<?php
 	$ca_page__color_scheme = carbon_get_post_meta(
 		get_the_ID(),
@@ -27,6 +27,10 @@ get_header(); ?>
 				</div>
 			</div>
 		</div>
+	</section>
+
+	<section id="csv-filter">
+		
 	</section>
 
 	<!-- Blocks -->
@@ -92,3 +96,4 @@ get_header(); ?>
 
 <?php
 get_footer();
+

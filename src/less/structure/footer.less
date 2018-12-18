@@ -1,26 +1,31 @@
 #main-footer {
-  .col-md-8 {
+
+  > .max-width-container {
     display: flex;
-  }
-  .section-body {
-    > img {
-      width: 150px;
-    }
-    ul {
-      list-style: none;
-      padding-left: 0;
-      margin-bottom: 100px;
+    justify-content: center;
+
+    > div {
       display: flex;
 
-       > li {
-        margin-right: 30px;
+      > div:first-child {
+        display: flex;
+        flex-direction: column;
+
+        > ul {
+          margin-bottom: 100px;
+        }
+
+        > img {
+          width: 150px;
+        }
+      }
+
+      > div:last-child {
+        > img {
+          display: block;
+          width: 250px;
+        }
       }
     }
   }
-  .decoration {
-    width: 250px;
-  }
-
 }
-
-
