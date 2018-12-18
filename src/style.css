@@ -4107,6 +4107,9 @@ a.ca-link-button {
 #page-template-home #projetos .ca-heading-2 {
   margin-bottom: 40px;
 }
+#page-template-home #projetos .section-container {
+  padding: 0px;
+}
 #page-template-home #projetos ul li {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4130,7 +4133,7 @@ a.ca-link-button {
   display: flex;
 }
 #page-template-home #sobre .section-image > div {
-  width: 50%;
+  width: 40%;
   -ms-flex-negative: 0;
   flex-shrink: 0;
 }
@@ -4139,6 +4142,10 @@ a.ca-link-button {
 }
 #page-template-home #sobre .section-image > div > img {
   width: 100px;
+  margin-right: 50px;
+}
+#page-template-home #sobre .section-image > div > img:last-child {
+  margin-right: 0;
 }
 #page-template-home #contato .ca-form {
   display: -webkit-box;

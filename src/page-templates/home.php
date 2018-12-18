@@ -52,7 +52,7 @@ get_header(); ?>
       </div>
         <?php $ca_home__project_list_projects = carbon_get_post_meta(get_the_ID(), 'ca_home__project_list_projects'); ?>
       <div class="row">
-        <div class="col-md-9 offset-md-3">
+        <div class="col-md-9 offset-md-3 section-container">
           <ul class="ca-topic-list-vertrical-images ">
             <?php foreach($ca_home__project_list_projects as $item) : ?>
             <li>
