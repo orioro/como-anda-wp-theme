@@ -1,4 +1,21 @@
 ul.ca-timeline__decades-nav {
+  position: relative;
+
+  padding-top: 40px;
+  padding-bottom: 15px;
+  box-sizing: border-box;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+
+    width: 100%;
+    bottom: 0px;
+
+    height: 2px;
+    background-color: black;
+  }
 	.ca-reset-list();
 	display: flex;
 	justify-content: space-between;
@@ -10,6 +27,34 @@ ul.ca-timeline__decades-nav {
 	}
 }
 
+.ca-timeline__marco {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+
+    width: 100%;
+    bottom: 1px;
+
+    height: 2px;
+    background-color: black;
+  }
+}
+
+.ca-timeline__marco:last-child {
+  &::after {
+    content: '';
+    height: 0px;
+  }
+}
+
+
 ul.ca-timeline__decade-list {
 	.ca-reset-list();
 }
@@ -18,10 +63,29 @@ ul.ca-timeline__event-list {
 	.ca-reset-list();
 
 	> .ca-timeline-event-list__item {
+    position: relative;
+
+    padding-top: 40px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+
+      width: 100%;
+      bottom: 1px;
+
+      height: 2px;
+      background-color: black;
+    }
 		> .ca-timeline-event-list__item__body {
 			display: flex;
 			justify-content: space-between;
 			align-items: flex-start;
+
+      margin-top: 20px;
 
 			> * {
 				width: 48%;

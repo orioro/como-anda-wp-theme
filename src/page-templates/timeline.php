@@ -15,22 +15,26 @@ get_header(); ?>
 	<section
 		id="abertura"
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
-		<div class="container max-width-container side-padding-container ca-section-header">
+		<div class="container max-width-container side-padding-container vertical-padding-container ca-section-header">
 			<div class="row">
-				<h1 class="col-md-10 offset-md-2 ca-heading-1">
-					<?php the_title(); ?>
-				</h1>
+        <div class="col-md-9 offset-md-3">
+  				<h1 class="ca-heading-1 ca-section-header__heading">
+  					<?php the_title(); ?>
+  				</h1>
+        </div>
 			</div>
 			<div class="row">
-				<div class="col-md-9 offset-md-3 wysiwyg-content">
-					<?php the_content(); ?>
+				<div class="col-md-8 offset-md-4">
+          <div class="wysiwyg-content ca-section-header__contents">
+				    <?php the_content(); ?>
+          </div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<section class="ca-timeline">
-		<div class="container max-width-container side-padding-container">
+	<section class="ca-timeline ca-bg-<?php echo $ca_page__color_scheme; ?>">
+		<div class="container max-width-container side-padding-container vertical-padding-container">
 			<?php $ca_timeline__events = carbon_get_post_meta(get_the_ID(), 'ca_timeline__events'); ?>
 
 			<?php
@@ -92,7 +96,7 @@ get_header(); ?>
 			<div class="row">
 				<ul class="ca-timeline__decades-nav">
 					<?php foreach ($ca_timeline__decades as $decade) : ?>
-					<li>
+					<li >
 						<a
 							href="#decada-<?php echo $decade['start']; ?>"
 							class="<?php echo count($decade['events']) === 0 ? 'empty' : ''; ?>">
@@ -102,9 +106,15 @@ get_header(); ?>
 					<?php endforeach; ?>
 				</ul>
 			</div>
-
 			<div class="row">
 				<div class="col-md-8 offset-md-4">
+          <div class="ca-timeline__marco">
+            <a
+              class="ca-link-button"
+              href="mailto:<php ?>"> 
+              incluir um marco
+            </a>
+          </div>
 					<ul class="ca-timeline__decade-list">
 						<?php foreach ($ca_timeline__decades as $decade) : ?>
 						<li id="decada-<?php echo $decade['start']; ?>">
@@ -129,7 +139,14 @@ get_header(); ?>
 						</li>
 						<?php endforeach; ?>
 					</ul>
-				</div>
+				  <div class="ca-timeline__marco">
+            <a
+              class="ca-link-button"
+              href="mailto:<php ?>"> 
+              incluir um marco
+            </a>
+          </div>
+        </div>
 			</div>
 
 		</div>

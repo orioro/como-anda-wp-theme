@@ -3952,7 +3952,7 @@ ul.ca-link-button-list {
   margin-bottom: 0;
 }
 ul.ca-link-button-list > li {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 ul.ca-link-button-list > li:last-child {
   margin-bottom: 0;
@@ -3985,6 +3985,9 @@ ul.ca-link-image-list > li > a {
 }
 ul.ca-link-image-list > li > a > img {
   width: 100%;
+}
+ul.ca-link-image-list.ca-link-image-list--vertical-images {
+  padding-bottom: 60px;
 }
 ul.ca-link-image-list.ca-link-image-list--vertical-images > li > a {
   height: 100%;
@@ -4078,6 +4081,7 @@ ul.ca-content-link-list li > div > a {
   margin-top: 40px;
 }
 ul.ca-related-content-link-list {
+  padding-top: 40px;
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
@@ -4091,8 +4095,25 @@ ul.ca-related-content-link-list {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
+ul.ca-related-content-link-list p {
+  min-height: 90px;
+}
 ul.ca-related-content-link-list > li {
+  text-align: center;
   width: 32%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+ul.ca-related-content-link-list > li > h3 {
+  width: 80%;
 }
 ul.ca-contact-icon-link-list {
   list-style: none;
@@ -4125,6 +4146,11 @@ a.ca-link-button {
   font-weight: bold;
 }
 ul.ca-timeline__decades-nav {
+  position: relative;
+  padding-top: 40px;
+  padding-bottom: 15px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   list-style: none;
   padding-left: 0;
   margin-top: 0;
@@ -4137,9 +4163,43 @@ ul.ca-timeline__decades-nav {
   justify-content: space-between;
   width: 100%;
 }
+ul.ca-timeline__decades-nav::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  height: 2px;
+  background-color: black;
+}
 ul.ca-timeline__decades-nav a.empty {
   opacity: 0.4;
   text-decoration: none;
+}
+.ca-timeline__marco {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.ca-timeline__marco::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  bottom: 1px;
+  height: 2px;
+  background-color: black;
+}
+.ca-timeline__marco:last-child::after {
+  content: '';
+  height: 0px;
 }
 ul.ca-timeline__decade-list {
   list-style: none;
@@ -4153,6 +4213,22 @@ ul.ca-timeline__event-list {
   margin-top: 0;
   margin-bottom: 0;
 }
+ul.ca-timeline__event-list > .ca-timeline-event-list__item {
+  position: relative;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+ul.ca-timeline__event-list > .ca-timeline-event-list__item::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  bottom: 1px;
+  height: 2px;
+  background-color: black;
+}
 ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-list__item__body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4163,6 +4239,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
+  margin-top: 20px;
 }
 ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-list__item__body > * {
   width: 48%;
@@ -4177,23 +4254,32 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.ca-page-section::after {
+.ca-page-section::before {
   content: '';
   display: block;
   position: absolute;
   left: 120px;
   right: 120px;
-  bottom: 0;
+  top: 1px;
   height: 2px;
   background-color: black;
 }
 @media (max-width: 450px) {
-  .ca-page-section::after {
+  .ca-page-section::before {
     left: 20px;
     right: 20px;
   }
 }
+.ca-page-section .ca-page-section__contents {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.ca-page-section .ca-page-section__contents .ca-page-section__contents_description {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
 .ca-page-section .ca-page-section__image-container {
+  padding-top: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4279,6 +4365,9 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 #page-template-home #contato .ca-section-body .ca-contact-email-link > img {
   height: 30px;
   margin-right: 10px;
+}
+#page-template-timeline #abertura > .vertical-padding-container {
+  padding-bottom: 0;
 }
 html {
   font-size: 18px;
