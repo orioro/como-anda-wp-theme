@@ -331,7 +331,15 @@ template {
 /**
  * Structural elements
  */
-#main-footer ul {
+#main-footer .col-md-8 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+#main-footer .section-body > img {
+  width: 150px;
+}
+#main-footer .section-body ul {
   list-style: none;
   padding-left: 0;
   margin-bottom: 100px;
@@ -339,8 +347,11 @@ template {
   display: -ms-flexbox;
   display: flex;
 }
-#main-footer ul > li {
+#main-footer .section-body ul > li {
   margin-right: 30px;
+}
+#main-footer .decoration {
+  width: 250px;
 }
 /*!
  * Bootstrap Grid v4.1.3 (https://getbootstrap.com/)
@@ -3977,8 +3988,7 @@ ul.ca-topic-list {
   flex-wrap: wrap;
 }
 ul.ca-topic-list > li {
-  width: 30%;
-  min-width: 360px;
+  width: 31%;
   margin-right: 10px;
 }
 ul.ca-topic-list > li:last-child {
@@ -4015,6 +4025,17 @@ ul.ca-related-content-link-list {
 }
 ul.ca-related-content-link-list > li {
   width: 32%;
+}
+ul.ca-contact-icon-link-list {
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+}
+ul.ca-contact-icon-link-list li img {
+  width: 30px;
+  margin-right: 10px;
 }
 a.ca-link-button {
   display: inline-block;
@@ -4118,8 +4139,30 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 /**
  * Page templates
  */
+#page-template-home #abertura li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+#page-template-home #abertura li h2 {
+  width: 80%;
+  text-align: center;
+}
+#page-template-home #abertura li > div {
+  text-align: center;
+}
 #page-template-home #projetos .ca-heading-2 {
   margin-bottom: 40px;
+}
+#page-template-home #projetos .section-container {
+  padding: 0px;
 }
 #page-template-home #projetos ul li {
   display: -webkit-box;
@@ -4144,7 +4187,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   display: flex;
 }
 #page-template-home #sobre .section-image > div {
-  width: 50%;
+  width: 40%;
   -ms-flex-negative: 0;
   flex-shrink: 0;
 }
@@ -4153,6 +4196,18 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 }
 #page-template-home #sobre .section-image > div > img {
   width: 100px;
+  margin-right: 50px;
+}
+#page-template-home #sobre .section-image > div > img:last-child {
+  margin-right: 0;
+}
+#page-template-home #contato .ca-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 #page-template-home #contato p {
   margin-top: 0px;

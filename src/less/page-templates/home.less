@@ -1,9 +1,29 @@
 #page-template-home {
+  #abertura {
+    li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+      h2 {
+        width: 80%;
+        text-align: center;
+      }
+      > div {
+        text-align: center;
+      }
+    }
+  }
+
 
 	#projetos {
     .ca-heading-2 {
       margin-bottom: 40px;
     }
+    .section-container {
+      padding: 0px;
+    }
+
     ul {
       li {
         display: flex;
@@ -19,6 +39,7 @@
       }
     }
   }
+
   #sobre {
     .section-body {
       margin-bottom: 100px;
@@ -27,7 +48,7 @@
       display: flex;
 
       > div {
-          width: 50%;
+          width: 40%;
           flex-shrink: 0;
 
           h3 {
@@ -36,11 +57,23 @@
 
         > img {
           width: 100px;
+          margin-right: 50px;
+        }
+
+        > img:last-child {
+          margin-right: 0;
+
         }
       }
     }
+
   }
+
   #contato {
+    .ca-form {
+      display: flex;
+      justify-content: space-between;
+    }
     p {
       margin-top: 0px;
       margin-bottom: 40px;
@@ -53,7 +86,7 @@
     input, textarea {
       width: 100%;
       background-color: @color-blue;
-      border:@color-black 1px solid;
+      border: @color-black 1px solid;
     }
 
     input{

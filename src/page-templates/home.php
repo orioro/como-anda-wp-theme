@@ -52,7 +52,7 @@ get_header(); ?>
       </div>
         <?php $ca_home__project_list_projects = carbon_get_post_meta(get_the_ID(), 'ca_home__project_list_projects'); ?>
       <div class="row">
-        <div class="col-md-9 offset-md-3">
+        <div class="col-md-9 offset-md-3 section-container">
           <ul class="ca-topic-list-vertrical-images ">
             <?php foreach($ca_home__project_list_projects as $item) : ?>
             <li>
@@ -115,10 +115,8 @@ get_header(); ?>
         </h1>
       </div>
       <div class="row">
-        <div class="col-md-6 offset-md-3 ca-form">
+        <div class="col-md-8 offset-md-4 ca-form">
           <?php echo do_shortcode(carbon_get_post_meta(get_the_ID(), 'ca_home__contact_form_shortcode')); ?>
-        </div>
-        <div class="col-md-3">
           <div>
             <?php
               $ca__email = carbon_get_theme_option('ca__email');
@@ -128,25 +126,25 @@ get_header(); ?>
             ?>
             <a href="mailto:contato@comoanda.org.br">contato@comoanda.org.br</a>
 
-            <ul class="contact-icon-link-list">
+            <ul class="ca-contact-icon-link-list">
               <?php if ($ca__instagram_url) : ?>
               <li>
                 <a target="_blank" href="<?php echo $ca__instagram_url; ?>">
-                  <img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-instagram.svg">
+                  <img src="<?php echo get_template_directory_uri(); ?>/resources/icones/instagram.svg">
                 </a>
               </li>
               <?php endif; ?>
               <?php if ($ca__facebook_url) : ?>
               <li>
                 <a target="_blank" href="<?php echo $ca__facebook_url; ?>">
-                  <img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-facebook.svg">
+                  <img src="<?php echo get_template_directory_uri(); ?>/resources/icones/facebook.svg">
                 </a>
               </li>
               <?php endif; ?>
               <?php if ($ca__medium_url) : ?>
               <li>
                 <a target="_blank" href="<?php echo $ca__medium_url; ?>">
-                  <img src="<?php echo get_template_directory_uri(); ?>/resources/img/icon-medium.svg">
+                  <img src="<?php echo get_template_directory_uri(); ?>/resources/icones/medium.svg">
                 </a>
               </li>
               <?php endif; ?>
