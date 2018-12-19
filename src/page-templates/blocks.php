@@ -15,7 +15,7 @@ get_header(); ?>
 	<section
 		id="abertura"
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
-		<div class="container max-width-container side-padding-container vertical-padding-container ca-section-header">
+		<div class="container max-width-container side-padding-container ca-padding-top-6 ca-section-header">
 			<div class="row">
 				<div class="col-md-9 offset-md-3">
           <h1 class="ca-heading-1 ca-section-header__heading ca-padding-bottom-3">
@@ -23,7 +23,7 @@ get_header(); ?>
           </h1>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row ca-padding-top-4 ca-padding-bottom-4">
 				<div class="col-md-8 offset-md-4">
           <div class="wysiwyg-content ca-section-header__contents">
 					 <?php the_content(); ?>
@@ -46,14 +46,14 @@ get_header(); ?>
   				<img src="<?php echo wp_get_attachment_image_src($block['image'])[0]; ?>">
   				<?php endif; ?>
   			</div>
-  			<div class="col-md-8 ca-page-section__contents">
+  			<div class="col-md-8 ca-page-section__contents ca-padding-top-6">
   				<h3 class="ca-heading-3">
   					<?php echo $block['title']; ?>
   				</h3>
-  				<div class="wysiwyg-content ca-page-section__contents_description">
+  				<div class="wysiwyg-content ca-page-section__contents_description  ca-margin-top-4 ca-padding-bottom-4">
   					<?php echo apply_filters('the_content', $block['content']); ?>
   				</div>
-  				<ul class="ca-link-button-list">
+  				<ul class="ca-link-button-list ca-padding-bottom-6">
   					<?php foreach ($block['link_buttons'] as $button) : ?>
   					<li>
   						<a
@@ -69,7 +69,7 @@ get_header(); ?>
   		</div>
   		<div class="row">
   			<div class="col-md-12">
-  				<ul class="ca-link-image-list ca-link-image-list--vertical-images">
+  				<ul class="ca-link-image-list ca-link-image-list--vertical-images ca-margin-top-4 ca-padding-bottom-6">
   					<?php foreach ($block['link_images'] as $image) : ?>
   					<li>
   						<a

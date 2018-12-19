@@ -3795,9 +3795,6 @@ html {
   padding-bottom: 0;
 }
 @media (max-width: 450px) {
-  .ca-section-header .ca-section-header__contents {
-    padding-top: 20px;
-  }
   .ca-section-header .ca-section-header__contents:last-child {
     padding-bottom: 0;
   }
@@ -4176,28 +4173,28 @@ html {
     padding-right: 50px;
   }
   .ca-margin-top-6 {
-    margin-top: 100px;
+    margin-top: 50px;
   }
   .ca-margin-bottom-6 {
-    margin-bottom: 100px;
+    margin-bottom: 50px;
   }
   .ca-margin-left-6 {
-    margin-left: 100px;
+    margin-left: 50px;
   }
   .ca-padding-top-6 {
-    padding-top: 100px;
+    padding-top: 50px;
   }
   .ca-margin-right-6 {
-    margin-right: 100px;
+    margin-right: 50px;
   }
   .ca-padding-bottom-6 {
-    padding-bottom: 100px;
+    padding-bottom: 50px;
   }
   .ca-padding-left-6 {
-    padding-left: 100px;
+    padding-left: 50px;
   }
   .ca-padding-right-6 {
-    padding-right: 100px;
+    padding-right: 50px;
   }
 }
 .wysiwyg-content > *:first-child {
@@ -4323,9 +4320,6 @@ ul.ca-link-image-list > li > a {
 ul.ca-link-image-list > li > a > img {
   width: 100%;
 }
-ul.ca-link-image-list.ca-link-image-list--vertical-images {
-  padding-bottom: 60px;
-}
 ul.ca-link-image-list.ca-link-image-list--vertical-images > li > a {
   height: 100%;
   display: -webkit-box;
@@ -4348,9 +4342,6 @@ ul.ca-link-image-list.ca-link-image-list--vertical-images > li > a > h4 {
   text-align: center;
 }
 @media (max-width: 900px) {
-  ul.ca-link-image-list.ca-link-image-list--vertical-images {
-    padding-bottom: 10px;
-  }
   ul.ca-link-image-list.ca-link-image-list--vertical-images > li {
     width: 48%;
   }
@@ -4431,8 +4422,6 @@ ul.ca-content-link-list li {
   -ms-flex-align: end;
   align-items: flex-end;
   border-bottom: 2px black solid;
-  padding-top: 40px;
-  padding-bottom: 40px;
 }
 ul.ca-content-link-list li > img {
   width: 40%;
@@ -4541,9 +4530,6 @@ ul.ca-contact-icon-link-list > li > a > img {
 }
 @media (max-width: 450px) {
   ul.ca-contact-icon-link-list {
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
     margin-bottom: 50px;
   }
 }
@@ -4678,8 +4664,6 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 }
 .ca-page-section {
   position: relative;
-  padding-top: 40px;
-  padding-bottom: 40px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -4698,14 +4682,6 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
     left: 20px;
     right: 20px;
   }
-}
-.ca-page-section .ca-page-section__contents {
-  padding-top: 60px;
-  padding-bottom: 60px;
-}
-.ca-page-section .ca-page-section__contents .ca-page-section__contents_description {
-  padding-top: 40px;
-  padding-bottom: 40px;
 }
 .ca-page-section .ca-page-section__image-container {
   padding-top: 20px;
@@ -4728,10 +4704,6 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   width: 100%;
 }
 @media (max-width: 900px) {
-  .ca-page-section .ca-page-section__contents {
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
   .ca-page-section .ca-page-section__contents .ca-page-section__contents_description {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -4743,16 +4715,9 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 /**
  * Page templates
  */
-#page-template-home #abertura .ca-topic-list {
-  margin-top: 60px;
-}
 @media (max-width: 450px) {
-  #page-template-home #abertura .ca-topic-list {
-    margin-top: 10px;
-  }
 }
 #page-template-home #sobre .ca-supporters {
-  margin-top: 60px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4764,9 +4729,6 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   width: 48%;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-}
-#page-template-home #sobre .ca-supporters > div > h3 {
-  margin-bottom: 20px;
 }
 #page-template-home #sobre .ca-supporters > div > ul {
   list-style: none;
@@ -4794,7 +4756,6 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    margin-top: 10px;
   }
   #page-template-home #sobre .ca-supporters > div {
     width: 80%;
@@ -4804,11 +4765,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
     margin-bottom: 0;
   }
 }
-#page-template-home #contato .ca-section-body {
-  margin-top: 40px;
-}
 #page-template-home #contato .ca-section-body .ca-contact-email-link {
-  margin-bottom: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
