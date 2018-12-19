@@ -13,19 +13,19 @@ get_header(); ?>
     <div class="container max-width-container side-padding-container vertical-padding-container ca-section-header">
       <div class="row">
         <div class="col-md-9 offset-md-3">
-          <h1 class="ca-heading-1 ca-fg-black ca-section-header__heading">
+          <h1 class="ca-heading-1 ca-fg-black ca-section-header__heading ca-padding-bottom-3">
           <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__abertura_title');  ?>
           </h1>
         </div>
       </div>
-      <div class="row">
+      <div class="row ca-padding-top-4">
         <div class="col-md-8 offset-md-4">
           <div class="wysiwyg-content ca-section-header__contents">
             <?php echo apply_filters('the_content',carbon_get_post_meta(get_the_ID(), 'ca_home__abertura_description')); ?>
           </div>
         </div>
       </div>
-      <div>
+      <div class="ca-margin-top-6">
         <?php $ca_home__eixos = carbon_get_post_meta(get_the_ID(), 'ca_home__eixos'); ?>
         <ul class="ca-topic-list">
         <?php foreach($ca_home__eixos as $eixo) : ?>
@@ -45,7 +45,7 @@ get_header(); ?>
       <div class="row">
         <div class="col-md-9 offset-md-3">
           <div class="ca-section-header">
-            <h1 class="ca-heading-1 ca-section-header__heading">
+            <h1 class="ca-heading-1 ca-section-header__heading ca-padding-bottom-3">
               <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__project_list_title'); ?>
             </h1>
           </div>
@@ -53,10 +53,10 @@ get_header(); ?>
           <?php $ca_home__project_list_projects = carbon_get_post_meta(get_the_ID(), 'ca_home__project_list_projects'); ?>
           <ul class="ca-content-link-list">
             <?php foreach($ca_home__project_list_projects as $item) : ?>
-            <li>
+            <li class="ca-padding-top-4 ca-padding-bottom-4">
               <img src="<?php echo wp_get_attachment_image_src($item['image'], 'full')[0]; ?>">
               <div>
-                <h2 class="ca-heading-2"><?php echo $item['title']; ?></h2>
+                <h2 class="ca-heading-2 ca-margin-top-4"><?php echo $item['title']; ?></h2>
                 <div class="wysiwyg-content">
                   <?php echo apply_filters('the_content', $item['description']); ?>
                 </div>
@@ -78,19 +78,19 @@ get_header(); ?>
       <div class="ca-section-header">
         <div class="row">
           <div class="col-md-9 offset-md-3">
-            <h1 class="ca-heading-1 ca-section-header__heading">
+            <h1 class="ca-heading-1 ca-section-header__heading ca-padding-bottom-3">
               <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_title');  ?>
             </h1>
           </div>
         </div>
-        <div class="row">
+        <div class="row ca-padding-top-4">
           <div class="col-md-8 offset-md-4">
             <div class="wysiwyg-content ca-section-header__contents">
               <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_description'); ?>
             </div>
-            <div class="ca-supporters">
+            <div class="ca-supporters ca-padding-top-6">
               <div>
-                <h3 class="ca-heading-3">
+                <h3 class="ca-heading-3 ca-padding-bottom-4">
                   <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_title_quem_faz');?>
                 </h3>
                 <?php $ca_home__sobre_quem_faz = carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_quem_faz'); ?>
@@ -103,7 +103,7 @@ get_header(); ?>
                 </ul>
               </div>
               <div>
-                <h3 class="ca-heading-3"><?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_title_quem_apoia');?></h3>
+                <h3 class="ca-heading-3 ca-padding-bottom-4"><?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_title_quem_apoia');?></h3>
                 <?php $ca_home__sobre_quem_apoia = carbon_get_post_meta(get_the_ID(), 'ca_home__sobre_quem_apoia'); ?>
                 <ul>
                   <?php foreach($ca_home__sobre_quem_apoia as $item) : ?>
@@ -124,11 +124,11 @@ get_header(); ?>
     class="ca-bg-blue">
     <div class="container max-width-container side-padding-container vertical-padding-container">
       <div class="row ca-section-header">
-        <h1 class="col-md-9 offset-md-3 ca-heading-1 ca-section-header__heading">
+        <h1 class="col-md-9 offset-md-3 ca-heading-1 ca-section-header__heading ca-padding-bottom-3">
         <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__contact_title');  ?>
         </h1>
       </div>
-      <div class="row ca-section-body">
+      <div class="row ca-section-body ca-padding-top-4">
         <div class="offset-md-4 col-md-5 ca-form">
           <?php echo do_shortcode(carbon_get_post_meta(get_the_ID(), 'ca_home__contact_form_shortcode')); ?>
         </div>
@@ -139,7 +139,7 @@ get_header(); ?>
             $ca__facebook_url = carbon_get_theme_option('ca__facebook_url');
             $ca__medium_url = carbon_get_theme_option('ca__medium_url');
           ?>
-          <a class="ca-contact-email-link" href="mailto:contato@comoanda.org.br">
+          <a class="ca-contact-email-link ca-margin-bottom-4" href="mailto:contato@comoanda.org.br">
             <img src="<?php echo get_template_directory_uri(); ?>/resources/icones/mail-white.svg">
             contato@comoanda.org.br
           </a>
