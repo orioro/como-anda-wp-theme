@@ -3791,8 +3791,8 @@ html {
 .ca-section-header .ca-section-header__heading {
   border-bottom: 2px black solid;
 }
-.ca-section-header .ca-section-header__contents:last-child {
-  padding-bottom: 0;
+.ca-section-header .ca-section-header__contents {
+  font-size: 1.3rem;
 }
 @media (max-width: 450px) {
   .ca-section-header .ca-section-header__contents:last-child {
@@ -3805,62 +3805,77 @@ html {
 .ca-bg-gray-light {
   background-color: #E0E0E0;
   color: black;
+  border-color: black;
 }
 .ca-bg-gray {
   background-color: #BFBFBF;
   color: black;
+  border-color: black;
 }
 .ca-bg-blue-light {
   background-color: #B1C2C3;
   color: black;
+  border-color: black;
 }
 .ca-bg-yellow {
   background-color: #FFCD20;
   color: black;
+  border-color: black;
 }
 .ca-bg-orange-light {
   background-color: #FFAF74;
   color: black;
+  border-color: black;
 }
 .ca-bg-red-light {
   background-color: #ECABAB;
   color: black;
+  border-color: black;
 }
 .ca-bg-green-light {
   background-color: #B1D698;
   color: black;
+  border-color: black;
 }
 .ca-bg-white {
   background-color: white;
   color: black;
+  border-color: black;
 }
 .ca-bg-gray-dark {
   background-color: #808080;
   color: white;
+  border-color: white;
 }
 .ca-bg-blue {
   background-color: #3880BD;
   color: white;
+  border-color: white;
 }
 .ca-bg-brown {
   background-color: #BA9B88;
   color: white;
+  border-color: white;
 }
 .ca-bg-orange {
   background-color: #EF7013;
   color: white;
+  border-color: white;
 }
 .ca-bg-red {
   background-color: #EC3233;
   color: white;
+  border-color: white;
 }
 .ca-bg-green {
   background-color: #5F8C3F;
   color: white;
+  border-color: white;
 }
 .ca-bg-black {
   background-color: black;
   color: white;
+  border-color: white;
 }
 .ca-fg-gray-light {
   color: #E0E0E0;
@@ -4197,6 +4212,9 @@ html {
     padding-right: 50px;
   }
 }
+.wysiwyg-content {
+  font-size: 1rem;
+}
 .wysiwyg-content > *:first-child {
   margin-top: 0;
 }
@@ -4204,7 +4222,7 @@ html {
   margin-bottom: 0;
 }
 .wysiwyg-content p {
-  font-size: 18px;
+  font-size: inherit;
 }
 .wysiwyg-content strong {
   font-weight: bold;
@@ -4238,7 +4256,7 @@ a {
   color: inherit;
 }
 a:hover {
-  text-decoration: underline !important;
+  text-decoration: underline;
 }
 .ca-heading-1,
 .ca-heading-2,
@@ -4535,25 +4553,104 @@ ul.ca-contact-icon-link-list > li > a > img {
 }
 a.ca-link-button {
   display: inline-block;
-  color: black;
-  text-decoration: none;
+  color: inherit;
   padding: 10px 20px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border: 1px black solid;
+  border-width: 1px;
+  border-style: solid;
+  border-color: inherit;
   font-size: 1rem;
   font-weight: bold;
+  -webkit-transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+}
+a.ca-link-button.ca-hover-gray-light:hover {
+  background-color: #E0E0E0;
+  color: black;
+  border-color: white;
+}
+a.ca-link-button.ca-hover-gray:hover {
+  background-color: #BFBFBF;
+  color: black;
+  border-color: white;
+}
+a.ca-link-button.ca-hover-blue-light:hover {
+  background-color: #B1C2C3;
+  color: black;
+  border-color: white;
+}
+a.ca-link-button.ca-hover-yellow:hover {
+  background-color: #FFCD20;
+  color: black;
+  border-color: white;
+}
+a.ca-link-button.ca-hover-orange-light:hover {
+  background-color: #FFAF74;
+  color: black;
+  border-color: white;
+}
+a.ca-link-button.ca-hover-red-light:hover {
+  background-color: #ECABAB;
+  color: black;
+  border-color: white;
+}
+a.ca-link-button.ca-hover-green-light:hover {
+  background-color: #B1D698;
+  color: black;
+  border-color: white;
+}
+a.ca-link-button.ca-hover-white:hover {
+  background-color: white;
+  color: black;
+  border-color: white;
+}
+a.ca-link-button.ca-hover-gray-dark:hover {
+  background-color: #808080;
+  color: white;
+  border-color: black;
+}
+a.ca-link-button.ca-hover-blue:hover {
+  background-color: #3880BD;
+  color: white;
+  border-color: black;
+}
+a.ca-link-button.ca-hover-brown:hover {
+  background-color: #BA9B88;
+  color: white;
+  border-color: black;
+}
+a.ca-link-button.ca-hover-orange:hover {
+  background-color: #EF7013;
+  color: white;
+  border-color: black;
+}
+a.ca-link-button.ca-hover-red:hover {
+  background-color: #EC3233;
+  color: white;
+  border-color: black;
+}
+a.ca-link-button.ca-hover-green:hover {
+  background-color: #5F8C3F;
+  color: white;
+  border-color: black;
+}
+a.ca-link-button.ca-hover-black:hover {
+  background-color: black;
+  color: white;
+  border-color: black;
 }
 ul.ca-timeline__decades-nav {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
   position: relative;
   padding-top: 40px;
   padding-bottom: 15px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  list-style: none;
-  padding-left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4575,7 +4672,7 @@ ul.ca-timeline__decades-nav a.empty {
   opacity: 0.4;
   text-decoration: none;
 }
-.ca-timeline__marco {
+.ca-timeline__toolbar {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4587,7 +4684,7 @@ ul.ca-timeline__decades-nav a.empty {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-.ca-timeline__marco::after {
+.ca-timeline__toolbar::after {
   content: '';
   display: block;
   position: absolute;
@@ -4596,17 +4693,17 @@ ul.ca-timeline__decades-nav a.empty {
   height: 2px;
   background-color: black;
 }
+.ca-timeline__toolbar:last-child::after {
+  content: '';
+  height: 0px;
+}
 @media (max-width: 900px) {
-  .ca-timeline__marco {
+  .ca-timeline__toolbar {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
   }
-}
-.ca-timeline__marco:last-child::after {
-  content: '';
-  height: 0px;
 }
 ul.ca-timeline__decade-list {
   list-style: none;
@@ -4636,6 +4733,9 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item::after {
   height: 2px;
   background-color: black;
 }
+ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-heading-3 {
+  margin-bottom: 20px;
+}
 ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-list__item__body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4646,13 +4746,15 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
-  margin-top: 20px;
 }
 ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-list__item__body > * {
   width: 48%;
 }
 ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-list__item__body > img {
   height: auto;
+}
+ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-list__item__body > .wysiwyg-content:first-child {
+  width: 100%;
 }
 @media (max-width: 900px) {
   ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-list__item__body {
@@ -4666,6 +4768,8 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   position: relative;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 .ca-page-section::before {
   content: '';
@@ -4685,6 +4789,9 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 }
 .ca-page-section .ca-page-section__image-container {
   padding-top: 20px;
+  padding-right: 50px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4702,6 +4809,18 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 .ca-page-section .ca-page-section__image-container > img {
   display: block;
   width: 100%;
+}
+.ca-page-section .ca-page-section__contents > .ca-heading-3 {
+  margin-bottom: 40px;
+}
+.ca-page-section .ca-page-section__contents > .ca-page-section__contents_description {
+  margin-bottom: 40px;
+}
+.ca-page-section .ca-page-section__contents > *:last-child {
+  margin-bottom: 0;
+}
+.ca-page-section .ca-link-image-list {
+  margin-top: 40px;
 }
 @media (max-width: 900px) {
   .ca-page-section .ca-page-section__contents .ca-page-section__contents_description {

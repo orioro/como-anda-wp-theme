@@ -5,6 +5,7 @@ each(@light-colors, {
 	.ca-bg-@{key} {
 		background-color: @value;
 		color: @color-text-dark;
+		border-color: @color-text-dark;
 	}
 });
 
@@ -12,6 +13,7 @@ each(@dark-colors, {
 	.ca-bg-@{key} {
 		background-color: @value;
 		color: @color-text-light;
+		border-color: @color-text-light;
 	}
 });
 

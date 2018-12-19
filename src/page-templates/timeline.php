@@ -11,7 +11,8 @@ get_header(); ?>
 	$ca_page__color_scheme = carbon_get_post_meta(
 		get_the_ID(),
 		'ca_page__color_scheme'
-	); ?>
+	);
+	?>
 	<section
 		id="abertura"
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
@@ -94,25 +95,27 @@ get_header(); ?>
 			?>
 
 			<div class="row">
-				<ul class="ca-timeline__decades-nav">
-					<?php foreach ($ca_timeline__decades as $decade) : ?>
-					<li >
-						<a
-							href="#decada-<?php echo $decade['start']; ?>"
-							class="<?php echo count($decade['events']) === 0 ? 'empty' : ''; ?>">
-							<?php echo $decade['start']; ?> (<?php echo count($decade['events']); ?>)
-						</a>
-					</li>
-					<?php endforeach; ?>
-				</ul>
+				<div class="col-md-12">
+					<ul class="ca-timeline__decades-nav">
+						<?php foreach ($ca_timeline__decades as $decade) : ?>
+						<li>
+							<a
+								<?php echo count($decade['events']) > 0 ? 'href="#decada-' . $decade['start'] . '"' : ''; ?>
+								class="<?php echo count($decade['events']) === 0 ? 'empty' : ''; ?>">
+								<?php echo $decade['start']; ?> (<?php echo count($decade['events']); ?>)
+							</a>
+						</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-8 offset-md-4">
-          <div class="ca-timeline__marco">
+          <div class="ca-timeline__toolbar">
             <a
-              class="ca-link-button"
-              href="mailto:<php ?>"> 
-              incluir um marco
+              class="ca-link-button ca-hover-<?php echo ca_page__get_hover_color_scheme($ca_page__color_scheme); ?>"
+              href="mailto:<?php echo carbon_get_theme_option('ca__email'); ?>"> 
+              Incluir um marco
             </a>
           </div>
 					<ul class="ca-timeline__decade-list">
@@ -139,16 +142,15 @@ get_header(); ?>
 						</li>
 						<?php endforeach; ?>
 					</ul>
-				  <div class="ca-timeline__marco">
+				  <div class="ca-timeline__toolbar">
             <a
-              class="ca-link-button"
-              href="mailto:<php ?>"> 
-              incluir um marco
+              class="ca-link-button ca-hover-<?php echo ca_page__get_hover_color_scheme($ca_page__color_scheme); ?>"
+              href="mailto:<?php echo carbon_get_theme_option('ca__email'); ?>"> 
+              Incluir um marco
             </a>
           </div>
         </div>
 			</div>
-
 		</div>
 	</section>
 

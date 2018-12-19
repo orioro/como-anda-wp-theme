@@ -23,3 +23,23 @@ Container::make('post_meta', 'Configurações da página')
 		Field::make('text', 'ca_page__call_to_action', 'Chamada'),
 		Field::make('text', 'ca_page__related_pages_title', 'Título da seção de páginas relacionadas'),
 	));
+
+function ca_page__get_hover_color_scheme($page_color_scheme) {
+  $ca_page__hover_color_scheme = array(
+    'blue' => 'blue-light',
+    'blue-light' => 'blue',
+    'yellow' => 'gray-dark',
+    'orange' => 'orange-light',
+    'orange-light' => 'orange',
+    'red' => 'red-light',
+    'red-light' => 'red',
+    'green' => 'green-light',
+    'green-light' => 'green',
+
+    'gray-light' => 'gray',
+    'gray' => 'gray-dark',
+    'gray-dark' => 'gray-light'
+  );
+
+  return $ca_page__hover_color_scheme[$page_color_scheme];
+}

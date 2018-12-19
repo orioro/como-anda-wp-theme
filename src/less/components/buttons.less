@@ -1,13 +1,35 @@
 a.ca-link-button {
 	display: inline-block;
-	color: black;
+	color: inherit;
 	text-decoration: none;
 
 	padding: 10px 20px;
 	box-sizing: border-box;
-	border: 1px black solid;
+	border-width: 1px;
+	border-style: solid;
+	border-color: inherit;
 
 	font-size: 1rem;
 	font-weight: bold;
 
+	transition: background-color .2s ease, color .2s ease;
+
+	text-decoration: none;
+
+	each(@light-colors, {
+		&.ca-hover-@{key}:hover {
+			background-color: @value;
+			color: @color-text-dark;
+			border-color: @color-text-light;
+		}
+	});
+
+	each(@dark-colors, {
+		&.ca-hover-@{key}:hover {
+			background-color: @value;
+			color: @color-text-light;
+			border-color: @color-text-dark;
+		}
+	});
 }
+

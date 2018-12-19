@@ -11,7 +11,8 @@ get_header(); ?>
 	$ca_page__color_scheme = carbon_get_post_meta(
 		get_the_ID(),
 		'ca_page__color_scheme'
-	); ?>
+	);
+  ?>
 	<section
 		id="abertura"
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
@@ -40,24 +41,25 @@ get_header(); ?>
 		id="<?php echo sanitize_title($block['title']); ?>"
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
     <div class="container ca-page-section max-width-container side-padding-container">
-  		<div class="row justify-content-between">
+  		<div class="row">
   			<div class="col-md-4 ca-page-section__image-container">
   				<?php if ($block['image']) : ?>
   				<img src="<?php echo wp_get_attachment_image_src($block['image'])[0]; ?>">
   				<?php endif; ?>
   			</div>
-  			<div class="col-md-8 ca-page-section__contents ca-padding-top-6">
+  			<div class="col-md-8 ca-page-section__contents">
   				<h3 class="ca-heading-3">
   					<?php echo $block['title']; ?>
   				</h3>
-  				<div class="wysiwyg-content ca-page-section__contents_description  ca-margin-top-4 ca-padding-bottom-4">
+  				<div class="wysiwyg-content ca-page-section__contents_description">
   					<?php echo apply_filters('the_content', $block['content']); ?>
   				</div>
-  				<ul class="ca-link-button-list ca-padding-bottom-6">
+          <?php if (count($block['link_buttons']) > 0) : ?>
+  				<ul class="ca-link-button-list">
   					<?php foreach ($block['link_buttons'] as $button) : ?>
   					<li>
   						<a
-  							class="ca-link-button"
+  							class="ca-link-button ca-hover-<?php echo ca_page__get_hover_color_scheme($ca_page__color_scheme); ?>"
   							target="<?php echo $button['target_blank'] ? '_blank' : ''; ?>"
   							href="<?php echo $button['file'] ? wp_get_attachment_url($button['file']) : $button['url']; ?>">
   							<?php echo $button['text']; ?>
@@ -65,11 +67,14 @@ get_header(); ?>
   					</li>
   					<?php endforeach; ?>
   				</ul>
+          <?php endif; ?>
   			</div>
   		</div>
+
+      <?php if (count($block['link_images']) > 0) : ?>
   		<div class="row">
   			<div class="col-md-12">
-  				<ul class="ca-link-image-list ca-link-image-list--vertical-images ca-margin-top-4 ca-padding-bottom-6">
+  				<ul class="ca-link-image-list ca-link-image-list--vertical-images">
   					<?php foreach ($block['link_images'] as $image) : ?>
   					<li>
   						<a
@@ -85,6 +90,7 @@ get_header(); ?>
   				</ul>
   			</div>
   		</div>
+      <?php endif; ?>
     </div>	
 	</section>
 	<?php endforeach; ?>
