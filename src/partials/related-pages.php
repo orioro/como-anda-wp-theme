@@ -10,10 +10,10 @@
 	));
 ?>
 <section class="ca-related-content ca-bg-yellow">
-	<div class="container max-width-container side-padding-container ca-section-header vertical-padding-container">
-    <div class="row">
+	<div class="container max-width-container side-padding-container ca-section-header ca-padding-top-6 ca-padding-bottom-6">
+    <div class="row ca-padding-bottom-4">
       <div class="col-md-9 offset-md-3">
-    		<h1 class="ca-heading-1 ca-section-header__heading">
+    		<h1 class="ca-heading-1 ca-section-header__heading ca-padding-bottom-3">
     			<?php echo carbon_get_post_meta(get_the_ID(), 'ca_page__related_pages_title'); ?>
     		</h1>
       </div>
@@ -28,7 +28,7 @@
   				<?php the_post_thumbnail(); ?>
   				<?php the_excerpt(); ?>
   				<a
-  					class="ca-link-button"
+  					class="ca-link-button ca-hover-<?php echo carbon_get_post_meta(get_the_ID(), 'ca_page__color_scheme') ?>"
   					href="<?php the_permalink(); ?>">
   					<?php echo carbon_get_post_meta(get_the_ID(), 'ca_page__call_to_action'); ?>
   				</a>

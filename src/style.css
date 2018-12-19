@@ -4116,52 +4116,52 @@ html {
     padding-right: 20px;
   }
   .ca-margin-top-3 {
-    margin-top: 30px;
+    margin-top: 20px;
   }
   .ca-margin-bottom-3 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
   .ca-margin-left-3 {
-    margin-left: 30px;
+    margin-left: 20px;
   }
   .ca-padding-top-3 {
-    padding-top: 30px;
+    padding-top: 20px;
   }
   .ca-margin-right-3 {
-    margin-right: 30px;
+    margin-right: 20px;
   }
   .ca-padding-bottom-3 {
-    padding-bottom: 30px;
+    padding-bottom: 20px;
   }
   .ca-padding-left-3 {
-    padding-left: 30px;
+    padding-left: 20px;
   }
   .ca-padding-right-3 {
-    padding-right: 30px;
+    padding-right: 20px;
   }
   .ca-margin-top-4 {
-    margin-top: 40px;
+    margin-top: 20px;
   }
   .ca-margin-bottom-4 {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
   .ca-margin-left-4 {
-    margin-left: 40px;
+    margin-left: 20px;
   }
   .ca-padding-top-4 {
-    padding-top: 40px;
+    padding-top: 20px;
   }
   .ca-margin-right-4 {
-    margin-right: 40px;
+    margin-right: 20px;
   }
   .ca-padding-bottom-4 {
-    padding-bottom: 40px;
+    padding-bottom: 20px;
   }
   .ca-padding-left-4 {
-    padding-left: 40px;
+    padding-left: 20px;
   }
   .ca-padding-right-4 {
-    padding-right: 40px;
+    padding-right: 20px;
   }
   .ca-margin-top-5 {
     margin-top: 50px;
@@ -4359,7 +4359,7 @@ ul.ca-link-image-list.ca-link-image-list--vertical-images > li > a > h4 {
   margin-bottom: 0;
   text-align: center;
 }
-@media (max-width: 900px) {
+@media (max-width: 750px) {
   ul.ca-link-image-list.ca-link-image-list--vertical-images > li {
     width: 48%;
   }
@@ -4398,14 +4398,15 @@ ul.ca-topic-list > li {
   align-items: center;
   width: 31%;
 }
-ul.ca-topic-list > li > h2 {
+ul.ca-topic-list > li > h3 {
   width: 80%;
   text-align: center;
+  margin-bottom: 20px;
 }
 ul.ca-topic-list > li > div {
   text-align: center;
 }
-@media (max-width: 900px) {
+@media (max-width: 750px) {
   ul.ca-topic-list {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -4416,7 +4417,7 @@ ul.ca-topic-list > li > div {
     margin-top: 50px;
     width: 100%;
   }
-  ul.ca-topic-list > li > h2 {
+  ul.ca-topic-list > li > h3 {
     width: 100%;
   }
   ul.ca-topic-list > li:first-child {
@@ -4453,7 +4454,7 @@ ul.ca-content-link-list li > div > h2.ca-heading-2 {
 ul.ca-content-link-list li > div > a {
   margin-top: 40px;
 }
-@media (max-width: 900px) {
+@media (max-width: 750px) {
   ul.ca-content-link-list > li {
     -webkit-box-align: center;
     -ms-flex-align: center;
@@ -4464,15 +4465,14 @@ ul.ca-content-link-list li > div > a {
   }
   ul.ca-content-link-list > li > div {
     width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
   ul.ca-content-link-list > li > div > h2.ca-heading-2 {
     margin-bottom: 20px;
   }
 }
 ul.ca-related-content-link-list {
-  padding-top: 40px;
-  margin-top: 0;
-  margin-bottom: 0;
   padding-left: 0;
   list-style: none;
   display: -webkit-box;
@@ -4486,6 +4486,7 @@ ul.ca-related-content-link-list {
 }
 ul.ca-related-content-link-list p {
   min-height: 90px;
+  margin: 0;
 }
 ul.ca-related-content-link-list > li {
   text-align: center;
@@ -4501,8 +4502,11 @@ ul.ca-related-content-link-list > li {
   -ms-flex-align: center;
   align-items: center;
 }
-ul.ca-related-content-link-list > li > h3 {
-  width: 80%;
+ul.ca-related-content-link-list > li > h2 {
+  min-height: 170px;
+}
+ul.ca-related-content-link-list > li > a {
+  margin: 20px 0;
 }
 @media (max-width: 1200px) {
   ul.ca-related-content-link-list {
@@ -4510,6 +4514,7 @@ ul.ca-related-content-link-list > li > h3 {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+    margin-top: 20px;
   }
   ul.ca-related-content-link-list p {
     min-height: auto;
@@ -4571,75 +4576,150 @@ a.ca-link-button.ca-hover-gray-light:hover {
   color: black;
   border-color: white;
 }
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-gray-light {
+    background-color: #E0E0E0;
+  }
+}
 a.ca-link-button.ca-hover-gray:hover {
   background-color: #BFBFBF;
   color: black;
   border-color: white;
+}
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-gray {
+    background-color: #BFBFBF;
+  }
 }
 a.ca-link-button.ca-hover-blue-light:hover {
   background-color: #B1C2C3;
   color: black;
   border-color: white;
 }
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-blue-light {
+    background-color: #B1C2C3;
+  }
+}
 a.ca-link-button.ca-hover-yellow:hover {
   background-color: #FFCD20;
   color: black;
   border-color: white;
+}
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-yellow {
+    background-color: #FFCD20;
+  }
 }
 a.ca-link-button.ca-hover-orange-light:hover {
   background-color: #FFAF74;
   color: black;
   border-color: white;
 }
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-orange-light {
+    background-color: #FFAF74;
+  }
+}
 a.ca-link-button.ca-hover-red-light:hover {
   background-color: #ECABAB;
   color: black;
   border-color: white;
+}
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-red-light {
+    background-color: #ECABAB;
+  }
 }
 a.ca-link-button.ca-hover-green-light:hover {
   background-color: #B1D698;
   color: black;
   border-color: white;
 }
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-green-light {
+    background-color: #B1D698;
+  }
+}
 a.ca-link-button.ca-hover-white:hover {
   background-color: white;
   color: black;
   border-color: white;
+}
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-white {
+    background-color: white;
+  }
 }
 a.ca-link-button.ca-hover-gray-dark:hover {
   background-color: #808080;
   color: white;
   border-color: black;
 }
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-gray-dark {
+    background-color: #808080;
+  }
+}
 a.ca-link-button.ca-hover-blue:hover {
   background-color: #3880BD;
   color: white;
   border-color: black;
+}
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-blue {
+    background-color: #3880BD;
+  }
 }
 a.ca-link-button.ca-hover-brown:hover {
   background-color: #BA9B88;
   color: white;
   border-color: black;
 }
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-brown {
+    background-color: #BA9B88;
+  }
+}
 a.ca-link-button.ca-hover-orange:hover {
   background-color: #EF7013;
   color: white;
   border-color: black;
+}
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-orange {
+    background-color: #EF7013;
+  }
 }
 a.ca-link-button.ca-hover-red:hover {
   background-color: #EC3233;
   color: white;
   border-color: black;
 }
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-red {
+    background-color: #EC3233;
+  }
+}
 a.ca-link-button.ca-hover-green:hover {
   background-color: #5F8C3F;
   color: white;
   border-color: black;
 }
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-green {
+    background-color: #5F8C3F;
+  }
+}
 a.ca-link-button.ca-hover-black:hover {
   background-color: black;
   color: white;
   border-color: black;
+}
+@media (max-width: 450px) {
+  a.ca-link-button.ca-hover-black {
+    background-color: black;
+  }
 }
 ul.ca-timeline__decades-nav {
   list-style: none;
@@ -4647,7 +4727,6 @@ ul.ca-timeline__decades-nav {
   margin-top: 0;
   margin-bottom: 0;
   position: relative;
-  padding-top: 40px;
   padding-bottom: 15px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -4697,12 +4776,15 @@ ul.ca-timeline__decades-nav a.empty {
   content: '';
   height: 0px;
 }
-@media (max-width: 900px) {
+@media (max-width: 750px) {
   .ca-timeline__toolbar {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
+  }
+  .ca-timeline__toolbar:last-child {
+    padding-bottom: 0px;
   }
 }
 ul.ca-timeline__decade-list {
@@ -4756,12 +4838,22 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-list__item__body > .wysiwyg-content:first-child {
   width: 100%;
 }
-@media (max-width: 900px) {
+@media (max-width: 750px) {
+  ul.ca-timeline__event-list > .ca-timeline-event-list__item {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-heading-3 {
+    margin-bottom: 10px;
+  }
   ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-list__item__body {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+  }
+  ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-list__item__body > * {
+    width: 100%;
   }
 }
 .ca-page-section {
@@ -4822,13 +4914,19 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 .ca-page-section .ca-link-image-list {
   margin-top: 40px;
 }
-@media (max-width: 900px) {
+@media (max-width: 750px) {
   .ca-page-section .ca-page-section__contents .ca-page-section__contents_description {
     padding-top: 20px;
     padding-bottom: 20px;
   }
   .ca-page-section .ca-page-section__image-container {
     display: none;
+  }
+}
+@media (max-width: 450px) {
+  .ca-page-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
 }
 /**
@@ -4975,7 +5073,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 }
 #page-template-home #sobre .ca-supporters > div > ul > li > img {
   display: block;
-  width: 100%;
+  width: 72%;
   height: auto;
 }
 @media (max-width: 450px) {
@@ -5011,7 +5109,6 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
     -webkit-box-direction: reverse;
     -ms-flex-direction: column-reverse;
     flex-direction: column-reverse;
-    margin-top: 20px;
   }
 }
 #page-template-timeline #abertura > .vertical-padding-container {

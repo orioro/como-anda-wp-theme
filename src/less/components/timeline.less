@@ -2,7 +2,6 @@ ul.ca-timeline__decades-nav {
   .ca-reset-list();
   position: relative;
 
-  padding-top: 40px;
   padding-bottom: 15px;
   box-sizing: border-box;
 
@@ -56,6 +55,11 @@ ul.ca-timeline__decades-nav {
 
   @media (max-width: @tablet-max-width) {
     flex-direction: row;
+    
+    &:last-child {
+      padding-bottom: 0px;
+    }
+
   }
 }
 
@@ -111,8 +115,18 @@ ul.ca-timeline__event-list {
   
   @media (max-width: @tablet-max-width) {
     > .ca-timeline-event-list__item {
+      padding-top: 20px;
+      padding-bottom: 20px;
+
+      > .ca-heading-3 {
+        margin-bottom: 10px;
+      }
       > .ca-timeline-event-list__item__body {
         flex-direction: column;
+
+        > * {
+          width: 100%;
+        }
       }
     }
   }

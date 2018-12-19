@@ -21,7 +21,12 @@ a.ca-link-button {
 			background-color: @value;
 			color: @color-text-dark;
 			border-color: @color-text-light;
-		}
+    }
+    @media (max-width: @mobile-max-width) {
+      &.ca-hover-@{key} {
+        background-color: @value;
+      }
+    }
 	});
 
 	each(@dark-colors, {
@@ -30,6 +35,11 @@ a.ca-link-button {
 			color: @color-text-light;
 			border-color: @color-text-dark;
 		}
+    @media (max-width: @mobile-max-width) {
+      &.ca-hover-@{key} {
+        background-color: @value;
+      }
+    }
 	});
 }
 

@@ -93,9 +93,10 @@ ul.ca-topic-list{
     align-items: center;
     width: 31%;
 
-    > h2 {
+    > h3 {
       width: 80%;
       text-align: center;
+      margin-bottom: 20px;
     }
 
     > div {
@@ -110,8 +111,9 @@ ul.ca-topic-list{
       margin-top: 50px;
       width: 100%;
 
-      > h2 {
+      > h3 {
         width: 100%;
+      
       }
     }
 
@@ -160,6 +162,8 @@ ul.ca-content-link-list {
 
       > div {
         width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
 
         > h2.ca-heading-2 {
           margin-bottom: 20px;
@@ -170,9 +174,9 @@ ul.ca-content-link-list {
 }
 
 ul.ca-related-content-link-list {
-  padding-top: 40px;
-	margin-top: 0;
-	margin-bottom: 0;
+  // padding-top: 40px;
+	// margin-top: 0;
+	// margin-bottom: 0;
 	padding-left: 0;
 	list-style: none;
 
@@ -182,21 +186,27 @@ ul.ca-related-content-link-list {
 
   p {
     min-height: 90px;
+    margin: 0;
   }
 
-	> li {
+  > li {
     text-align: center;
-		width: 32%;
+    width: 32%;
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    > h3 {
-      width: 80%;
+    > h2 {
+      min-height: 170px;
     }
+    > a {
+      margin: 20px 0;
+    }
+
 	}
   @media (max-width: @desktop-max-width) {
     flex-direction: column;
+    margin-top: 20px; 
 
     p {
       min-height: auto;
