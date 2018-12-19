@@ -3,19 +3,28 @@
 	.ca-section-header__heading {
 		border-bottom: 2px black solid;
     // padding-bottom: 40px;
-    padding-bottom: 30px; // Font Marighella has issues of sizing
+    // padding-bottom: 30px; // Font Marighella has issues of sizing
 	}
 
 	.ca-section-header__contents {
-		padding-top: 40px;
-		padding-bottom: 40px;
+		// padding-top: 40px;
+		// padding-bottom: 40px;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
 	}
+
   @media (max-width: @mobile-max-width) {
     .ca-section-header__heading {
-      padding-bottom: 10px // Font Marighella has issues of sizing
+      // padding-bottom: 10px; // Font Marighella has issues of sizing
     }
     .ca-section-header__contents {
-      padding-top: 20px;  
+      padding-top: 20px;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
     }
   } 
 }

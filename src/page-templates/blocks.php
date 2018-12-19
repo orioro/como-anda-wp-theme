@@ -18,7 +18,7 @@ get_header(); ?>
 		<div class="container max-width-container side-padding-container vertical-padding-container ca-section-header">
 			<div class="row">
 				<div class="col-md-9 offset-md-3">
-          <h1 class="ca-heading-1 ca-section-header__heading">
+          <h1 class="ca-heading-1 ca-section-header__heading ca-padding-bottom-3">
 					<?php the_title(); ?>
           </h1>
 				</div>
