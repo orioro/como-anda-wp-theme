@@ -30,7 +30,7 @@ get_header(); ?>
         <ul class="ca-topic-list">
         <?php foreach($ca_home__eixos as $eixo) : ?>
           <li>
-            <h2 class="ca-heading-2"><?php echo $eixo['title']; ?></h2>
+            <h3 class="ca-heading-3"><?php echo $eixo['title']; ?></h2>
             <div class="wysiwyg-content"><?php echo $eixo['description']; ?></div>
           </li>
         <?php endforeach; ?>          

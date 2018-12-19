@@ -45,6 +45,9 @@ ul.ca-timeline__decades-nav {
     height: 2px;
     background-color: black;
   }
+  @media (max-width: @tablet-max-width) {
+    flex-direction: row;
+  }
 }
 
 .ca-timeline__marco:last-child {
@@ -96,4 +99,11 @@ ul.ca-timeline__event-list {
 			}
 		}
 	}
+  @media (max-width: @tablet-max-width) {
+    > .ca-timeline-event-list__item {
+      > .ca-timeline-event-list__item__body {
+        flex-direction: column;
+      }
+    }
+  }
 }

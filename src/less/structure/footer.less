@@ -28,4 +28,24 @@
       }
     }
   }
+  @media (max-width: @mobile-max-width) {
+    > .max-width-container {
+      > div {
+        flex-direction: column;
+
+        > div:first-child {
+          align-items: center;
+
+          > ul {
+            margin-bottom: 50px;
+          }
+        }
+        > div:last-child {
+          > img {
+            margin-top: 50px;
+          }
+        }
+      }
+    }
+  }
 }

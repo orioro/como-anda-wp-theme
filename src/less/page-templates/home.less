@@ -2,6 +2,10 @@
   #abertura {
     .ca-topic-list {
       margin-top: 60px;
+
+      @media (max-width: @mobile-max-width) {
+        margin-top: 10px
+      }
     }
   }
 
@@ -40,10 +44,14 @@
     @media (max-width: @mobile-max-width) {
       .ca-supporters {
         flex-direction: column;
+        margin-top: 10px;
 
         > div {
-          width: 100%;
-          margin-bottom: 30px;
+          width: 80%;
+          margin-bottom: 50px;
+        }
+        > div:last-child {
+          margin-bottom: 0;
         }
       }
     }
@@ -61,6 +69,14 @@
           height: 30px;
           margin-right: 10px;
         }
+      }
+    }
+    @media (max-width: @mobile-max-width) {
+      .ca-section-body {
+        display: flex;
+        flex-direction: column-reverse;
+
+        margin-top: 20px;
       }
     }
   }

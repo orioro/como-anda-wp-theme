@@ -10,4 +10,12 @@
 		padding-top: 40px;
 		padding-bottom: 40px;
 	}
+  @media (max-width: @mobile-max-width) {
+    .ca-section-header__heading {
+      padding-bottom: 10px // Font Marighella has issues of sizing
+    }
+    .ca-section-header__contents {
+      padding-top: 20px;  
+    }
+  } 
 }

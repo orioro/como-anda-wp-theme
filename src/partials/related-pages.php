@@ -22,9 +22,9 @@
   		<ul class="ca-related-content-link-list ">
   			<?php while ($ca_page__sister_page_query->have_posts()) : $ca_page__sister_page_query->the_post(); ?>
   			<li>
-  				<h3 class="ca-heading-3">
+  				<h2 class="ca-heading-2">
   					<?php the_title(); ?>
-  				</h3>
+  				</h2>
   				<?php the_post_thumbnail(); ?>
   				<?php the_excerpt(); ?>
   				<a
