@@ -1,0 +1,19 @@
+.ca-option-list {
+
+}
+
+.ca-option-list > h3 {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.ca-option-list > ul {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-left: 0;
+	list-style: none;
+}
+
+.ca-option-list > ul > li {
+	margin-bottom: 8px;
+}

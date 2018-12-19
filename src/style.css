@@ -4741,6 +4741,115 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   }
 }
 /**
+ * React components
+ */
+.ca-filter > ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.ca-filter > ul > li {
+  margin-right: 10px;
+}
+.ca-filter > ul > li:last-child {
+  margin-right: 0;
+}
+.ca-option {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.ca-option > input {
+  margin-top: 0.3125rem;
+  margin-right: 8px;
+}
+.ca-option > .ca-option__label {
+  display: block;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  width: 220px;
+  line-height: 1.2;
+  font-size: 1.125rem;
+}
+.ca-option-list > h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.ca-option-list > ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.ca-option-list > ul > li {
+  margin-bottom: 8px;
+}
+.ca-options-panel > ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.ca-options-panel > ul > li {
+  margin-right: 20px;
+}
+.ca-pop-up {
+  position: relative;
+}
+.ca-pop-up > .ca-pop-up__trigger {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border: 1px black solid;
+  font-size: 1rem;
+  padding: 10px 15px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.ca-pop-up > .ca-pop-up__trigger > span {
+  margin-right: 20px;
+}
+.ca-pop-up > .ca-pop-up__content-container {
+  display: none;
+  position: absolute;
+  top: 110%;
+  top: calc(100% + 10px);
+  left: 0;
+  border: 1px black solid;
+  padding: 15px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.ca-pop-up.open > .ca-pop-up__trigger > svg {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.ca-pop-up.open > .ca-pop-up__content-container {
+  display: block;
+}
+/**
  * Page templates
  */
 #page-template-home #abertura .ca-topic-list {

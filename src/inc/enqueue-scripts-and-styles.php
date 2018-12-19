@@ -45,6 +45,12 @@ function ca__enqueue_scripts_and_styles() {
 		array('jquery'),
 		'1.0.0'
 	);
+	wp_register_script(
+		'ca--page-template-marco-regulatorio',
+		get_template_directory_uri() . '/js/page-template-marco-regulatorio/index.bundle.js',
+		array('jquery'),
+		'1.0.0'
+	);
 
 	/**
 	 * Enqueue styles and scripts
@@ -56,6 +62,10 @@ function ca__enqueue_scripts_and_styles() {
 
 	if (is_page_template('page-templates/home.php')) {
 		wp_enqueue_script('ca--page-template-home');
+	}
+
+	if (is_page_template('page-templates/marco-regulatorio.php')) {
+		wp_enqueue_script('ca--page-template-marco-regulatorio');
 	}
 }
 add_action('wp_enqueue_scripts', 'ca__enqueue_scripts_and_styles');

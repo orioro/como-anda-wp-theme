@@ -4,11 +4,20 @@ const path = require('path')
 const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
 const babel = require('rollup-plugin-babel')
+const replace = require('rollup-plugin-replace')
 
 const SCRIPTS_DIR = path.join(__dirname, 'src/js')
 
+const isFile = filepath => {
+	try {
+		return fs.statSync(filepath).isFile()
+	} catch (err) {
+		return false
+	}
+}
+
 const scripts = fs.readdirSync(SCRIPTS_DIR).filter(name => {
-	return fs.statSync(path.join(SCRIPTS_DIR, name)).isDirectory()
+	return isFile(path.join(SCRIPTS_DIR, name, 'index.js'))
 })
 
 const scriptConfig = scriptName => ({
@@ -21,9 +30,24 @@ const scriptConfig = scriptName => ({
 	},
 	watch: {},
 	plugins: [
-		babel(),
-		resolve(),
-		commonjs(),
+		babel({
+			babelrc: true,
+			exclude: 'node_modules/**'
+		}),
+		replace({
+			'process.env.NODE_ENV': '"development"',
+		}),
+		resolve({
+			browser: true,
+		}),
+		commonjs({
+			namedExports: {
+				'node_modules/react-dom/index.js': ['render', 'findDOMNode'],
+			},
+		}),
+		// string({
+		// 	include: ['src/**/*.css'],
+		// })
 	]
 })
 

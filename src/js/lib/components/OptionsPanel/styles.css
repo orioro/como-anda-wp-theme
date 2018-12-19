@@ -1,0 +1,20 @@
+.ca-options-panel {
+
+}
+
+.ca-options-panel > header {
+
+}
+
+.ca-options-panel > ul {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-left: 0;
+	list-style: none;
+
+	display: flex;
+}
+
+.ca-options-panel > ul > li {
+	margin-right: 20px;
+}

@@ -1,0 +1,21 @@
+.ca-option {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+
+	margin-bottom: 12px;
+}
+
+.ca-option > input {
+	margin-top: 0.3125rem;
+	margin-right: 8px;
+}
+
+.ca-option > .ca-option__label {
+	display: block;
+	flex-grow: 1;
+	width: 220px;
+
+	line-height: 1.2;
+	font-size: 1.125rem;
+}

@@ -1,0 +1,42 @@
+.ca-pop-up {
+	position: relative;
+}
+
+.ca-pop-up > .ca-pop-up__trigger {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	background-color: transparent;
+	border: 1px black solid;
+
+	font-size: 1rem;
+	padding: 10px 15px;
+	box-sizing: border-box;
+}
+
+.ca-pop-up > .ca-pop-up__trigger > span {
+	margin-right: 20px;
+}
+
+.ca-pop-up > .ca-pop-up__content-container {
+	display: none;
+
+	position: absolute;
+	top: 110%;
+	top: calc(100% + 10px);
+	left: 0;
+
+	border: 1px black solid;
+
+	padding: 15px;
+	box-sizing: border-box;
+}
+
+.ca-pop-up.open > .ca-pop-up__trigger > svg {
+	transform: rotate(180deg);
+}
+
+.ca-pop-up.open > .ca-pop-up__content-container {
+	display: block;
+}
