@@ -305,6 +305,9 @@ template {
   display: none;
 }
 /**
+ * Header height
+ */
+/**
  * Side paddings
  */
 /**
@@ -334,6 +337,117 @@ template {
 /**
  * Structural elements
  */
+#main-header {
+  height: 150px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  -webkit-transition: height 0.5s ease;
+  transition: height 0.5s ease;
+}
+#main-header > div.max-width-container {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+#main-header > div.max-width-container #logo-anchor {
+  display: block;
+  position: relative;
+  height: 45%;
+}
+#main-header > div.max-width-container #logo-anchor #logo-main {
+  display: block;
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}
+#main-header > div.max-width-container #logo-anchor #logo-illustration {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  top: 90%;
+  right: 0;
+  width: 60%;
+  pointer-events: none;
+  -webkit-transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease;
+}
+#main-header > div.max-width-container #main-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: 'Terrorista', sans-serif;
+  font-size: 1.6666rem;
+}
+#main-header > div.max-width-container #main-nav > div {
+  width: 100%;
+}
+#main-header > div.max-width-container #main-nav ul.menu {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+#main-header > div.max-width-container #main-nav ul.menu a {
+  text-decoration: none;
+  text-transform: uppercase;
+  display: block;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#main-header > div.max-width-container #main-nav ul.menu > li {
+  position: relative;
+  white-space: nowrap;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#main-header > div.max-width-container #main-nav ul.menu > li > ul.sub-menu {
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  display: none;
+  position: absolute;
+  top: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+#main-header > div.max-width-container #main-nav ul.menu > li > ul.sub-menu > li {
+  white-space: nowrap;
+  background-color: white;
+}
+#main-header > div.max-width-container #main-nav ul.menu > li > ul.sub-menu > li:hover {
+  background-color: #E0E0E0;
+  color: black;
+}
+#main-header > div.max-width-container #main-nav ul.menu > li:hover > ul.sub-menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+#main-header.far-from-top {
+  height: 110px;
+}
+#main-header.far-from-top #logo-illustration {
+  opacity: 0;
+}
 #main-footer .ca-red:hover {
   color: #EC3233;
 }
@@ -5138,6 +5252,9 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 }
 #page-template-timeline #abertura > .vertical-padding-container {
   padding-bottom: 0;
+}
+#page-template-mural {
+  padding-top: 150px;
 }
 #page-template-mural #mural-abertura h1.ca-heading-1 {
   text-align: center;

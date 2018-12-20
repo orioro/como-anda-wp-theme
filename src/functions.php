@@ -92,5 +92,7 @@ function ca__setup() {
 	register_nav_menus(array(
 		'main-menu' => 'Main menu',
 	));
+
+	show_admin_bar(false);
 }
 add_action('after_setup_theme', 'ca__setup');
