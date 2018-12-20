@@ -23,7 +23,7 @@ get_header(); ?>
 	</section>
 
 	<section id="mural-postagens">
-		<div class="container max-width-container side-padding-container ca-padding-top-6 ca-section-header">
+		<div class="container max-width-container side-padding-container  ca-section-header">
 			<div class="row">
 				<div class="col-md-8">
 					<div>
@@ -78,14 +78,11 @@ get_header(); ?>
 							<?php while ($ca_mural__sticky_posts_query->have_posts()) : $ca_mural__sticky_posts_query->the_post(); ?>
 
 			        <article class="swiper-slide">
-			          <a href="<?php the_permalink(); ?>">
+			          <a class= "swiper-slide__link" href="<?php the_permalink(); ?>">
 			            <?php the_post_thumbnail(); ?>
-			            <h4>
+			            <h4 class="swiper-slide__link__title">
 			              <?php the_title(); ?>
 			            </h4>
-			            <h5>
-			              <?php echo get_the_date(); ?>
-			            </h5>
 			          </a>
 			        </article>
 
@@ -96,10 +93,10 @@ get_header(); ?>
 
 					<?php $ca_mural__all_tags = get_tags(); ?>
 					<?php if (count($ca_mural__all_tags) > 0) : ?>
-					<div>
+					<div class="ca-tag-list">
 						<?php foreach ($ca_mural__all_tags as $tag) : ?>
 						<?php $tag_href = get_tag_link($tag->term_id); ?>
-						<a
+						<a 
 							href="<?php echo $tag_href; ?>"
 							title="<?php echo $tag->name; ?>">
 							<?php echo $tag->name; ?>
