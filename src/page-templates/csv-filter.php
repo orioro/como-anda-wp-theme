@@ -12,16 +12,6 @@ get_header(); ?>
 		get_the_ID(),
 		'ca_page__color_scheme'
 	);
-
-	// $ca_csv_filter__parameters = carbon_get_post_meta(
-	// 	get_the_ID(),
-	// 	'ca_csv_filter__parameters'
-	// );
-
-	// $ca_csv_filter__csv_file = wp_get_attachment_url(carbon_get_post_meta(
-	// 	get_the_ID(),
-	// 	'ca_csv_filter__csv_file'
-	// ));
 	?>
 
 	<template id="ca-csv-filter-config">
@@ -47,8 +37,13 @@ get_header(); ?>
 		</div>
 	</section>
 
-	<section id="react-app-root">
-		
+	<section
+		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
+		<div class="container max-width-container side-padding-container">
+			<div id="react-app-root">
+				<!-- Elemento raiz do app React -->
+			</div>
+		</div>
 	</section>
 
 	<!-- Blocks -->

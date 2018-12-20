@@ -5011,7 +5011,10 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   -ms-flex-align: center;
   align-items: center;
   background-color: transparent;
-  border: 1px black solid;
+  border-width: 1px;
+  border-style: solid;
+  border-color: inherit;
+  color: inherit;
   font-size: 1rem;
   padding: 10px 15px;
   -webkit-box-sizing: border-box;
@@ -5031,6 +5034,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background-color: white;
+  color: black;
 }
 .ca-pop-up.open > .ca-pop-up__trigger > svg {
   -webkit-transform: rotate(180deg);
