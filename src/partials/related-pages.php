@@ -9,7 +9,9 @@
 		'order' => 'ASC',
 	));
 ?>
-<section class="ca-related-content ca-bg-yellow">
+<section
+  class="ca-related-content ca-bg-yellow"
+  data-bg-color-section="yellow">
 	<div class="container max-width-container side-padding-container ca-section-header ca-padding-top-6">
     <div class="row ca-padding-bottom-4">
       <div class="col-md-9 offset-md-3">

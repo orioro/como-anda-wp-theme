@@ -1,11 +1,12 @@
 #main-header {
 	height: @header-height-desktop;
 	position: fixed;
+	z-index: 1000;
 	top: 0;
 	left: 0;
 	right: 0;
 
-	transition: height .5s ease;
+	transition: height .2s ease, background-color .5s ease;
 	
 	> div.max-width-container {
 		height: 100%;
@@ -36,6 +37,10 @@
 				pointer-events: none;
 
 				transition: opacity .4s ease;
+
+				padding-bottom: 2px;
+
+				border-bottom: 2px black solid;
 			}
 		}
 
@@ -112,7 +117,7 @@
 	}
 
 	&.far-from-top {
-		height: @header-height-desktop - 40px;
+		height: @header-height-desktop - 60px;
 
 		#logo-illustration {
 			opacity: 0;

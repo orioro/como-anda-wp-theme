@@ -15,7 +15,8 @@ get_header(); ?>
 	?>
 	<section
 		id="abertura"
-		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
+		class="ca-bg-<?php echo $ca_page__color_scheme; ?>"
+		data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
 		<div class="container max-width-container side-padding-container vertical-padding-container ca-section-header">
 			<div class="row">
         <div class="col-md-9 offset-md-3">
@@ -34,7 +35,9 @@ get_header(); ?>
 		</div>
 	</section>
 
-	<section class="ca-timeline ca-bg-<?php echo $ca_page__color_scheme; ?>">
+	<section
+		class="ca-timeline ca-bg-<?php echo $ca_page__color_scheme; ?>"
+		data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
 		<div class="container max-width-container side-padding-container ca-padding-top-6 ca-padding-bottom-6">
 			<?php $ca_timeline__events = carbon_get_post_meta(get_the_ID(), 'ca_timeline__events'); ?>
 

@@ -5,17 +5,18 @@
 
 get_header(); ?>
 <?php while (have_posts()) : the_post(); ?>
-    <?php
-    $ca_page__color_scheme = carbon_get_post_meta(
-      get_the_ID(),
-      'ca_page__color_scheme'
-    );
-    ?>
+<?php
+$ca_page__color_scheme = carbon_get_post_meta(
+  get_the_ID(),
+  'ca_page__color_scheme'
+);
+?>
 
 <main id="page-template-home">
   <section
     id="abertura"
-    class="ca-bg-red">
+    class="ca-bg-red"
+    data-bg-color-section="red">
     <div class="container max-width-container side-padding-container vertical-padding-container ca-section-header">
       <div class="row">
         <div class="col-md-9 offset-md-3">
@@ -46,7 +47,8 @@ get_header(); ?>
   </section>
   <section
     id="projetos"
-    class="ca-bg-yellow">
+    class="ca-bg-yellow"
+    data-bg-color-section="yellow">
     <div class="container max-width-container side-padding-container vertical-padding-container">
       <div class="row">
         <div class="col-md-9 offset-md-3">
@@ -81,7 +83,8 @@ get_header(); ?>
   </section>
   <section
     id="sobre"
-    class="ca-bg-green">
+    class="ca-bg-green"
+    data-bg-color-section="green">
     <div class=" container max-width-container side-padding-container vertical-padding-container">
       <div class="ca-section-header">
         <div class="row">
@@ -129,7 +132,8 @@ get_header(); ?>
   </section>
   <section
     id="contato"
-    class="ca-bg-blue">
+    class="ca-bg-blue"
+    data-bg-color-section="blue">
     <div class="container max-width-container side-padding-container vertical-padding-container">
       <div class="row ca-section-header">
         <h1 class="col-md-9 offset-md-3 ca-heading-1 ca-section-header__heading ca-padding-bottom-3">

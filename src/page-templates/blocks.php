@@ -15,7 +15,8 @@ get_header(); ?>
   ?>
 	<section
 		id="abertura"
-		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
+		class="ca-bg-<?php echo $ca_page__color_scheme; ?>"
+    data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
 		<div class="container max-width-container side-padding-container ca-padding-top-6 ca-section-header">
 			<div class="row">
 				<div class="col-md-9 offset-md-3">
@@ -39,7 +40,8 @@ get_header(); ?>
 	<?php foreach ($ca_blocks__blocks as $block) : ?>
 	<section
 		id="<?php echo sanitize_title($block['title']); ?>"
-		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
+		class="ca-bg-<?php echo $ca_page__color_scheme; ?>"
+    data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
     <div class="container ca-page-section max-width-container side-padding-container">
   		<div class="row">
   			<div class="col-md-4 ca-page-section__image-container">

@@ -13,7 +13,8 @@
 
 <footer 
   id="main-footer"
-  class="ca-bg-gray-light">
+  class="ca-bg-gray-light"
+  data-bg-color-section="gray-light">
   <div class="max-width-container side-padding-container vertical-padding-container">
     <?php
       $ca__email = carbon_get_theme_option('ca__email');
