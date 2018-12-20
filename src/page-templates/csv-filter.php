@@ -25,22 +25,26 @@ get_header(); ?>
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
 		<div class="container max-width-container side-padding-container ca-section-header">
 			<div class="row">
-				<h1 class="col-md-10 offset-md-2 ca-heading-1">
-					<?php the_title(); ?>
-				</h1>
+        <div class="col-md-9 offset-md-3">
+  				<h1 class="ca-heading-1 ca-fg-black ca-section-header__heading ca-padding-bottom-3">
+  					<?php the_title(); ?>
+  				</h1>
+        </div>
 			</div>
-			<div class="row">
-				<div class="col-md-9 offset-md-3 wysiwyg-content">
-					<?php the_content(); ?>
-				</div>
+			<div class="row ca-padding-top-4">
+        <div class="col-md-8 offset-md-4">
+  				<div class=" wysiwyg-content  ca-section-header__contents ca-padding-bottom-3">
+  					<?php the_content(); ?>
+  				</div>
+        </div>
 			</div>
 		</div>
 	</section>
 
 	<section
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
-		<div class="container max-width-container side-padding-container">
-			<div id="react-app-root">
+		<div class="container ca-page-section  max-width-container side-padding-container">
+			<div id="react-app-root" class="ca-page-section__contents ca-padding-top-6">
 				<!-- Elemento raiz do app React -->
 			</div>
 		</div>

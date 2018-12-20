@@ -1,3 +1,92 @@
 .ca-output-card {
+  margin-top: 20px;
+  // margin-bottom: 40px;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 2px solid @color-black;
+  box-sizing: border-box;
 
+  > .ca-output-card__heading {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 20px;
+    font-size: 1.3rem;  
+  }
+
+  > .ca-output-card__body {
+    display: flex;
+
+    > .ca-output-card__body__main {
+      width: 60%;
+
+      > .ca-output-card__body__main__subheading {
+        margin-bottom: 0;
+        margin-top: 0;
+        font-size: 1rem;
+        font-weight: inherit;
+      }
+      > .ca-output-card__body__main__description {
+        padding-top: 20px;
+        // margin-bottom: 20px;
+      }
+    }
+    > .ca-output-card__body__side {
+      width: 38%;
+      list-style: none;
+
+      > .ca-output-card__body__side__subheading {
+        font-size: 1rem;
+      }
+      > ul.ca-output-card__body__side__metadata {
+        list-style: none;
+        padding-left: 50px;
+
+        &--bold {
+          font-weight: bold;
+        }
+      }
+      > ul.ca-output-card__body__side__tags {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        padding-left: 50px;
+        > li {
+          margin-right: 10px;
+          margin-bottom: 10px;
+          padding: 0 10px;
+          box-sizing: border-box;
+          color: @color-white;
+          border: 1px solid @color-gray-dark;
+          background-color: @color-gray-dark;
+          font-size: 16px;
+          &:hover {
+            border: 1px solid @color-orange;
+            background-color: @color-orange;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: @mobile-max-width) {
+    .ca-output-card__body {
+      flex-direction: column;
+      > .ca-output-card__body__main {
+        width: 100%;
+
+        > .ca-output-card__body__main__subheading {
+          display: none;
+        }
+      }
+      > .ca-output-card__body__side {
+        width: 100%;
+        
+        > ul.ca-output-card__body__side__metadata {
+          padding-left: 0px;
+        }
+        > ul.ca-output-card__body__side__tags {
+          padding-left: 0px;
+        }
+      }
+    }
+  }
 }
