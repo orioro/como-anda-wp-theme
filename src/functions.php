@@ -23,7 +23,6 @@ function ca__function_dependencies() {
  * as indicating support for post thumbnails.
  */
 function ca__setup() {
-
 	/**
 	 * Development functions START
 	 * 
@@ -69,6 +68,7 @@ function ca__setup() {
 		require_once('inc/carbon-fields/page-template-home.php');
 		require_once('inc/carbon-fields/page-template-blocks.php');
 		require_once('inc/carbon-fields/page-template-timeline.php');
+		require_once('inc/carbon-fields/page-template-csv-filter.php');
 	}
 
 	/**

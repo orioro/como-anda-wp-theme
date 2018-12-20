@@ -5,6 +5,8 @@ const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
 const babel = require('rollup-plugin-babel')
 const replace = require('rollup-plugin-replace')
+const builtins = require('rollup-plugin-node-builtins')
+const globals = require('rollup-plugin-node-globals')
 
 const SCRIPTS_DIR = path.join(__dirname, 'src/js')
 
@@ -43,8 +45,14 @@ const scriptConfig = scriptName => ({
 		commonjs({
 			namedExports: {
 				'node_modules/react-dom/index.js': ['render', 'findDOMNode'],
+				'node_modules/redux-logger/dist/redux-logger.js': ['createLogger'],
+				'node_modules/react/index.js': ['Component'],
+				'node_modules/react-is/index.js': ['isValidElementType'],
+				'node_modules/react/index.js': ['PureComponent', 'Component'],
 			},
 		}),
+    globals(),
+    builtins()
 		// string({
 		// 	include: ['src/**/*.css'],
 		// })

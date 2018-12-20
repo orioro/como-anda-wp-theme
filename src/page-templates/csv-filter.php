@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Csv Filter
+ * Template Name: Filtro de CSV
  */
 
 get_header(); ?>
@@ -11,7 +11,28 @@ get_header(); ?>
 	$ca_page__color_scheme = carbon_get_post_meta(
 		get_the_ID(),
 		'ca_page__color_scheme'
-	); ?>
+	);
+
+	$ca_csv_filter__parameters = carbon_get_post_meta(
+		get_the_ID(),
+		'ca_csv_filter__parameters'
+	);
+
+	$ca_csv_filter__csv_file = wp_get_attachment_url(carbon_get_post_meta(
+		get_the_ID(),
+		'ca_csv_filter__csv_file'
+	));
+	?>
+
+	<template id="ca-csv-filter-config">
+		<?php
+		echo json_encode(array(
+			'parameters' => $ca_csv_filter__parameters,
+			'csv_file' => $ca_csv_filter__csv_file,
+		));
+		?>
+	</template>
+
 	<section
 		id="abertura"
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>">
@@ -29,7 +50,7 @@ get_header(); ?>
 		</div>
 	</section>
 
-	<section id="csv-filter">
+	<section id="react-app-root">
 		
 	</section>
 

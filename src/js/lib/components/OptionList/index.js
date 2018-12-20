@@ -41,11 +41,11 @@ class OptionList extends React.Component {
 	}
 
 	render() {
-		const { heading, options, onChangeOption } = this.props
+		const { label, options, onChangeOption } = this.props
 
 		return <div
 			className='ca-option-list'>
-			{heading ? <h3>{heading}</h3> : null}
+			{label ? <h3>{label}</h3> : null}
 			<ul
 				ref={this.optionContainerRef}
 				style={{
@@ -67,7 +67,7 @@ class OptionList extends React.Component {
 }
 
 OptionList.propTypes = {
-	heading: PropTypes.string,
+	label: PropTypes.string,
 	options: PropTypes.array.isRequired,
 	onChangeOption: PropTypes.func.isRequired,
 }
