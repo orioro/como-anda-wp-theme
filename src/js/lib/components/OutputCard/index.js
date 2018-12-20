@@ -12,44 +12,46 @@ const OutputCard = ({
 	tags
 }) => {
 	return <div className='ca-output-card'>
-		<div className='ca-output-card__main'>
-			{heading ? <h2 className='ca-output-card__main__heading'>
-				{heading}
-			</h2> : null}
+    {heading ? <h2 className='ca-output-card__heading '>
+      {heading}
+    </h2> : null}
+    <div className='ca-output-card__body'>
 
-			{subHeadings ? subHeadings.map((subHeading, index) => (subHeading ? <h3
-				key={index}
-				className='ca-output-card__main__subheading'>
-				{subHeading}
-			</h3> : null)) : null }
+  		<div className='ca-output-card__body__main'>
+  			{subHeadings ? subHeadings.map((subHeading, index) => (subHeading ? <h3
+  				key={index}
+  				className='ca-output-card__body__main__subheading'>
+  				{subHeading}
+  			</h3> : null)) : null }
 
-			{description ? <div className='ca-output-card__main__description'>
-				{description}
-			</div> : null}
+  			{description ? <div className='ca-output-card__body__main__description'>
+  				{description}
+  			</div> : null}
 
-			{url && buttonText ? <a
-				className='ca-output-card__main__button'
-				href={url}>
-				{buttonText}
-			</a> : null}
-		</div>
-		<div className='ca-output-card__side'>
-			{metadata ? <ul className='ca-output-card__side__metadata'>
-				{metadata.map((data, index) => data ? <li key={index}>{data}</li> : null)}
-			</ul> : null}
+  			{url && buttonText ? <a
+  				className='ca-output-card__body__main__button'
+  				href={url}>
+  				{buttonText}
+  			</a> : null}
+  		</div>
+  		<div className='ca-output-card__body__side'>
+  			{metadata ? <ul className='ca-output-card__body__side__metadata'>
+  				{metadata.map((data, index) => data ? <li key={index}>{data}</li> : null)}
+  			</ul> : null}
 
-			{boldMetadata ? <ul className='ca-output-card__side__metadata ca-output-card__side__metadata--bold'>
-				{boldMetadata.map((data, index) => data ? <li key={index}>{data}</li> : null)}
-			</ul> : null}
+  			{boldMetadata ? <ul className='ca-output-card__body__side__metadata ca-output-card__body__side__metadata--bold'>
+  				{boldMetadata.map((data, index) => data ? <li key={index}>{data}</li> : null)}
+  			</ul> : null}
 
-			{tags ? <ul className='ca-output-card__side__tags'>
-				{tags.map((tag, index) => (tag ? <li
-					key={index}
-					onClick={e => {alert('clicke tag')}}>
-					{tag}
-				</li> : null))}
-			</ul> : null}
-		</div>
+  			{tags ? <ul className='ca-output-card__body__side__tags'>
+  				{tags.map((tag, index) => (tag ? <li
+  					key={index}
+  					onClick={e => {alert('clicke tag')}}>
+  					{tag}
+  				</li> : null))}
+  			</ul> : null}
+  		</div>
+    </div>
 	</div>
 }
 
