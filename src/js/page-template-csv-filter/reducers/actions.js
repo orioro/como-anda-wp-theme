@@ -3,7 +3,6 @@ import 'whatwg-fetch'
 // import parse from 'csv-parse'
 import Papa from 'papaparse'
 
-
 export const loadCSV = csvUrl => dispatch => {
 	dispatch({
 		type: 'LOAD_DATA_REQUEST'
@@ -22,7 +21,12 @@ export const loadCSV = csvUrl => dispatch => {
 		dispatch({
 			type: 'SET_ENTRIES',
 			payload: {
-				entries: res.data
+				entries: res.data.map((entry, index) => {
+					return {
+						...entry,
+						_id: index,
+					}
+				})
 			},
 		})
 

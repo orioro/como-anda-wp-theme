@@ -5,7 +5,7 @@ const arrayRemoveItem = (arr, item) => {
 
 	return index === -1 ? arr : [
 		...arr.slice(0, index),
-		...arr.slice(index + 1, arr.length - 1)
+		...arr.slice(index + 1, arr.length)
 	]
 }
 
@@ -24,6 +24,16 @@ const parameters = (state = [], action) => {
 	}
 }
 
+const queryValueDeselectParameterOption = (state, action) => {
+	const nextSelected = arrayRemoveItem(state.selected, action.payload.optionId)
+
+	return {
+		...state,
+		allSelected: nextSelected.length === 0,
+		selected: nextSelected
+	}
+}
+
 const value = (state = {}, action) => {
 	switch (action.type) {
 		case 'QUERY_SELECT_PARAMETER_OPTION':
@@ -33,10 +43,7 @@ const value = (state = {}, action) => {
 				selected: arrayAddUniqueItem(state.selected, action.payload.optionId)
 			}
 		case 'QUERY_DESELECT_PARAMETER_OPTION':
-			return {
-				...state,
-				selected: arrayRemoveItem(state.selected, action.payload.optionId)
-			}
+			return queryValueDeselectParameterOption(state, action)
 		case 'QUERY_SELECT_PARAMETER_ALL_SELECTED':
 			return {
 				...state,

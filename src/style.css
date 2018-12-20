@@ -5030,6 +5030,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   padding: 15px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  background-color: white;
 }
 .ca-pop-up.open > .ca-pop-up__trigger > svg {
   -webkit-transform: rotate(180deg);

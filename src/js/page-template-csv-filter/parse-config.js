@@ -24,7 +24,17 @@ const parseConfig = () => {
 					}
 				})
 			}
-		})
+		}),
+
+		// Output config
+		outputHeadingColumn: config.output_heading_column,
+		outputSubHeadingColumns: config.output_sub_heading_columns.map(i => i.column_name),
+		outputDescriptionColumn: config.output_description_column,
+		outputButtonText: config.output_button_text,
+		outputUrlColumn: config.output_url_column,
+		outputMetadataColumns: config.output_metadata_columns.map(i => i.column_name),
+		outputBoldMetadataColumns: config.output_bold_metadata_columns.map(i => i.column_name),
+		outputTagsColumn: config.output_tags_column,
 	}
 }
 

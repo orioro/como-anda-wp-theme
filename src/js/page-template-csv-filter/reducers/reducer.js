@@ -24,8 +24,13 @@ const loadingState = (state = 'stopped', action) => {
 	}
 }
 
+const applicationConfig = (state = null) => {
+	return state
+}
+
 export default combineReducers({
 	entries,
 	query,
 	loadingState,
+	applicationConfig,
 })

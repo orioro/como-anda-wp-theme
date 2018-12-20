@@ -13,23 +13,20 @@ get_header(); ?>
 		'ca_page__color_scheme'
 	);
 
-	$ca_csv_filter__parameters = carbon_get_post_meta(
-		get_the_ID(),
-		'ca_csv_filter__parameters'
-	);
+	// $ca_csv_filter__parameters = carbon_get_post_meta(
+	// 	get_the_ID(),
+	// 	'ca_csv_filter__parameters'
+	// );
 
-	$ca_csv_filter__csv_file = wp_get_attachment_url(carbon_get_post_meta(
-		get_the_ID(),
-		'ca_csv_filter__csv_file'
-	));
+	// $ca_csv_filter__csv_file = wp_get_attachment_url(carbon_get_post_meta(
+	// 	get_the_ID(),
+	// 	'ca_csv_filter__csv_file'
+	// ));
 	?>
 
 	<template id="ca-csv-filter-config">
 		<?php
-		echo json_encode(array(
-			'parameters' => $ca_csv_filter__parameters,
-			'csv_file' => $ca_csv_filter__csv_file,
-		));
+		echo json_encode(ca_csv_filter__get_config(get_the_ID()));
 		?>
 	</template>
 

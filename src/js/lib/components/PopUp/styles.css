@@ -31,6 +31,8 @@
 
 	padding: 15px;
 	box-sizing: border-box;
+
+	background-color: white;
 }
 
 .ca-pop-up.open > .ca-pop-up__trigger > svg {
