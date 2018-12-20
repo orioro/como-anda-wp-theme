@@ -43,19 +43,21 @@ get_header(); ?>
     <div class="container ca-page-section max-width-container side-padding-container">
   		<div class="row">
   			<div class="col-md-4 ca-page-section__image-container">
-  				<?php if ($block['image']) : ?>
   				<img src="<?php echo wp_get_attachment_image_src($block['image'])[0]; ?>">
-  				<?php endif; ?>
   			</div>
-  			<div class="col-md-8 ca-page-section__contents">
+    
+  			<div class="col-md-8 ca-page-section__contents ca-margin-top-6">
+          <?php if ($block['title']) : ?>
   				<h3 class="ca-heading-3">
   					<?php echo $block['title']; ?>
   				</h3>
+          <?php endif; ?>
+
   				<div class="wysiwyg-content ca-page-section__contents_description">
   					<?php echo apply_filters('the_content', $block['content']); ?>
   				</div>
           <?php if (count($block['link_buttons']) > 0) : ?>
-  				<ul class="ca-link-button-list">
+  				<ul class="ca-link-button-list ca-padding-bottom-6">
   					<?php foreach ($block['link_buttons'] as $button) : ?>
   					<li>
   						<a
@@ -74,7 +76,7 @@ get_header(); ?>
       <?php if (count($block['link_images']) > 0) : ?>
   		<div class="row">
   			<div class="col-md-12">
-  				<ul class="ca-link-image-list ca-link-image-list--vertical-images">
+  				<ul class="ca-link-image-list ca-link-image-list--vertical-images ca-padding-bottom-6">
   					<?php foreach ($block['link_images'] as $image) : ?>
   					<li>
   						<a

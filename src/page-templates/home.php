@@ -147,30 +147,30 @@ get_header(); ?>
             $ca__facebook_url = carbon_get_theme_option('ca__facebook_url');
             $ca__medium_url = carbon_get_theme_option('ca__medium_url');
           ?>
-          <a class="ca-contact-email-link ca-margin-bottom-4" href="mailto:contato@comoanda.org.br">
-            <img src="<?php echo get_template_directory_uri(); ?>/resources/icones/mail-white.svg">
+          <a class="ca-yellow ca-contact-email-link ca-margin-bottom-2" href="mailto:contato@comoanda.org.br">
+           <?php require(dirname(__DIR__) . '/resources/icones/mail.svg'); ?>
             contato@comoanda.org.br
           </a>
 
           <ul class="ca-contact-icon-link-list">
             <?php if ($ca__instagram_url) : ?>
             <li>
-              <a target="_blank" href="<?php echo $ca__instagram_url; ?>">
-                <img src="<?php echo get_template_directory_uri(); ?>/resources/icones/instagram-white.svg">
+              <a class="ca-yellow"> target="_blank" href="<?php echo $ca__instagram_url; ?>">
+                <?php require(dirname(__DIR__) . '/resources/icones/instagram.svg'); ?>
               </a>
             </li>
             <?php endif; ?>
             <?php if ($ca__facebook_url) : ?>
             <li>
-              <a target="_blank" href="<?php echo $ca__facebook_url; ?>">
-                <img src="<?php echo get_template_directory_uri(); ?>/resources/icones/facebook-white.svg">
+              <a class="ca-yellow" target="_blank" href="<?php echo $ca__facebook_url; ?>">
+                <?php require(dirname(__DIR__) . '/resources/icones/facebook.svg'); ?>
               </a>
             </li>
             <?php endif; ?>
             <?php if ($ca__medium_url) : ?>
             <li>
-              <a target="_blank" href="<?php echo $ca__medium_url; ?>">
-                <img src="<?php echo get_template_directory_uri(); ?>/resources/icones/medium-white.svg">
+              <a class="ca-yellow" target="_blank" href="<?php echo $ca__medium_url; ?>">
+                <?php require(dirname(__DIR__) . '/resources/icones/medium.svg'); ?>
               </a>
             </li>
             <?php endif; ?>

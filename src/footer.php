@@ -26,29 +26,29 @@
         <ul class="ca-contact-icon-link-list">
           <?php if ($ca__instagram_url) : ?>
           <li>
-            <a target="_blank" href="<?php echo $ca__instagram_url; ?>">
-              <img src="<?php echo get_template_directory_uri(); ?>/resources/icones/instagram.svg">
+            <a class="ca-red" target="_blank" href="<?php echo $ca__instagram_url; ?>">
+              <?php require('resources/icones/instagram.svg'); ?>
             </a>
           </li>
           <?php endif; ?>
           <?php if ($ca__facebook_url) : ?>
           <li>
-            <a target="_blank" href="<?php echo $ca__facebook_url; ?>">
-              <img src="<?php echo get_template_directory_uri(); ?>/resources/icones/facebook.svg">
+            <a class="ca-red" target="_blank" href="<?php echo $ca__facebook_url; ?>">
+              <?php require('resources/icones/facebook.svg'); ?>
             </a>
           </li>
           <?php endif; ?>
           <?php if ($ca__medium_url) : ?>
           <li>
-            <a target="_blank" href="<?php echo $ca__medium_url; ?>">
-              <img src="<?php echo get_template_directory_uri(); ?>/resources/icones/medium.svg">
+            <a class="ca-red" target="_blank" href="<?php echo $ca__medium_url; ?>">
+              <?php require('resources/icones/medium.svg'); ?>
             </a>
           </li>
           <?php endif; ?>
           <?php if ($ca__email) : ?>
           <li>
-            <a href="mailto:<?php echo $ca__email; ?>">
-              <img src="<?php echo get_template_directory_uri(); ?>/resources/icones/mail.svg">
+            <a class="ca-red" href="mailto:<?php echo $ca__email; ?>">
+              <?php require('resources/icones/mail.svg'); ?>
             </a>
           </li>
           <?php endif; ?>
