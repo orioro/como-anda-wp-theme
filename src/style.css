@@ -3764,6 +3764,10 @@ html {
 /**
  * Components
  */
+img {
+  max-width: 100%;
+  height: auto;
+}
 .max-width-container {
   max-width: 1400px;
   margin-left: auto;
@@ -5134,6 +5138,9 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 }
 #page-template-timeline #abertura > .vertical-padding-container {
   padding-bottom: 0;
+}
+#page-template-mural #mural-abertura h1.ca-heading-1 {
+  text-align: center;
 }
 html {
   font-size: 18px;
