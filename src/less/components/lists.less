@@ -38,7 +38,8 @@ ul.ca-link-image-list {
 	}
 
 	&.ca-link-image-list--vertical-images {
-    // padding-bottom: 60px;
+    padding-top: @spacing-unit-4;
+    padding-bottom: @spacing-unit-6;
 		> li {
 			> a {
 				height: 100%;
@@ -62,7 +63,7 @@ ul.ca-link-image-list {
 			}
 		}
     @media (max-width: @tablet-max-width) {
-      // padding-bottom: 10px;
+      padding-bottom: 50px;
       > li {
         width: 48%;        
         > a {
@@ -140,7 +141,7 @@ ul.ca-content-link-list {
 	  }
 
     > div {
-      width: 60%;
+      width: 57%;
 
       > h2.ca-heading-2 {
       	margin-bottom: 40px;
@@ -175,8 +176,9 @@ ul.ca-content-link-list {
 
 ul.ca-related-content-link-list {
   // padding-top: 40px;
-	// margin-top: 0;
-	// margin-bottom: 0;
+	margin-top: 0;
+  margin-bottom: 0;
+	padding-bottom: 100px;
 	padding-left: 0;
 	list-style: none;
 
@@ -204,7 +206,8 @@ ul.ca-related-content-link-list {
     }
 
 	}
-  @media (max-width: @desktop-max-width) {
+  @media (max-width: @tablet-max-width) {
+    padding-bottom: 0px;
     flex-direction: column;
     margin-top: 20px; 
 
@@ -214,6 +217,12 @@ ul.ca-related-content-link-list {
 
     > li {
       width: 100%;
+
+      > h2 {
+        min-height: auto;
+        margin-bottom: 20px
+      }
+
       > img {
         display: none;
       }
@@ -233,17 +242,21 @@ ul.ca-contact-icon-link-list {
   .ca-reset-list();
   display: flex;
 
+
   > li {
 	  margin-right: 30px;
     
     > a {
     	display: block;
 
-    	> img {
-    		display: block;
-	      width: 30px;
-	    }
+      > svg {
+        width: 30px;
+      } 
     }
+    // &:hover {
+    //   height: 30px;
+    //   color: @color-red;  
+    // }
   }
   @media (max-width: @mobile-max-width) {
     margin-bottom: 50px;

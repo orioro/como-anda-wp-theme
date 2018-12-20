@@ -12,10 +12,15 @@
     font-size: @font-size-base-desktop;
   }
 
-  input, textarea {
+  input, 
+  textarea {
     width: 100%;
     background-color: @color-blue;
     border: @color-black 1px solid;
+
+    &:focus {
+      outline: transparent;
+    }
   }
 
   input{

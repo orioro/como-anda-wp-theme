@@ -10,7 +10,7 @@
 	));
 ?>
 <section class="ca-related-content ca-bg-yellow">
-	<div class="container max-width-container side-padding-container ca-section-header ca-padding-top-6 ca-padding-bottom-6">
+	<div class="container max-width-container side-padding-container ca-section-header ca-padding-top-6">
     <div class="row ca-padding-bottom-4">
       <div class="col-md-9 offset-md-3">
     		<h1 class="ca-heading-1 ca-section-header__heading ca-padding-bottom-3">
