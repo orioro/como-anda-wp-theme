@@ -41,6 +41,22 @@ Container::make('post_meta', 'Lista de Projetos')
         Field::make('text', 'button', 'Botão'),
         Field::make('text', 'url', 'Botão link'),
         Field::make('image', 'image', 'Imagem'),
+        Field::make('select', 'color', 'Cor do botão')
+          ->set_options(array(
+            'blue' => 'Azul',
+            'blue-light' => 'Azul claro',
+            'yellow' => 'Amarelo',
+            'orange' => 'Laranja',
+            'orange-light' => 'Laranja claro',
+            'red' => 'Vermelho',
+            'red-light' => 'Vermelho claro',
+            'green' => 'Verde',
+            'green-light' => 'Verde claro',
+
+            'gray-light' => 'Cinza claro',
+            'gray' => 'Cinza',
+            'gray-dark' => 'Cinza escuro'
+          )),
       ))
     ->set_header_template('<%- $_index + 1 %> <% if (title) { %>- <%- title %><% } %>'),
   ));

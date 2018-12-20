@@ -19,12 +19,12 @@ get_header(); ?>
 		<div class="container max-width-container side-padding-container vertical-padding-container ca-section-header">
 			<div class="row">
         <div class="col-md-9 offset-md-3">
-  				<h1 class="ca-heading-1 ca-section-header__heading">
+  				<h1 class="ca-heading-1 ca-section-header__heading ca-padding-bottom-3">
   					<?php the_title(); ?>
   				</h1>
         </div>
 			</div>
-			<div class="row">
+			<div class="row ca-padding-top-4">
 				<div class="col-md-8 offset-md-4">
           <div class="wysiwyg-content ca-section-header__contents">
 				    <?php the_content(); ?>
@@ -35,7 +35,7 @@ get_header(); ?>
 	</section>
 
 	<section class="ca-timeline ca-bg-<?php echo $ca_page__color_scheme; ?>">
-		<div class="container max-width-container side-padding-container vertical-padding-container">
+		<div class="container max-width-container side-padding-container ca-padding-top-6 ca-padding-bottom-6">
 			<?php $ca_timeline__events = carbon_get_post_meta(get_the_ID(), 'ca_timeline__events'); ?>
 
 			<?php

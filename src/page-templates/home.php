@@ -5,6 +5,12 @@
 
 get_header(); ?>
 <?php while (have_posts()) : the_post(); ?>
+    <?php
+    $ca_page__color_scheme = carbon_get_post_meta(
+      get_the_ID(),
+      'ca_page__color_scheme'
+    );
+    ?>
 
 <main id="page-template-home">
   <section
@@ -60,7 +66,9 @@ get_header(); ?>
                 <div class="wysiwyg-content">
                   <?php echo apply_filters('the_content', $item['description']); ?>
                 </div>
-                <a class="ca-link-button" href="<?php echo $item['url']; ?>">
+                <a 
+                class="ca-link-button ca-hover-<?php echo $item['color'] ?>"
+                href="<?php echo $item['url']; ?>">
                   <?php echo $item['button']?>
                 </a>
               </div>
