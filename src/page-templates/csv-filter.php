@@ -24,7 +24,7 @@ get_header(); ?>
 		id="abertura"
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>"
 		data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
-		<div class="container max-width-container side-padding-container ca-section-header">
+		<div class="container max-width-container side-padding-container  ca-padding-top-6 ca-section-header">
 			<div class="row">
         <div class="col-md-9 offset-md-3">
   				<h1 class="ca-heading-1 ca-fg-black ca-section-header__heading ca-padding-bottom-3">

@@ -40,10 +40,10 @@ export default {
         	}, Math.round(Math.random() * 600))
         });
 			} else {
-				$component.addClass(NOT_VISIBLE_CLASS)
-				$charEls.forEach($charEl => {
-					$charEl.addClass(NOT_VISIBLE_CLASS)
-				})
+				// $component.addClass(NOT_VISIBLE_CLASS)
+				// $charEls.forEach($charEl => {
+				// 	$charEl.addClass(NOT_VISIBLE_CLASS)
+				// })
 			}
 		}
 

@@ -5573,7 +5573,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
  * Page templates
  */
 #page-template-home #abertura {
-  padding-top: 150px;
+  padding-top: 190px;
 }
 #page-template-home #sobre .ca-supporters {
   display: -webkit-box;
@@ -5646,13 +5646,16 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   }
 }
 #page-template-blocks #abertura {
-  padding-top: 150px;
+  padding-top: 190px;
+}
+#page-template-timeline #abertura {
+  padding-top: 190px;
 }
 #page-template-timeline #abertura > .vertical-padding-container {
   padding-bottom: 0;
 }
 #page-template-mural {
-  padding-top: 150px;
+  padding-top: 190px;
 }
 #page-template-mural a {
   text-decoration: none;
@@ -5681,6 +5684,9 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
     -ms-flex-order: 0;
     order: 0;
   }
+}
+#page-template-csv-filter #abertura {
+  padding-top: 190px;
 }
 html {
   font-size: 18px;

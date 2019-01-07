@@ -70,12 +70,7 @@ function ca__setup() {
 		require_once('inc/carbon-fields/page-template-timeline.php');
 		require_once('inc/carbon-fields/page-template-csv-filter.php');
 	}
-
-	/**
-	 * Custom post types
-	 */
-	require_once('inc/post-types/regulacao/load.php');
-
+	
 	/*
 	 * Enable support for Post Thumbnails on posts and pages.
 	 *
