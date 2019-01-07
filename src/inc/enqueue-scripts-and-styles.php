@@ -36,6 +36,13 @@ function ca__enqueue_scripts_and_styles() {
 		'1.0.0'
 	);
 
+	wp_register_script(
+		'ca--global-components',
+		get_template_directory_uri() . '/js/global-components/index.bundle.js',
+		array('jquery'),
+		'1.0.0'
+	);
+
 	/**
 	 * Page specific scripts
 	 */
@@ -65,6 +72,7 @@ function ca__enqueue_scripts_and_styles() {
 	wp_enqueue_style('ca--font-face-news-cycle');
 
 	wp_enqueue_script('ca--header');
+	wp_enqueue_script('ca--global-components');
 
 	if (is_page_template('page-templates/home.php')) {
 		wp_enqueue_script('ca--page-template-home');

@@ -14,8 +14,8 @@ import {
 	loadCSV
 } from '../../reducers/actions'
 
-import Filter from '../../../lib/components/Filter'
-import OutputCard from '../../../lib/components/OutputCard'
+import Filter from '../../../lib/react-components/Filter'
+import OutputCard from '../../../lib/react-components/OutputCard'
 
 const mapOutputData = (applicationConfig, data) => {
 	return {

@@ -39,7 +39,7 @@ get_header(); ?>
 	<?php $ca_blocks__blocks = carbon_get_post_meta(get_the_ID(), 'ca_blocks__blocks'); ?>
 	<?php foreach ($ca_blocks__blocks as $block) : ?>
 	<section
-		id="<?php echo sanitize_title($block['title']); ?>"
+		id="<?php echo sanitize_title($block['id'] ? $block['id'] : $block['title']); ?>"
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>"
     data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
     <div class="container ca-page-section max-width-container side-padding-container">
@@ -65,7 +65,8 @@ get_header(); ?>
   						<a
   							class="ca-link-button ca-hover-<?php echo ca_page__get_hover_color_scheme($ca_page__color_scheme); ?>"
   							target="<?php echo $button['target_blank'] ? '_blank' : ''; ?>"
-  							href="<?php echo $button['file'] ? wp_get_attachment_url($button['file']) : $button['url']; ?>">
+  							href="<?php echo $button['file'] ? wp_get_attachment_url($button['file']) : $button['url']; ?>"
+                <?php if ($button['is_typeform']) : ?>data-component="typeform-trigger"<?php endif; ?>>
   							<?php echo $button['text']; ?>
   						</a>
   					</li>

@@ -1,8 +1,6 @@
-import $ from 'jquery'
-
-$(() => {
-	const $mainHeader = $('#main-header')
-	const $window = $(window)
+jQuery(() => {
+	const $mainHeader = jQuery('#main-header')
+	const $window = jQuery(window)
 
 	const updateFarFromTop = () => {
 		if ($window.scrollTop() > 10) {
@@ -18,10 +16,10 @@ $(() => {
 /**
  * Transform header color according to section color
  */
-$(() => {
-	const $mainHeader = $('#main-header')
-	const $window = $(window)
-	const $bgColorSections = Array.from($('[data-bg-color-section]')).map($)
+jQuery(() => {
+	const $mainHeader = jQuery('#main-header')
+	const $window = jQuery(window)
+	const $bgColorSections = Array.from(jQuery('[data-bg-color-section]')).map($)
 
 	const BG_COLORS_BY_COLOR_SCHEME = {
 		'gray-light': '#E0E0E0',
@@ -60,15 +58,16 @@ $(() => {
 	}
 
 	$window.on('scroll', updateHeaderColor)
+	updateHeaderColor()
 })
 
 /**
  * Mobile menu trigger
  */
-$(() => {
-	const $body = $('body')
-	const $menuTrigger = $('#mobile-menu-trigger')
-	const $menuOverlay = $('#mobile-menu-overlay')
+jQuery(() => {
+	const $body = jQuery('body')
+	const $menuTrigger = jQuery('#mobile-menu-trigger')
+	const $menuOverlay = jQuery('#mobile-menu-overlay')
 
 	$menuTrigger.on('click', () => {
 		$body.toggleClass('menu-open')

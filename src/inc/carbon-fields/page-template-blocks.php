@@ -9,6 +9,9 @@ Container::make('post_meta', 'Blocos da página')
 			->set_layout('tabbed-vertical')
 			->add_fields(array(
 				Field::make('text', 'title', 'Título'),
+				Field::make('text', 'id', 'ID do bloco'),
+				Field::make('html', 'id_explanation')
+					->set_html('<p>O ID do bloco será utilizado para o link direto para o bloco, dentro da página (e.g. https://comoanda.org.br/pagina-exemplo/#id-do-bloco). Ele deve ser composto apenas por <strong>letras minúsculas, números e traços (-), sem acentuação, espaçamento ou outros caracteres especiais.</strong><p>'),
 				Field::make('rich_text', 'content', 'Conteúdo'),
 				Field::make('image', 'image', 'Imagem'),
 				Field::make('complex', 'link_buttons', 'Links (botões)')
@@ -18,6 +21,7 @@ Container::make('post_meta', 'Blocos da página')
 						Field::make('text', 'url', 'URL'),
 						Field::make('file', 'file', 'Arquivo'),
 						Field::make('checkbox', 'target_blank', 'Abrir em nova aba'),
+						Field::make('checkbox', 'is_typeform', 'É link do typeform'),
 					))
 					->set_header_template('<%- $_index + 1 %> <% if (text) { %>- <%- text %><% } %>'),
 				Field::make('complex', 'link_images', 'Links (imagens)')

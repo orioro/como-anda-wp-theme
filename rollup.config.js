@@ -49,6 +49,7 @@ const scriptConfig = scriptName => ({
 				'node_modules/react/index.js': ['Component'],
 				'node_modules/react-is/index.js': ['isValidElementType'],
 				'node_modules/react/index.js': ['PureComponent', 'Component'],
+				'node_modules/@typeform/embed/lib/api.js': ['makePopup']
 			},
 		}),
     globals(),
