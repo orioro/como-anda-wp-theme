@@ -4532,6 +4532,112 @@ img {
   width: 180px;
   font-weight: bold;
 }
+.ca-mural-post {
+  padding-bottom: 40px;
+  padding-top: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: 2px solid black;
+}
+.ca-mural-post .ca-mural-post__left {
+  margin-right: 40px;
+  width: 65%;
+}
+.ca-mural-post .ca-mural-post__left .ca-mural-post__left__date {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 1rem;
+  font-weight: normal;
+}
+.ca-mural-post .ca-mural-post__left .ca-mural-post__left__heading {
+  font-family: 'Terrorista', sans-serif;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 20px;
+}
+.ca-mural-post .ca-mural-post__left .ca-mural-post__left__excerpt p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.ca-mural-post .ca-mural-post__right {
+  width: 35%;
+}
+.ca-mural-post .ca-mural-post__right .ca-mural-post__right__thumbnail img {
+  border: 4px solid white;
+}
+@media (max-width: 450px) {
+  .ca-mural-post {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+  .ca-mural-post .ca-mural-post__left {
+    width: 100%;
+    margin-right: 0;
+  }
+  .ca-mural-post .ca-mural-post__left .ca-mural-post__left__excerpt p {
+    padding-bottom: 10px;
+  }
+  .ca-mural-post .ca-mural-post__left .ca-mural-post__left__date {
+    margin-bottom: 10px;
+  }
+  .ca-mural-post .ca-mural-post__right {
+    width: 100%;
+  }
+  .ca-mural-post .ca-mural-post__right .ca-mural-post__right__thumbnail img {
+    border: 4px solid white;
+  }
+}
+aside {
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+aside form #searchsubmit {
+  display: none;
+}
+aside form .screen-reader-text {
+  display: none;
+}
+aside form input {
+  width: 100%;
+  margin-bottom: 40px;
+  border: 1px solid black;
+  background-color: #ecabab;
+}
+aside h4 {
+  margin: 0;
+  padding-bottom: 20px;
+  font-size: 1rem;
+}
+aside .swiper-slide {
+  margin-bottom: 20px;
+}
+aside .swiper-slide .swiper-slide__link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+aside .swiper-slide .swiper-slide__link img {
+  border: 4px solid white;
+  width: 30%;
+  margin-right: 10px;
+}
+aside .swiper-slide .swiper-slide__link .swiper-slide__link__title {
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+@media (max-width: 450px) {
+  aside .swiper-slide {
+    display: none;
+  }
+}
 a {
   color: inherit;
 }
@@ -4686,7 +4792,7 @@ ul.ca-topic-list > li {
   width: 31%;
 }
 ul.ca-topic-list > li > h3 {
-  width: 80%;
+  width: 60%;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -4848,6 +4954,38 @@ ul.ca-contact-icon-link-list > li > a > svg {
 @media (max-width: 450px) {
   ul.ca-contact-icon-link-list {
     margin-bottom: 50px;
+  }
+}
+.ca-tag-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  list-style: none;
+  padding-left: 0px;
+}
+.ca-tag-list > * {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 0 10px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: white;
+  border: 1px solid #808080;
+  background-color: #808080;
+  font-size: 16px;
+}
+.ca-tag-list > *:hover {
+  border: 1px solid #EC3233;
+  background-color: #EC3233;
+}
+@media (max-width: 450px) {
+  .ca-tag-list {
+    margin-top: 10px;
+  }
+  .ca-tag-list > * {
+    background-color: #EC3233;
   }
 }
 a.ca-link-button {
@@ -5509,8 +5647,33 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 #page-template-mural {
   padding-top: 150px;
 }
+#page-template-mural a {
+  text-decoration: none;
+}
 #page-template-mural #mural-abertura h1.ca-heading-1 {
   text-align: center;
+}
+@media (max-width: 450px) {
+  #page-template-mural #mural-abertura h1.ca-heading-1 {
+    text-align: left;
+  }
+}
+#page-template-mural #mural-postagens .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+@media (max-width: 450px) {
+  #page-template-mural #mural-postagens .row .col-md-8 {
+    -webkit-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1;
+  }
+  #page-template-mural #mural-postagens .row aside {
+    -webkit-box-ordinal-group: 1;
+    -ms-flex-order: 0;
+    order: 0;
+  }
 }
 html {
   font-size: 18px;

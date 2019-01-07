@@ -1,9 +1,31 @@
 #page-template-mural {
 	padding-top: @header-height-desktop;
+
+  a {
+    text-decoration: none;
+  }
 	
 	#mural-abertura {
 		h1.ca-heading-1 {
 			text-align: center;
+
+      @media (max-width: @mobile-max-width) {
+        text-align: left;
+      }
 		}
 	}
+  #mural-postagens {
+    .row {
+      display: flex;
+
+      @media (max-width: @mobile-max-width) {
+        .col-md-8 {
+          order: 1;
+        }
+        aside {
+          order: 0;
+        }
+      }
+    }
+  }
 }
