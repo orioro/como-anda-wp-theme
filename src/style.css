@@ -5356,6 +5356,13 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
     padding-bottom: 0;
   }
 }
+.ca-animated-text .ca-highlight {
+  color: white;
+}
+.ca-animated-text .not-visible,
+.ca-animated-text.not-visible {
+  opacity: 0;
+}
 /**
  * React components
  */

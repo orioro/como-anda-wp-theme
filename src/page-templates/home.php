@@ -20,8 +20,10 @@ $ca_page__color_scheme = carbon_get_post_meta(
     <div class="container max-width-container side-padding-container vertical-padding-container ca-section-header">
       <div class="row">
         <div class="col-md-9 offset-md-3">
-          <h1 class="ca-heading-1 ca-fg-black ca-section-header__heading ca-padding-bottom-3">
-          <?php echo carbon_get_post_meta(get_the_ID(), 'ca_home__abertura_title');  ?>
+          <h1
+            class="ca-heading-1 ca-fg-black ca-section-header__heading ca-padding-bottom-3 ca-animated-text not-visible"
+            data-component="ca-animated-text">
+          <?php echo do_shortcode(carbon_get_post_meta(get_the_ID(), 'ca_home__abertura_title'));  ?>
           </h1>
         </div>
       </div>
