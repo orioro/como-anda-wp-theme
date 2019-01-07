@@ -97,7 +97,11 @@ get_header(); ?>
 			}
 			?>
 
-			<div class="row">
+			<div
+				class="row ca-bg-<?php echo $ca_page__color_scheme; ?>"
+				data-component="ca-sticky-element"
+				data-ca-sticky-element-top="#main-header"
+				data-ca-sticky-element-bottom=".ca-related-content">
 				<div class="col-md-12">
 					<ul class="ca-timeline__decades-nav">
 						<?php foreach ($ca_timeline__decades as $decade) : ?>

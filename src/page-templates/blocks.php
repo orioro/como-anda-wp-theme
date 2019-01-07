@@ -20,7 +20,9 @@ get_header(); ?>
 		<div class="container max-width-container side-padding-container ca-padding-top-6 ca-section-header">
 			<div class="row">
 				<div class="col-md-9 offset-md-3">
-          <h1 class="ca-heading-1 ca-section-header__heading ca-padding-bottom-3">
+          <h1
+            data-component="ca-animated-text"
+            class="ca-heading-1 ca-section-header__heading ca-padding-bottom-3 ca-animated-text not-visible">
 					<?php echo do_shortcode(carbon_get_post_meta(get_the_ID(), 'ca_blocks__abertura_title'));  ?>
           </h1>
 				</div>
@@ -66,7 +68,7 @@ get_header(); ?>
   							class="ca-link-button ca-hover-<?php echo ca_page__get_hover_color_scheme($ca_page__color_scheme); ?>"
   							target="<?php echo $button['target_blank'] ? '_blank' : ''; ?>"
   							href="<?php echo $button['file'] ? wp_get_attachment_url($button['file']) : $button['url']; ?>"
-                <?php if ($button['is_typeform']) : ?>data-component="typeform-trigger"<?php endif; ?>>
+                <?php if ($button['is_typeform']) : ?>data-component="ca-typeform-trigger"<?php endif; ?>>
   							<?php echo $button['text']; ?>
   						</a>
   					</li>

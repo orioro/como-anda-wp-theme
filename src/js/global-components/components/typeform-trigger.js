@@ -1,7 +1,7 @@
 import { makePopup } from '@typeform/embed'
 
 export default {
-	name: 'typeform-trigger',
+	name: 'ca-typeform-trigger',
 	initialize: $component => {
 		const TYPEFORM_URL = $component.attr('data-typeform-url') || $component.attr('href')
 

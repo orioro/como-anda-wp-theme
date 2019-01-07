@@ -39,11 +39,13 @@ jQuery(() => {
 	}
 
 	const updateHeaderColor = () => {
-		const scrollTop = $window.scrollTop()
+		// Scroll top + header height + 1px (1px to next position)
+		const colorPosition = $window.scrollTop() + $mainHeader.outerHeight() + 1
+
 		const $bgColorSection = $bgColorSections.find($section => {
 			const { top } = $section.offset()
 			const bottom = top + $section.outerHeight()
-			return scrollTop >= top && scrollTop < bottom
+			return colorPosition >= top && colorPosition < bottom
 		})
 
 		if ($bgColorSection) {
