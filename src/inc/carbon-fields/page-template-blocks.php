@@ -2,6 +2,12 @@
 use Carbon_Fields\Container;
 use Carbon_Fields\Field;
 
+Container::make('post_meta', 'Abertura')
+  ->where('post_template', '=', 'page-templates/blocks.php')
+  ->add_fields(array(
+    Field::make('text', 'ca_blocks__abertura_title', 'Título')
+  ));
+
 Container::make('post_meta', 'Blocos da página')
 	->where('post_template', '=', 'page-templates/blocks.php')
 	->add_fields(array(
