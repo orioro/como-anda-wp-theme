@@ -1,10 +1,19 @@
 <?php
-	$ca_page__page_parent_id = wp_get_post_parent_id(get_the_ID());
+  $ca_page__page_ancestors = get_post_ancestors(get_the_ID());
+	$ca_page__root_ancestor_id = empty($ca_page__page_ancestors) ? false : array_pop($ca_page__page_ancestors);
+
+  if (!$ca_page__root_ancestor_id) {
+    return;
+  }
 
 	$ca_page__sister_page_query = new WP_Query(array(
 		'post_type' => 'page',
-		'post_parent' => $ca_page__page_parent_id,
-		'post__not_in' => array(get_the_ID()),
+		'post_parent' => $ca_page__root_ancestor_id,
+    // Exclude self and all ancestors
+		'post__not_in' => array_merge(
+      array(get_the_ID()),
+      $ca_page__page_ancestors
+    ),
 		'orderby' => 'menu_order',
 		'order' => 'ASC',
 	));
