@@ -21,7 +21,7 @@ get_header(); ?>
 			<div class="row">
         <div class="col-md-9 offset-md-3">
   				<h1 class="ca-heading-1 ca-section-header__heading ca-padding-bottom-3">
-  					<?php the_title(); ?>
+  					<?php echo do_shortcode(carbon_get_post_meta(get_the_ID(), 'ca_timeline__abertura_title'));  ?>
   				</h1>
         </div>
 			</div>

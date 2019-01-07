@@ -9,6 +9,12 @@ function ca_csv_filter__prettify_complex_cf($field, $title_attribute) {
 	return $field;
 }
 
+Container::make('post_meta', 'Abertura')
+  ->where('post_template', '=', 'page-templates/csv-filter.php')
+  ->add_fields(array(
+    Field::make('text', 'ca_csv_filter__abertura_title', 'Título')
+  ));
+
 Container::make('post_meta', 'Configurações do filtro')
 	->where('post_template', '=', 'page-templates/csv-filter.php')
 	->add_fields(array(
