@@ -14,31 +14,31 @@ class OptionList extends React.Component {
 		}
 	}
 
-	/**
-	 * When flexbox items wrap in column mode, container does not grow its width
-	 * https://stackoverflow.com/questions/33891709/when-flexbox-items-wrap-in-column-mode-container-does-not-grow-its-width
-	 */
-	calculateOptionContainerWidth() {
-		const listItemElements = this.optionContainerRef.current.querySelectorAll('li')
-		const first = listItemElements[0]
-		const last = listItemElements[listItemElements.length - 1]
-		const firstRect = first.getBoundingClientRect()
-		const lastRect = last.getBoundingClientRect()
+	// /**
+	//  * When flexbox items wrap in column mode, container does not grow its width
+	//  * https://stackoverflow.com/questions/33891709/when-flexbox-items-wrap-in-column-mode-container-does-not-grow-its-width
+	//  */
+	// calculateOptionContainerWidth() {
+	// 	const listItemElements = this.optionContainerRef.current.querySelectorAll('li')
+	// 	const first = listItemElements[0]
+	// 	const last = listItemElements[listItemElements.length - 1]
+	// 	const firstRect = first.getBoundingClientRect()
+	// 	const lastRect = last.getBoundingClientRect()
 
-		this.setState({
-			optionContainerWidth: lastRect.x + lastRect.width - firstRect.x
-		})
-	}
+	// 	this.setState({
+	// 		optionContainerWidth: lastRect.x + lastRect.width - firstRect.x
+	// 	})
+	// }
 
-	componentDidMount() {
-		this.calculateOptionContainerWidth()
-	}
+	// componentDidMount() {
+	// 	this.calculateOptionContainerWidth()
+	// }
 
-	componentDidUpdate(prevProps, prevState) {
-		if (this.props.options.length !== prevProps.options.length) {
-			this.calculateOptionContainerWidth()
-		}
-	}
+	// componentDidUpdate(prevProps, prevState) {
+	// 	if (this.props.options.length !== prevProps.options.length) {
+	// 		this.calculateOptionContainerWidth()
+	// 	}
+	// }
 
 	render() {
 		const { label, options, onChangeOption } = this.props
