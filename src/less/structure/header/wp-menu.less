@@ -1,0 +1,89 @@
+/**
+ * Isolate styles for wordpress menu
+ */
+
+ul.menu {
+	width: 100%;
+	display: flex;
+	list-style: none;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-left: 0;
+
+	justify-content: space-between;
+
+	a {
+		text-decoration: none;
+		text-transform: uppercase;
+		display: block;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	> li {
+		position: relative;
+		white-space: nowrap;
+		padding-left: 10px;
+		padding-right: 10px;
+
+		> a:hover {
+
+		}
+
+		> ul.sub-menu {
+			list-style: none;
+			margin-top: 0;
+			margin-bottom: 0;
+			padding-left: 0;
+			display: none;
+
+			position: absolute;
+			top: 100%;
+
+			flex-direction: column;
+
+			> li {
+				white-space: nowrap;
+				background-color: white;
+
+				&:hover {
+					background-color: @color-gray-light;
+					color: @color-text-dark;
+				}
+			}
+		}
+
+		&:hover {
+			> ul.sub-menu {
+				display: flex;
+			}
+		}
+	}
+
+	@media (max-width: @mobile-max-width) {
+		flex-direction: column;
+
+		> li {
+			padding-left: 0;
+			padding-right: 0;
+
+			a {
+				padding-left: 0;
+				padding-right: 0;
+			}
+
+			> ul.sub-menu {
+				display: flex;
+				flex-direction: column;
+				position: static;
+
+				padding-left: 10px;
+
+				> li {
+					background-color: inherit;
+				}
+			}
+		}
+
+	}
+}

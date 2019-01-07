@@ -9,6 +9,8 @@
  * @package como-anda-wp-theme
  */
 
+$queried_object = get_queried_object();
+
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -21,6 +23,10 @@
 </head>
 
 <body <?php body_class(); ?>>
+
+<?php if ($queried_object->post_type === 'page' && get_page_template_slug($queried_object->ID) === 'page-templates/infografico-roda.php') : ?>
+	<!-- Infografico has a different header -->
+<?php else : ?>
 <header id="main-header">
 	<div class="container max-width-container side-padding-container">
 		<a
@@ -33,7 +39,14 @@
 				id="logo-illustration"
 				src="<?php echo get_template_directory_uri(); ?>/resources/ilustracoes/ilustracao-5.png">
 		</a>
-		<nav id="main-nav">
+
+    <button id="mobile-menu-trigger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+		<nav id="main-menu-container">
 			<?php
 				wp_nav_menu(array(
 					'theme_location' => 'main-menu',
@@ -43,3 +56,5 @@
 		</nav>
 	</div>
 </header>
+<div id="mobile-menu-overlay"></div>
+<?php endif; ?>

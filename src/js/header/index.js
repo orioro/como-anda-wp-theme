@@ -5,7 +5,6 @@ $(() => {
 	const $window = $(window)
 
 	const updateFarFromTop = () => {
-		console.log($window.scrollTop())
 		if ($window.scrollTop() > 10) {
 			$mainHeader.addClass('far-from-top')
 		} else {
@@ -16,6 +15,9 @@ $(() => {
 	$window.on('scroll', updateFarFromTop)
 })
 
+/**
+ * Transform header color according to section color
+ */
 $(() => {
 	const $mainHeader = $('#main-header')
 	const $window = $(window)
@@ -58,4 +60,21 @@ $(() => {
 	}
 
 	$window.on('scroll', updateHeaderColor)
+})
+
+/**
+ * Mobile menu trigger
+ */
+$(() => {
+	const $body = $('body')
+	const $menuTrigger = $('#mobile-menu-trigger')
+	const $menuOverlay = $('#mobile-menu-overlay')
+
+	$menuTrigger.on('click', () => {
+		$body.toggleClass('menu-open')
+	})
+
+	$menuOverlay.on('click', () => {
+		$body.removeClass('menu-open')
+	})
 })

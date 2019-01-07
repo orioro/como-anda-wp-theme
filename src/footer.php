@@ -9,8 +9,13 @@
  * @package como-anda-wp-theme
  */
 
+$queried_object = get_queried_object();
+
 ?>
 
+<?php if ($queried_object->post_type === 'page' && get_page_template_slug($queried_object->ID) === 'page-templates/infografico-roda.php') : ?>
+  <!-- Infográfico has a different footer -->
+<?php else : ?>
 <footer 
   id="main-footer"
   class="ca-bg-gray-light"
@@ -75,6 +80,7 @@
   </div>
 
 </footer>
+<?php endif; ?>
 
 <?php wp_footer(); ?>
 
