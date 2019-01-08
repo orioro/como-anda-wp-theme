@@ -24,6 +24,13 @@ get_header(); ?>
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>"
     data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
     <div class="container ca-page-section max-width-container side-padding-container">
+
+      <?php
+      $block_has_textual_items = $block['title'] ? true : false;
+      $block_has_link_images = count($block['link_images']) > 0;
+      ?>
+
+      <?php if ($block_has_textual_items) : ?>
   		<div class="row">
   			<div class="col-md-4 ca-page-section__image-container">
   				<img src="<?php echo wp_get_attachment_image_src($block['image'], 'ca-square-image')[0]; ?>">
@@ -56,11 +63,12 @@ get_header(); ?>
           <?php endif; ?>
   			</div>
   		</div>
+      <?php endif; ?>
 
-      <?php if (count($block['link_images']) > 0) : ?>
-  		<div class="row">
+      <?php if ($block_has_link_images) : ?>
+  		<div class="row <?php if (!$block_has_textual_items) : ?>ca-padding-top-6<?php else : ?>ca-padding-top-4<?php endif; ?> ca-padding-bottom-6">
   			<div class="col-md-12">
-  				<ul class="ca-link-image-list ca-link-image-list--vertical-images ca-padding-bottom-6">
+  				<ul class="ca-link-image-list ca-link-image-list--vertical-images">
   					<?php foreach ($block['link_images'] as $image) : ?>
   					<li>
   						<a

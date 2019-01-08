@@ -21,19 +21,22 @@ get_header(); ?>
 
 	<section id="mural-abertura">
 		<div class="container max-width-container side-padding-container ca-padding-top-6 ca-section-header">
-			<h1 class="ca-heading-1 ca-section-header__heading ca-padding-bottom-3">Mural Como Anda</h1>
+			<h1
+				data-component="ca-animated-text"
+				class="ca-heading-1 ca-decorative-border-bottom ca-padding-bottom-3 ca-animated-text not-visible">Mural **Como Anda**</h1>
 		</div>
 	</section>
 
 	<section id="mural-postagens">
-		<div class="container max-width-container side-padding-container  ca-section-header">
+		<div class="container max-width-container side-padding-container ca-section-header">
 			<div class="row">
 				<div class="col-md-8">
 					<div>
 						<?php while (have_posts()) : the_post(); ?>
 						<article class="ca-mural-post">
 							<div class="ca-mural-post__left">
-								<h4 class="ca-mural-post__left__date"><?php the_date(); ?></h4>
+								<h4
+									class="ca-mural-post__left__date"><?php echo get_the_date(); ?></h4>
 								
 								<a href="<?php the_permalink(); ?>">
 									<h2 class="ca-mural-post__left__heading"><?php the_title(); ?></h2>
@@ -60,9 +63,7 @@ get_header(); ?>
 				</div>
 
 				<aside class="col-md-4">
-				  <div>
-				    <?php get_search_form(true); ?>
-				  </div>
+				  <?php echo get_search_form(); ?>
 
 					<!-- sticky posts -->
 				  <?php
@@ -80,10 +81,10 @@ get_header(); ?>
 						<div>
 							<?php while ($ca_mural__sticky_posts_query->have_posts()) : $ca_mural__sticky_posts_query->the_post(); ?>
 
-			        <article class="swiper-slide">
-			          <a class= "swiper-slide__link" href="<?php the_permalink(); ?>">
+			        <article class="ca-highlight-thumbnail">
+			          <a class= "ca-highlight-thumbnail__link" href="<?php the_permalink(); ?>">
 			            <?php the_post_thumbnail(); ?>
-			            <h4 class="swiper-slide__link__title">
+			            <h4 class="ca-highlight-thumbnail__link__title">
 			              <?php the_title(); ?>
 			            </h4>
 			          </a>
