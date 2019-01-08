@@ -19,7 +19,7 @@ get_header(); ?>
 	<section
 		class="ca-timeline ca-bg-<?php echo $ca_page__color_scheme; ?>"
 		data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
-		<div class="container max-width-container side-padding-container ca-padding-top-6 ca-padding-bottom-6">
+		<div class="container max-width-container side-padding-container ca-padding-top-5 ca-padding-bottom-6">
 			<?php $ca_timeline__events = carbon_get_post_meta(get_the_ID(), 'ca_timeline__events'); ?>
 
 			<?php
@@ -115,7 +115,7 @@ get_header(); ?>
 								<?php foreach ($decade['events'] as $event) : ?>
 								<li class="ca-timeline-event-list__item">
 									<h3 class="ca-heading-3">
-										<?php echo $event['year'] ?><br>
+										<span class="ca-fg-white"><?php echo $event['year'] ?></span><br>
 										<?php echo $event['title'] ?>
 									</h3>
 									<div class="ca-timeline-event-list__item__body">

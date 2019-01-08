@@ -8,8 +8,7 @@ $ca_page_header__has_content = get_the_content() ? true : false;
 ?>
 
 <section
-	id="abertura"
-	class="ca-bg-<?php echo $ca_page__color_scheme; ?>"
+	class="ca-page-header ca-bg-<?php echo $ca_page__color_scheme; ?>"
 	data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
 	<div class="container max-width-container side-padding-container ca-padding-top-6 ca-section-header">
 		<div class="row">
@@ -22,9 +21,9 @@ $ca_page_header__has_content = get_the_content() ? true : false;
       </div>
 		</div>
 		<?php if ($ca_page_header__has_content) : ?>
-		<div class="row ca-padding-top-4">
+		<div class="row ca-padding-top-4 ca-padding-bottom-4">
       <div class="col-md-8 offset-md-4">
-				<div class="wysiwyg-content ca-section-header__contents ca-padding-bottom-3">
+				<div class="wysiwyg-content ca-section-header__contents">
 					<?php the_content(); ?>
 				</div>
       </div>
