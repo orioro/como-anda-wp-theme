@@ -26,7 +26,7 @@ get_header(); ?>
     <div class="container ca-page-section max-width-container side-padding-container">
   		<div class="row">
   			<div class="col-md-4 ca-page-section__image-container">
-  				<img src="<?php echo wp_get_attachment_image_src($block['image'])[0]; ?>">
+  				<img src="<?php echo wp_get_attachment_image_src($block['image'], 'ca-square-image')[0]; ?>">
   			</div>
     
   			<div class="col-md-8 ca-page-section__contents ca-margin-top-6">
