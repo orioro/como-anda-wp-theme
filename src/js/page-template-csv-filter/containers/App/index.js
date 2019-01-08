@@ -27,7 +27,8 @@ const mapOutputData = (applicationConfig, data) => {
 		buttonText: applicationConfig.outputButtonText,
 		metadata: applicationConfig.outputMetadataColumns.map(columnName => data[columnName]),
 		boldMetadata: applicationConfig.outputBoldMetadataColumns.map(columnName => data[columnName]),
-		tags: data[applicationConfig.outputTagsColumn].split(';')
+		tags: data[applicationConfig.outputTagsColumn] ?
+			data[applicationConfig.outputTagsColumn].split(';') : [],
 	}
 }
 
