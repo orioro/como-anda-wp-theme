@@ -23,6 +23,7 @@ Container::make('post_meta', 'Configurações da página')
 			)),
 		Field::make('text', 'ca_page__call_to_action', 'Chamada'),
 		Field::make('text', 'ca_page__related_pages_title', 'Título da seção de páginas relacionadas'),
+		Field::make('text', 'ca_page__header_title', 'Título da abertura da página')
 	));
 
 function ca_page__get_hover_color_scheme($page_color_scheme) {

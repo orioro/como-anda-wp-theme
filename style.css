@@ -422,6 +422,8 @@ template {
     top: 70px;
     left: 0;
     right: 0;
+    max-height: calc(100vh - 70px);
+    overflow: auto;
     padding-left: 20px;
     padding-right: 20px;
     background-color: inherit;
@@ -562,6 +564,8 @@ ul.menu > li:hover > ul.sub-menu {
   ul.menu > li a {
     padding-left: 0;
     padding-right: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
   ul.menu > li > ul.sub-menu {
     display: -webkit-box;
@@ -572,21 +576,22 @@ ul.menu > li:hover > ul.sub-menu {
     -ms-flex-direction: column;
     flex-direction: column;
     position: static;
-    padding-left: 10px;
+    padding-left: 30px;
   }
-  ul.menu > li > ul.sub-menu > li {
+  ul.menu > li > ul.sub-menu li {
     background-color: inherit;
+    font-size: 0.9em;
     /**
 					 * 3rd level forwards: on mobile hide those menus
 					 */
   }
-  ul.menu > li > ul.sub-menu > li ul.sub-menu {
+  ul.menu > li > ul.sub-menu li ul.sub-menu {
     display: none;
   }
-  ul.menu > li > ul.sub-menu > li:hover ul.sub-menu {
+  ul.menu > li > ul.sub-menu li:hover ul.sub-menu {
     display: none;
   }
-  ul.menu > li > ul.sub-menu > li.menu-item-has-children::before {
+  ul.menu > li > ul.sub-menu li.menu-item-has-children::before {
     display: none;
   }
 }
@@ -4118,9 +4123,6 @@ img {
     padding-bottom: 50px;
   }
 }
-.ca-section-header .ca-section-header__heading {
-  border-bottom: 2px black solid;
-}
 .ca-section-header .ca-section-header__contents {
   font-size: 1.3rem;
 }
@@ -4644,52 +4646,6 @@ img {
   }
   .ca-mural-post .ca-mural-post__right .ca-mural-post__right__thumbnail img {
     border: 4px solid white;
-  }
-}
-aside {
-  padding-bottom: 40px;
-  padding-top: 40px;
-}
-aside form #searchsubmit {
-  display: none;
-}
-aside form .screen-reader-text {
-  display: none;
-}
-aside form input {
-  width: 100%;
-  margin-bottom: 40px;
-  border: 1px solid black;
-  background-color: #ecabab;
-}
-aside h4 {
-  margin: 0;
-  padding-bottom: 20px;
-  font-size: 1rem;
-}
-aside .swiper-slide {
-  margin-bottom: 20px;
-}
-aside .swiper-slide .swiper-slide__link {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
-}
-aside .swiper-slide .swiper-slide__link img {
-  border: 4px solid white;
-  width: 30%;
-  margin-right: 10px;
-}
-aside .swiper-slide .swiper-slide__link .swiper-slide__link__title {
-  font-size: 0.8rem;
-  font-weight: normal;
-}
-@media (max-width: 450px) {
-  aside .swiper-slide {
-    display: none;
   }
 }
 a {
@@ -5426,6 +5382,9 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 .ca-animated-text.not-visible {
   opacity: 0;
 }
+.ca-decorative-border-bottom {
+  border-bottom: 2px black solid;
+}
 /**
  * React components
  */
@@ -5746,6 +5705,52 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
     -webkit-box-ordinal-group: 1;
     -ms-flex-order: 0;
     order: 0;
+  }
+}
+#page-template-mural #mural-postagens aside {
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+#page-template-mural #mural-postagens aside form #searchsubmit {
+  display: none;
+}
+#page-template-mural #mural-postagens aside form .screen-reader-text {
+  display: none;
+}
+#page-template-mural #mural-postagens aside form input {
+  width: 100%;
+  margin-bottom: 40px;
+  border: 1px solid black;
+  background-color: #ecabab;
+}
+#page-template-mural #mural-postagens aside h4 {
+  margin: 0;
+  padding-bottom: 20px;
+  font-size: 1rem;
+}
+#page-template-mural #mural-postagens aside .swiper-slide {
+  margin-bottom: 20px;
+}
+#page-template-mural #mural-postagens aside .swiper-slide .swiper-slide__link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+#page-template-mural #mural-postagens aside .swiper-slide .swiper-slide__link img {
+  border: 4px solid white;
+  width: 30%;
+  margin-right: 10px;
+}
+#page-template-mural #mural-postagens aside .swiper-slide .swiper-slide__link .swiper-slide__link__title {
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+@media (max-width: 450px) {
+  #page-template-mural #mural-postagens aside .swiper-slide {
+    display: none;
   }
 }
 #page-template-csv-filter #abertura {

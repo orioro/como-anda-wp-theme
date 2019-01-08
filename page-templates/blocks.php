@@ -13,30 +13,9 @@ get_header(); ?>
 		'ca_page__color_scheme'
 	);
   ?>
-	<section
-		id="abertura"
-		class="ca-bg-<?php echo $ca_page__color_scheme; ?>"
-    data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
-		<div class="container max-width-container side-padding-container ca-padding-top-6 ca-section-header">
-			<div class="row">
-				<div class="col-md-9 offset-md-3">
-          <h1
-            data-component="ca-animated-text"
-            class="ca-heading-1 ca-section-header__heading ca-padding-bottom-3 ca-animated-text not-visible">
-					<?php echo do_shortcode(carbon_get_post_meta(get_the_ID(), 'ca_blocks__abertura_title'));  ?>
-          </h1>
-				</div>
-			</div>
-			<div class="row ca-padding-top-4 ca-padding-bottom-4">
-				<div class="col-md-8 offset-md-4">
-          <div class="wysiwyg-content ca-section-header__contents">
-					 <?php the_content(); ?>
-          </div>
-				</div>
-			</div>
-		</div>
-	</section>
 
+  <?php require(dirname(__DIR__) . '/partials/page-header.php'); ?>
+  
 	<!-- Blocks -->
 	<?php $ca_blocks__blocks = carbon_get_post_meta(get_the_ID(), 'ca_blocks__blocks'); ?>
 	<?php foreach ($ca_blocks__blocks as $block) : ?>
