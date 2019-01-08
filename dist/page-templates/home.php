@@ -14,8 +14,7 @@ $ca_page__color_scheme = carbon_get_post_meta(
 
 <main id="page-template-home">
   <section
-    id="abertura"
-    class="ca-bg-<?php echo $ca_page__color_scheme; ?>"
+    class="ca-page-header ca-bg-<?php echo $ca_page__color_scheme; ?>"
     data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
     <div class="container max-width-container side-padding-container vertical-padding-container ca-section-header">
       <div class="row">

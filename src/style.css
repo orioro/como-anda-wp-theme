@@ -5657,9 +5657,6 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
     flex-direction: column-reverse;
   }
 }
-#page-template-mural {
-  padding-top: 190px;
-}
 #page-template-mural a {
   text-decoration: none;
 }

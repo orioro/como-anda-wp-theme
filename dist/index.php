@@ -19,7 +19,7 @@ get_header(); ?>
 	class="ca-bg-red-light"
   data-bg-color-section="red-light">
 
-	<section id="mural-abertura">
+	<section id="mural-abertura" class="ca-page-header">
 		<div class="container max-width-container side-padding-container ca-padding-top-6 ca-section-header">
 			<h1
 				data-component="ca-animated-text"
