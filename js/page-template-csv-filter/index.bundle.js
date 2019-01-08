@@ -25014,7 +25014,7 @@
 	    boldMetadata: applicationConfig.outputBoldMetadataColumns.map(function (columnName) {
 	      return data[columnName];
 	    }),
-	    tags: data[applicationConfig.outputTagsColumn].split(';')
+	    tags: data[applicationConfig.outputTagsColumn] ? data[applicationConfig.outputTagsColumn].split(';') : []
 	  };
 	};
 
