@@ -64,6 +64,7 @@ function ca__setup() {
 	add_action('carbon_fields_register_fields', 'ca__register_carbon_fields');
 	function ca__register_carbon_fields() {
 		require_once('inc/carbon-fields/theme-options.php');
+		require_once('inc/carbon-fields/post.php');
 		require_once('inc/carbon-fields/all-page-templates.php');
 		require_once('inc/carbon-fields/page-template-home.php');
 		require_once('inc/carbon-fields/page-template-blocks.php');

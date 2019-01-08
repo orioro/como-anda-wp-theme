@@ -25,6 +25,17 @@ ul.ca-timeline__decades-nav {
 		opacity: 0.4;
 		text-decoration: none;
 	}
+
+  > li {
+    flex-shrink: 0;
+    margin-right: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  overflow: auto;
 }
 
 .ca-timeline__toolbar {

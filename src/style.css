@@ -479,6 +479,12 @@ ul.menu > li {
   white-space: nowrap;
   padding-left: 10px;
   padding-right: 10px;
+  /**
+		 * 2nd level
+		 */
+}
+ul.menu > li > a:hover {
+  text-decoration: underline;
 }
 ul.menu > li > ul.sub-menu {
   list-style: none;
@@ -493,13 +499,49 @@ ul.menu > li > ul.sub-menu {
   -ms-flex-direction: column;
   flex-direction: column;
 }
-ul.menu > li > ul.sub-menu > li {
+ul.menu > li > ul.sub-menu li {
   white-space: nowrap;
   background-color: white;
+  position: relative;
+  /**
+				 * 3rd level forwards
+				 */
 }
-ul.menu > li > ul.sub-menu > li:hover {
+ul.menu > li > ul.sub-menu li ul.sub-menu {
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+ul.menu > li > ul.sub-menu li:hover {
   background-color: #E0E0E0;
   color: black;
+}
+ul.menu > li > ul.sub-menu li:hover ul.sub-menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+ul.menu > li > ul.sub-menu li.menu-item-has-children::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-left: 6px solid black;
+  border-bottom: 6px solid transparent;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 ul.menu > li:hover > ul.sub-menu {
   display: -webkit-box;
@@ -534,6 +576,18 @@ ul.menu > li:hover > ul.sub-menu {
   }
   ul.menu > li > ul.sub-menu > li {
     background-color: inherit;
+    /**
+					 * 3rd level forwards: on mobile hide those menus
+					 */
+  }
+  ul.menu > li > ul.sub-menu > li ul.sub-menu {
+    display: none;
+  }
+  ul.menu > li > ul.sub-menu > li:hover ul.sub-menu {
+    display: none;
+  }
+  ul.menu > li > ul.sub-menu > li.menu-item-has-children::before {
+    display: none;
   }
 }
 #main-header {
@@ -5169,6 +5223,7 @@ ul.ca-timeline__decades-nav {
   -ms-flex-pack: justify;
   justify-content: space-between;
   width: 100%;
+  overflow: auto;
 }
 ul.ca-timeline__decades-nav::after {
   content: '';
@@ -5182,6 +5237,14 @@ ul.ca-timeline__decades-nav::after {
 ul.ca-timeline__decades-nav a.empty {
   opacity: 0.4;
   text-decoration: none;
+}
+ul.ca-timeline__decades-nav > li {
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 20px;
+}
+ul.ca-timeline__decades-nav > li:last-child {
+  margin-right: 0;
 }
 .ca-timeline__toolbar {
   position: relative;

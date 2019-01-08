@@ -27,9 +27,12 @@ ul.menu {
 		padding-right: 10px;
 
 		> a:hover {
-
+			text-decoration: underline;
 		}
 
+		/**
+		 * 2nd level
+		 */
 		> ul.sub-menu {
 			list-style: none;
 			margin-top: 0;
@@ -42,13 +45,53 @@ ul.menu {
 
 			flex-direction: column;
 
-			> li {
+			li {
 				white-space: nowrap;
 				background-color: white;
+
+				position: relative;
+
+				/**
+				 * 3rd level forwards
+				 */
+				ul.sub-menu {
+					list-style: none;
+					margin-top: 0;
+					margin-bottom: 0;
+					padding-left: 0;
+
+					display: none;
+					// display: flex;
+					flex-direction: column;
+
+					position: absolute;
+					left: 100%;
+					top: 0;
+				}
 
 				&:hover {
 					background-color: @color-gray-light;
 					color: @color-text-dark;
+
+					ul.sub-menu {
+						display: flex;
+					}
+				}
+
+				&.menu-item-has-children {
+					&::before {
+						content: '';
+						width: 0;
+			      height: 0;
+			      border-top: 6px solid transparent;
+			      border-left: 6px solid @color-text-dark;
+			      border-bottom: 6px solid transparent;
+
+			      position: absolute;
+			      right: 10px;
+			      top: 50%;
+			      transform: translateY(-50%);
+					}
 				}
 			}
 		}
@@ -81,9 +124,27 @@ ul.menu {
 
 				> li {
 					background-color: inherit;
+
+					/**
+					 * 3rd level forwards: on mobile hide those menus
+					 */
+					ul.sub-menu {
+						display: none;
+					}
+
+					&:hover {
+						ul.sub-menu {
+							display: none;
+						}
+					}
+
+					&.menu-item-has-children {
+						&::before {
+							display: none;
+						}
+					}
 				}
 			}
 		}
-
 	}
 }

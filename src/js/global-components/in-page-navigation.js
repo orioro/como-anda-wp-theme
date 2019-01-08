@@ -64,11 +64,21 @@ export default () => {
 				$targetAnchor.attr('href')
 			)
 
+			let targetScrollTop = $targetSection.offset().top - $mainHeader.outerHeight()
+
+			if ($targetSection.attr('data-in-page-navigation-offset')) {
+				const offset = parseInt($targetSection.attr('data-in-page-navigation-offset'))
+
+				if (offset) {
+					targetScrollTop = targetScrollTop + offset
+				}
+			}
+
 			/**
 			 * Active / inactive
 			 */
 			jQuery('html, body').animate({
-				scrollTop: $targetSection.offset().top - $mainHeader.outerHeight(),
+				scrollTop: targetScrollTop,
 			})
 		}
 	})

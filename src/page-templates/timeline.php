@@ -127,7 +127,9 @@ get_header(); ?>
           </div>
 					<ul class="ca-timeline__decade-list">
 						<?php foreach ($ca_timeline__decades as $decade) : ?>
-						<li id="decada-<?php echo $decade['start']; ?>">
+						<li
+							id="decada-<?php echo $decade['start']; ?>"
+							data-in-page-navigation-offset="-42">
 							<ul class="ca-timeline__event-list">
 								<?php foreach ($decade['events'] as $event) : ?>
 								<li class="ca-timeline-event-list__item">

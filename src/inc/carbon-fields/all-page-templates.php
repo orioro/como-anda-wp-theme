@@ -3,6 +3,7 @@ use Carbon_Fields\Container;
 use Carbon_Fields\Field;
 
 Container::make('post_meta', 'Configurações da página')
+	->where('post_type', '=', 'page')
 	->add_fields(array(
 		Field::make('select', 'ca_page__color_scheme', 'Esquema de cor da página')
 			->set_options(array(

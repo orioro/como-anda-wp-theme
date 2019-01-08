@@ -39,6 +39,17 @@ export default {
 		const INITIAL_POSITION = $component.css('position') || 'static'
 
 		const makeSticky = () => {
+			// Put placeholder if none is set
+			if (!$placeholder) {
+				$placeholder = $('<div data-ca-sticky-element-placeholder></div>')
+
+				$placeholder.css({
+					position: INITIAL_POSITION,
+					height: $component.height(),
+				})
+				$placeholder.insertAfter($component)
+			}
+
 			$component.data('sticky-element-original-offset-top', $component.offset().top)
 
 			$component.addClass('active')
@@ -49,16 +60,6 @@ export default {
 				width: $component.width() + 'px',
 				transform: 'translateY(0)',
 			})
-
-			// Put placeholder if none is set
-			if (!$placeholder) {
-				$placeholder = $('<div data-ca-sticky-element-placeholder style="background-color: red;"></div>')
-				$placeholder.css({
-					position: INITIAL_POSITION,
-					height: $component.height(),
-				})
-				$placeholder.insertAfter($component)
-			}
 		}
 
 		const reverseSticky = () => {
@@ -109,6 +110,11 @@ export default {
 						)
 
 						$component.css('transform', `translateY(${yTranslation}px)`)
+					}
+
+					let topBoundary = getTopBoundary()
+					if ($component.offset().top !== topBoundary) {
+						$component.css('top', topBoundary)
 					}
 
 				} else {
