@@ -70,12 +70,17 @@ jQuery(() => {
 	const $body = jQuery('body')
 	const $menuTrigger = jQuery('#mobile-menu-trigger')
 	const $menuOverlay = jQuery('#mobile-menu-overlay')
+	const $mainMenuContainer = jQuery('#main-menu-container')
 
 	$menuTrigger.on('click', () => {
 		$body.toggleClass('menu-open')
 	})
 
 	$menuOverlay.on('click', () => {
+		$body.removeClass('menu-open')
+	})
+
+	$mainMenuContainer.on('click', 'a', e => {
 		$body.removeClass('menu-open')
 	})
 })

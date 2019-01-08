@@ -72,10 +72,14 @@
 	  var $body = jQuery('body');
 	  var $menuTrigger = jQuery('#mobile-menu-trigger');
 	  var $menuOverlay = jQuery('#mobile-menu-overlay');
+	  var $mainMenuContainer = jQuery('#main-menu-container');
 	  $menuTrigger.on('click', function () {
 	    $body.toggleClass('menu-open');
 	  });
 	  $menuOverlay.on('click', function () {
+	    $body.removeClass('menu-open');
+	  });
+	  $mainMenuContainer.on('click', 'a', function (e) {
 	    $body.removeClass('menu-open');
 	  });
 	});

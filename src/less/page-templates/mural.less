@@ -27,5 +27,56 @@
         }
       }
     }
+
+    aside {
+      padding-bottom: 40px;
+      padding-top: 40px;
+
+      form {
+
+        #searchsubmit {
+          display: none;
+        }
+        .screen-reader-text {
+          display: none;
+        }
+
+        input {
+          width: 100%;
+          margin-bottom: 40px;
+          border: 1px solid black;
+          background-color: #ecabab;
+        }
+      }
+
+      h4 {
+        margin: 0;
+        padding-bottom: 20px;
+        font-size: 1rem;
+      }
+
+      .swiper-slide {
+        margin-bottom: 20px;
+
+        .swiper-slide__link {
+          display: flex;
+          align-items: flex-start;
+          img {
+            border:4px solid white;
+            width: 30%;
+            margin-right: 10px;
+          }
+          .swiper-slide__link__title {
+            font-size: 0.8rem;
+            font-weight: normal;
+          }
+        }
+        @media (max-width: @mobile-max-width) {
+          display: none;
+        }
+      }
+
+    }
+    
   }
 }
