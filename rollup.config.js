@@ -19,11 +19,11 @@ const isFile = filepath => {
 	}
 }
 
-const scripts = fs.readdirSync(SCRIPTS_DIR).filter(name => {
-	return isFile(path.join(SCRIPTS_DIR, name, 'index.js'))
-})
-
-// const scripts = ['page-template-csv-filter']
+const scripts = process.env.ROLLUP_SCRIPTS_NAMES ?
+	process.env.ROLLUP_SCRIPTS_NAMES.split(',') :
+	fs.readdirSync(SCRIPTS_DIR).filter(name => {
+		return isFile(path.join(SCRIPTS_DIR, name, 'index.js'))
+	})
 
 const scriptConfig = scriptName => ({
 	input: `src/js/${scriptName}/index.js`,

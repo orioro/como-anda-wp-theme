@@ -32,7 +32,7 @@ const OutputCard = ({
   highlightWords
 }) => {
   const renterLinkButtonList = () => {
-    return linkButtons ? <ul className='ca-output-card__link-button-list'>
+    return linkButtons && linkButtons.length > 0 ? <ul className='ca-output-card__link-button-list'>
       {linkButtons.map(({ buttonText, url }, index) => {
         return buttonText && url ? <li key={index}>
           <a

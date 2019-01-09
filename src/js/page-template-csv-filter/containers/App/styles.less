@@ -37,7 +37,7 @@
 	}
 
 	> .ca-csv-filter-app__body {
-
+		padding-top: 20px;
 	}
 
 	> .ca-csv-filter-app__footer {
@@ -46,5 +46,34 @@
 		
 		display: flex;
 		justify-content: center;
+	}
+
+	@media (max-width: @tablet-max-width) {
+		> .ca-csv-filter-app__header {
+			> .ca-csv-filter-app__header__bar {
+				display: flex;
+				flex-direction: column;
+
+				> .ca-csv-filter-app__header__bar__left {
+					max-width: 100%;
+					flex-direction: column;
+
+					> * {
+						margin-right: 0;
+						margin-bottom: 10px;
+					}
+				}
+
+				> .ca-csv-filter-app__header__bar__right {
+					max-width: 100%;
+					flex-direction: column;
+
+					> * {
+						margin-left: 0;
+						margin-bottom: 10px;
+					}
+				}
+			}
+		}
 	}
 }

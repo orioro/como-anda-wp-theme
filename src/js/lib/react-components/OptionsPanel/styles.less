@@ -13,6 +13,10 @@
 	list-style: none;
 
 	display: flex;
+
+	@media (max-width: @tablet-max-width) {
+		flex-direction: column;
+	}
 }
 
 .ca-options-panel > ul > li {

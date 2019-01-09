@@ -12,6 +12,10 @@
 	flex-wrap: wrap;
 
 	margin-bottom: -10px;
+
+	@media (max-width: @mobile-max-width) {
+		flex-direction: column;
+	}
 }
 
 .ca-filter > ul > li {

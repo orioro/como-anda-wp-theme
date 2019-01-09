@@ -1,6 +1,5 @@
 .ca-output-card {
-  margin-top: 20px;
-  // margin-bottom: 40px;
+  margin-bottom: 20px;
   padding: 40px;
   background-color: rgba(255, 255, 255, 0.4);
   border: 2px solid @color-black;
@@ -49,14 +48,16 @@
       > .ca-output-card__body__side__subheading {
         font-size: 1rem;
       }
+
       > ul.ca-output-card__body__side__metadata {
         list-style: none;
         padding-left: 50px;
 
-        &--bold {
+        &.ca-output-card__body__side__metadata--bold {
           font-weight: bold;
         }
       }
+
       > ul.ca-output-card__body__side__tags {
         display: flex;
         flex-wrap: wrap;
@@ -81,7 +82,13 @@
     }
   }
 
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   @media (max-width: @mobile-max-width) {
+    padding: 20px;
+
     .ca-output-card__body {
       flex-direction: column;
       > .ca-output-card__body__main {
