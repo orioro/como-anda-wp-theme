@@ -17997,7 +17997,6 @@
 	};
 
 	var inPageNavigation = (function () {
-	  var $html = jQuery('html,body');
 	  var $mainHeader = jQuery('#main-header');
 
 	  var getBaseUrl = function getBaseUrl(postfix) {
