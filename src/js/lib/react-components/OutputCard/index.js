@@ -7,7 +7,11 @@ const MaybeHighlightedText = ({
   highlightWords,
   text
 }) => {
-  return highlightWords ? <Highlighter
+  const shouldHighlight = highlightWords && highlightWords.every(word => {
+    return word.length > 3
+  })
+  
+  return shouldHighlight ? <Highlighter
     highlightClassName='ca-output-card__search-highlight'
     searchWords={highlightWords}
     autoEscape={true}
@@ -30,7 +34,10 @@ const OutputCard = ({
 }) => {
 	return <div className='ca-output-card'>
     {heading ? <h2 className='ca-output-card__heading'>
-      {heading}
+      <MaybeHighlightedText
+        highlightWords={highlightWords}
+        text={heading}
+      />
     </h2> : null}
     <div className='ca-output-card__body'>
 

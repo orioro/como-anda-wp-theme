@@ -15,9 +15,11 @@ import {
 } from '../../reducers/query/actions'
 
 import {
-	applyParametersQuery,
-	applyTextSearchQuery
-} from '../../reducers/query/getters'
+	getMatchingEntries,
+	getFilterParameters,
+	getPaginationData,
+	getEntryOutputData,
+} from '../../reducers/getters'
 
 import {
 	loadCSV,
@@ -29,11 +31,6 @@ import TextSearchForm from '../../../lib/react-components/TextSearchForm'
 import OutputCard from '../../../lib/react-components/OutputCard'
 import PaginationControl from '../../../lib/react-components/PaginationControl'
 import LoadingIndicator from '../../../lib/react-components/LoadingIndicator'
-
-import {
-	mapOutputData,
-	SEARCHABLE_OUTPUT_DATA_PROPERTIES
-} from './data-mapping'
 
 class App extends React.Component {
 
@@ -86,11 +83,14 @@ class App extends React.Component {
 
 								this.scrollToTop()
 							}}
-							popUpTriggerClassName={`ca-bg-transparent ${HOVER_CLASSNAME}`}
+							getPopUpTriggerClassName={parameter => {
+								return `ca-bg-transparent ${HOVER_CLASSNAME} ${parameter.allSelected ? '' : 'active'}`
+							}}
 						/>
 					</div>
 					<div className='ca-csv-filter-app__header__bar__right'>
 						<TextSearchForm
+							className={`${HOVER_CLASSNAME} ${this.props.textSearchValue ? 'active': ''}`}
 							value={this.props.textSearchValue}
 							label='Buscar por palavra'
 							onChange={value => {
@@ -122,7 +122,7 @@ class App extends React.Component {
 				</div>
 			</header>
 			<div className='ca-csv-filter-app__body'>
-				{this.props.shownEntries.map(entry => {
+				{this.props.pageEntries.map(entry => {
 					return <OutputCard
 						key={entry._id}
 						{...entry}
@@ -135,10 +135,10 @@ class App extends React.Component {
 				})}
 			</div>
 			<footer className='ca-csv-filter-app__footer'>
-				<PaginationControl
+				{this.props.pages.length > 1 ? <PaginationControl
 					hasPreviousPage={this.props.hasPreviousPage}
 					hasNextPage={this.props.hasNextPage}
-					pages={this.props.shownPages}
+					pages={this.props.pages}
 					currentPageIndex={this.props.currentPageIndex}
 					onClickPrevious={() => {
 						this.props.setCurrentPageIndex(this.props.currentPageIndex - 1)
@@ -153,7 +153,7 @@ class App extends React.Component {
 						this.scrollToTop()
 					}}
 					buttonClassName={`${HOVER_CLASSNAME}`}
-				/>
+				/> : null}
 			</footer>
 		</div>
 	}
@@ -164,90 +164,16 @@ App.propTypes = {
 }
 
 const mapStateToProps = state => {
-	const applicationConfig = state.applicationConfig
-	const pageLength = state.pagination.pageLength
-	const currentPageIndex = state.pagination.currentPageIndex
-
-	const parameters = state.query.parameters.map(parameter => {
-		const allSelectedValue = state.query.values[parameter.id].allSelected
-		const availableItemsForAllSelected = applyParametersQuery(
-			state.entries,
-			{
-				...state.query.values,
-				[parameter.id]: {
-					allSelected: true,
-					selected: [],
-				}
-			}
-		).length
-
-		return {
-			...parameter,
-			allSelected: allSelectedValue,
-			allSelectedLabel: `Todos (${availableItemsForAllSelected})`,
-			optionLists: parameter.optionLists.map(optionList => {
-				return {
-					...optionList,
-					options: optionList.options.map(option => {
-						const optionIsSelected = state.query.values[parameter.id].selected.indexOf(option.id) !== -1
-						const availableItemsForOption = applyParametersQuery(
-							state.entries,
-							{
-								...state.query.values,
-								[parameter.id]: {
-									allSelected: false,
-									selected: [option.id]
-								}
-							}
-						).length
-
-						return {
-							...option,
-							label: `${option.label} (${availableItemsForOption})`,
-							value: optionIsSelected,
-							disabled: optionIsSelected ? false : availableItemsForOption === 0,
-						}
-					})
-				}
-			})
-		}
-	})
-
-	const parameterMatchedEntries = applyParametersQuery(
-		state.entries,
-		state.query.values
-	)
-	const matchedEntries = applyTextSearchQuery(
-		// match the text search query against the output data (makes configuration easier)
-		parameterMatchedEntries.map(entry => mapOutputData(state.applicationConfig, entry)),
-		SEARCHABLE_OUTPUT_DATA_PROPERTIES,
-		state.query.textSearchValue
-	)
-	const shownEntriesStartingIndex = pageLength * currentPageIndex
-	const shownEntriesEndingIndex = shownEntriesStartingIndex + pageLength
-	const shownEntries = matchedEntries.slice(shownEntriesStartingIndex, shownEntriesEndingIndex + 1)
-
-	const pageCount = matchedEntries.length % pageLength === 0 ?
-		matchedEntries.length / pageLength :
-		Math.floor(matchedEntries.length / pageLength) + 1
-
-	const shownPagesStartingIndex = Math.max(0, currentPageIndex - 2)
-	const shownPagesEndingIndex = shownPagesStartingIndex + 4
-	const shownPages = Array.apply(null, Array(pageCount))
-		.map((x, i) => i)
-		.slice(shownPagesStartingIndex, shownPagesEndingIndex + 1)
+	const matchingEntries = getMatchingEntries(state)
+	const paginationData = getPaginationData(state, matchingEntries)
+	paginationData.pageEntries = paginationData.pageEntries.map(getEntryOutputData.bind(null, state))
 
 	return {
 		applicationConfig: state.applicationConfig,
 		textSearchValue: state.query.textSearchValue,
 		loadingState: state.loadingState,
-		parameters,
-		shownEntries,
-
-		currentPageIndex: currentPageIndex,
-		hasPreviousPage: currentPageIndex > 0,
-		hasNextPage: currentPageIndex < (pageCount - 1),
-		shownPages,
+		parameters: getFilterParameters(state),
+		...paginationData,
 	}
 }
 

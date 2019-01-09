@@ -2,7 +2,7 @@ const parseConfig = () => {
 	const configElement = document.getElementById('ca-csv-filter-config')
 	const config = JSON.parse(configElement.innerHTML)
 
-	return {
+	const parsed = {
 		csvFile: config.csv_file,
 		backgroundColorScheme: config.background_color_scheme,
 		hoverColorScheme: config.hover_color_scheme,
@@ -42,6 +42,18 @@ const parseConfig = () => {
 		outputMetadataColumns: config.output_metadata_columns.map(i => i.column_name),
 		outputBoldMetadataColumns: config.output_bold_metadata_columns.map(i => i.column_name),
 		outputTagsColumn: config.output_tags_column,
+	}
+
+	return {
+		...parsed,
+		textSearchColumns: [
+			parsed.outputHeadingColumn,
+			parsed.outputDescriptionColumn,
+			parsed.outputTagsColumn,
+			...parsed.outputSubHeadingColumns,
+			...parsed.outputMetadataColumns,
+			...parsed.outputBoldMetadataColumns
+		].filter(Boolean)
 	}
 }
 

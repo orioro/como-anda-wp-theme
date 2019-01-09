@@ -7,7 +7,7 @@ require_once(dirname(__DIR__) . '/auxiliary.php');
 Container::make('post_meta', 'Blocos da página')
 	->where('post_template', '=', 'page-templates/blocks.php')
 	->add_fields(array(
-		Field::make('complex', 'ca_blocks__blocks', 'Blocos')
+		Field::make('complex', 'ca_blocks__blocks', 'Blocos da página')
 			->set_layout('tabbed-vertical')
 			->add_fields(array(
 				Field::make('text', 'title', 'Título'),
@@ -17,16 +17,6 @@ Container::make('post_meta', 'Blocos da página')
 				Field::make('rich_text', 'content', 'Conteúdo'),
 				Field::make('image', 'image', 'Imagem'),
 				ca_aux__make_link_buttons_field('link_buttons', 'Links (botões)'),
-				// Field::make('complex', 'link_buttons', 'Links (botões)')
-				// 	->set_layout('tabbed-vertical')
-				// 	->add_fields(array(
-				// 		Field::make('text', 'text', 'Texto'),
-				// 		Field::make('text', 'url', 'URL'),
-				// 		Field::make('file', 'file', 'Arquivo'),
-				// 		Field::make('checkbox', 'target_blank', 'Abrir em nova aba'),
-				// 		Field::make('checkbox', 'is_typeform', 'É link do typeform'),
-				// 	))
-				// 	->set_header_template('<%- $_index + 1 %> <% if (text) { %>- <%- text %><% } %>'),
 				Field::make('complex', 'link_images', 'Links (imagens)')
 					->set_layout('tabbed-vertical')
 					->add_fields(array(
@@ -38,5 +28,5 @@ Container::make('post_meta', 'Blocos da página')
 					))
 					->set_header_template('<%- $_index + 1 %> <% if (text) { %>- <%- text %><% } %>'),
 			))
-			->set_header_template('<%- $_index + 1 %> <% if (title) { %>- <%- title %><% } %>')
+			->set_header_template('<%- $_index + 1 %> <% if (title) { %>- <%- title %><% } %>'),
 	));

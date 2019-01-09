@@ -1,4 +1,5 @@
 .ca-text-search-form {
+  position: relative;
   display: flex;
   align-items: center;
   border-width: 1px;
@@ -16,23 +17,50 @@
     padding: 16px 4px 16px 20px;
     outline: none;
 
+    margin-right: 15px + 8px + 4px;
+
     &::placeholder {
       color: inherit;
     }
 	}
 
-	> button[type="submit"] {
+  > button {
     flex-grow: 0;
     flex-shrink: 0;
-    width: 25px;
-    height: 25px;
 
-    margin-right: 8px;
-
-    color: inherit;
-    background-color: transparent;
-    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     padding: 0;
+    border: none;
+    color: inherit;
+
+    cursor: pointer;
+
+    > svg {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  > button.ca-text-search-form__cancel-button {
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+
+    width: 15px;
+    height: 15px;
+
+    background-color: transparent;
+  }
+
+	> button[type="submit"] {
+    width: 24px;
+    height: 24px;
+
+    margin-right: 8px;
+    background-color: transparent;
 	}
 }

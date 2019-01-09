@@ -1,3 +1,7 @@
+const strMatchesTextSearch = (str, textSearchValue) => {
+	return str.toLowerCase().includes(textSearchValue)
+}
+
 export const applyParametersQuery = (items, parameterValues) => {
 	return items.filter(item => {
 		return Object.keys(parameterValues).every(parameterId => {
@@ -8,18 +12,14 @@ export const applyParametersQuery = (items, parameterValues) => {
 			} else {
 				return value.selected.some(parameterValue => {
 					return item[parameterId] &&
-								 item[parameterId].toLowerCase().includes(parameterValue.toLowerCase())
+								 strMatchesTextSearch(item[parameterId], parameterValue.toLowerCase())
 				})
 			}
 		})
 	})
 }
 
-const strMatchesTextSearch = (str, textSearchValue) => {
-	return str.toLowerCase().includes(textSearchValue)
-}
-
-export const applyTextSearchQuery = (items, searchProperties, textSearchValue) => {
+export const applyTextSearchQuery = (items, textSearchProperties, textSearchValue) => {
 	if (!textSearchValue) {
 		return items
 	}
@@ -27,9 +27,14 @@ export const applyTextSearchQuery = (items, searchProperties, textSearchValue) =
 	textSearchValue = textSearchValue.toLowerCase()
 
 	return items.filter(item => {
-		return searchProperties.some(prop => {
+		return textSearchProperties.some(prop => {
 			const value = item[prop]
-			return value && Array.isArray(value) ?
+
+			if (!value) {
+				return false
+			}
+
+			return Array.isArray(value) ?
 				value.some(v => v && strMatchesTextSearch(v, textSearchValue)) :
 				strMatchesTextSearch(value, textSearchValue)
 		})
@@ -37,9 +42,17 @@ export const applyTextSearchQuery = (items, searchProperties, textSearchValue) =
 }
 
 export const applyFullQuery = (items, {
-	searchProperties,
-	textSearchValue,
-	parameterValues
+	parameterValues,
+	textSearchProperties,
+	textSearchValue
 }) => {
-
+	return applyTextSearchQuery(
+		// Apply text search query only after applying parameters query
+		applyParametersQuery(
+			items,
+			parameterValues
+		),
+		textSearchProperties,
+		textSearchValue
+	)
 }

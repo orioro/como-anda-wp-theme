@@ -9,7 +9,7 @@ const Filter = ({
 	onParameterSelectAll,
 	onParameterDeselectAll,
 	onParameterChangeOption,
-	popUpTriggerClassName
+	getPopUpTriggerClassName
 }) => {
 	return <div className='ca-filter'>
 		<ul>
@@ -17,7 +17,7 @@ const Filter = ({
 				return <li key={parameter.id}>
 					<PopUp
 						label={parameter.label}
-						triggerClassName={popUpTriggerClassName}
+						triggerClassName={getPopUpTriggerClassName ? getPopUpTriggerClassName(parameter) : ''}
 						render={() => {
 							return <OptionsPanel
 								{...parameter}
@@ -44,7 +44,7 @@ Filter.propTypes = {
 	onParameterSelectAll: PropTypes.func.isRequired,
 	onParameterDeselectAll: PropTypes.func.isRequired,
 	onParameterChangeOption: PropTypes.func.isRequired,
-	popUpTriggerClassName: PropTypes.string,
+	getPopUpTriggerClassName: PropTypes.func,
 }
 
 export default Filter
