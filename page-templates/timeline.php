@@ -83,18 +83,20 @@ get_header(); ?>
 				data-component="ca-sticky-element"
 				data-ca-sticky-element-top="#main-header"
 				data-ca-sticky-element-bottom=".ca-related-content">
-				<div class="col-md-12">
-					<ul class="ca-timeline__decades-nav">
-						<?php foreach ($ca_timeline__decades as $decade) : ?>
-						<li>
-							<a
-								<?php echo count($decade['events']) > 0 ? 'href="#decada-' . $decade['start'] . '"' : ''; ?>
-								class="<?php echo count($decade['events']) === 0 ? 'empty' : ''; ?>">
-								<?php echo $decade['start']; ?> (<?php echo count($decade['events']); ?>)
-							</a>
-						</li>
-						<?php endforeach; ?>
-					</ul>
+				<div class="col-md-12 ">
+					<div class="ca-decorative-border-bottom">
+						<ul class="ca-timeline__decades-nav">
+							<?php foreach ($ca_timeline__decades as $decade) : ?>
+							<li>
+								<a
+									<?php echo count($decade['events']) > 0 ? 'href="#decada-' . $decade['start'] . '"' : ''; ?>
+									class="<?php echo count($decade['events']) === 0 ? 'empty' : ''; ?>">
+									<?php echo $decade['start']; ?> (<?php echo count($decade['events']); ?>)
+								</a>
+							</li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
 				</div>
 			</div>
 			<div class="row">

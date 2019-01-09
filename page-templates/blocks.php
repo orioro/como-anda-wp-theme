@@ -17,13 +17,16 @@ get_header(); ?>
   <?php require(dirname(__DIR__) . '/partials/page-header.php'); ?>
   
 	<!-- Blocks -->
-	<?php $ca_blocks__blocks = carbon_get_post_meta(get_the_ID(), 'ca_blocks__blocks'); ?>
-	<?php foreach ($ca_blocks__blocks as $block) : ?>
+	<?php
+  $ca_blocks__blocks = carbon_get_post_meta(get_the_ID(), 'ca_blocks__blocks');
+  $ca_blocks__blocks_count = count($ca_blocks__blocks);
+  ?>
+	<?php foreach ($ca_blocks__blocks as $block_index => $block) : ?>
 	<section
 		id="<?php echo sanitize_title($block['id'] ? $block['id'] : $block['title']); ?>"
-		class="ca-bg-<?php echo $ca_page__color_scheme; ?>"
+		class="ca-page-section ca-bg-<?php echo $ca_page__color_scheme; ?> <?php if ($block_index === $ca_blocks__blocks_count - 1) : ?>ca-page-section--last<?php endif; ?>"
     data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
-    <div class="container ca-page-section max-width-container side-padding-container">
+    <div class="container max-width-container side-padding-container">
 
       <?php
       $block_has_textual_items = $block['title'] ? true : false;
@@ -43,9 +46,12 @@ get_header(); ?>
   				</h3>
           <?php endif; ?>
 
+          <?php if ($block['content']) : ?>
   				<div class="wysiwyg-content ca-page-section__contents_description">
   					<?php echo apply_filters('the_content', $block['content']); ?>
   				</div>
+          <?php endif; ?>
+
           <?php if (count($block['link_buttons']) > 0) : ?>
   				<ul class="ca-link-button-list ca-padding-bottom-6">
   					<?php foreach ($block['link_buttons'] as $button) : ?>

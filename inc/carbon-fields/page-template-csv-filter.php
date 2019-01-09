@@ -95,6 +95,11 @@ function ca_csv_filter__get_config($post_id) {
 	// file
 	$config['csv_file'] = wp_get_attachment_url($config['csv_file']);
 
+	// hover color scheme
+	$config['hover_color_scheme'] = ca_page__get_hover_color_scheme(
+		carbon_get_post_meta($post_id, 'ca_page__color_scheme')
+	);
+	
 	return $config;
 }
 
