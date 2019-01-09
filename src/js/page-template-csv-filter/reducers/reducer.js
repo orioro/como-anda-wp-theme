@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import query from './query/reducer'
+import pagination from './pagination'
 
 const entries = (state = [], action) => {
 	switch (action.type) {
@@ -33,4 +34,5 @@ export default combineReducers({
 	query,
 	loadingState,
 	applicationConfig,
+	pagination,
 })

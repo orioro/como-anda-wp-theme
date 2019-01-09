@@ -25,8 +25,8 @@ get_header(); ?>
 	<section
 		class="ca-bg-<?php echo $ca_page__color_scheme; ?>"
 		data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
-		<div class="container ca-page-section  max-width-container side-padding-container">
-			<div id="react-app-root" class="ca-page-section__contents ca-padding-top-6">
+		<div class="container ca-page-section max-width-container side-padding-container">
+			<div id="react-app-root">
 				<!-- Elemento raiz do app React -->
 			</div>
 		</div>

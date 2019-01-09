@@ -1,0 +1,45 @@
+.ca-csv-filter-app {
+	min-height: 100px;
+	position: relative; // For loading indicator
+
+	> .ca-csv-filter-app__header {
+		> .ca-csv-filter-app__header__bar {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+
+			padding-top: 20px;
+			padding-bottom: 20px;
+			border-bottom: 2px solid black;
+
+			> div {
+				display: flex;
+				align-items: center;
+			}
+
+			> .ca-csv-filter-app__header__bar__left {
+				> h3 {
+					margin-right: 30px;
+				}
+			}
+
+			> .ca-csv-filter-app__header__bar__right {
+				> * {
+					margin-left: 10px;
+				}
+			}
+		}
+	}
+
+	> .ca-csv-filter-app__body {
+
+	}
+
+	> .ca-csv-filter-app__footer {
+		padding-top: 40px;
+		padding-bottom: 40px;
+		
+		display: flex;
+		justify-content: center;
+	}
+}

@@ -23964,6 +23964,55 @@
 	  throw new TypeError("Invalid attempt to spread non-iterable instance");
 	}
 
+	var classnames = createCommonjsModule(function (module) {
+	/*!
+	  Copyright (c) 2017 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+
+	(function () {
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames () {
+			var classes = [];
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg) && arg.length) {
+					var inner = classNames.apply(null, arg);
+					if (inner) {
+						classes.push(inner);
+					}
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+
+			return classes.join(' ');
+		}
+
+		if (module.exports) {
+			classNames.default = classNames;
+			module.exports = classNames;
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+	});
+
 	var queryDefineParameters = function queryDefineParameters(parameters) {
 	  return {
 	    type: 'QUERY_DEFINE_PARAMETERS',
@@ -24005,6 +24054,50 @@
 	      parameterId: parameterId
 	    }
 	  };
+	};
+	var querySetTextSearchValue = function querySetTextSearchValue(value) {
+	  return {
+	    type: 'QUERY_SET_TEXT_SEARCH_VALUE',
+	    payload: {
+	      value: value
+	    }
+	  };
+	};
+
+	var applyParametersQuery = function applyParametersQuery(items, parameterValues) {
+	  return items.filter(function (item) {
+	    return Object.keys(parameterValues).every(function (parameterId) {
+	      var value = parameterValues[parameterId];
+
+	      if (value.allSelected) {
+	        return true;
+	      } else {
+	        return value.selected.some(function (parameterValue) {
+	          return item[parameterId] && item[parameterId].toLowerCase().includes(parameterValue.toLowerCase());
+	        });
+	      }
+	    });
+	  });
+	};
+
+	var strMatchesTextSearch = function strMatchesTextSearch(str, textSearchValue) {
+	  return str.toLowerCase().includes(textSearchValue);
+	};
+
+	var applyTextSearchQuery = function applyTextSearchQuery(items, searchProperties, textSearchValue) {
+	  if (!textSearchValue) {
+	    return items;
+	  }
+
+	  textSearchValue = textSearchValue.toLowerCase();
+	  return items.filter(function (item) {
+	    return searchProperties.some(function (prop) {
+	      var value = item[prop];
+	      return value && Array.isArray(value) ? value.some(function (v) {
+	        return v && strMatchesTextSearch(v, textSearchValue);
+	      }) : strMatchesTextSearch(value, textSearchValue);
+	    });
+	  });
 	};
 
 	var support = {
@@ -24534,6 +24627,14 @@
 	Array.isArray||(Array.isArray=function(e){return "[object Array]"===Object.prototype.toString.call(e)}),function(e,t){module.exports=t();}(commonjsGlobal,function(){var s,e,f="undefined"!=typeof self?self:"undefined"!=typeof window?window:void 0!==f?f:{},n=!f.document&&!!f.postMessage,o=n&&/(\?|&)papaworker(=|&|$)/.test(f.location.search),a=!1,h={},u=0,k={parse:function(e,t){var r=(t=t||{}).dynamicTyping||!1;M(r)&&(t.dynamicTypingFunction=r,r={});if(t.dynamicTyping=r,t.transform=!!M(t.transform)&&t.transform,t.worker&&k.WORKERS_SUPPORTED){var i=function(){if(!k.WORKERS_SUPPORTED)return !1;if(!a&&null===k.SCRIPT_PATH)throw new Error("Script path cannot be determined automatically when Papa Parse is loaded asynchronously. You need to set Papa.SCRIPT_PATH manually.");var e=k.SCRIPT_PATH||s;e+=(-1!==e.indexOf("?")?"&":"?")+"papaworker";var t=new f.Worker(e);return t.onmessage=m,t.id=u++,h[t.id]=t}();return i.userStep=t.step,i.userChunk=t.chunk,i.userComplete=t.complete,i.userError=t.error,t.step=M(t.step),t.chunk=M(t.chunk),t.complete=M(t.complete),t.error=M(t.error),delete t.worker,void i.postMessage({input:e,config:t,workerId:i.id})}var n=null;"string"==typeof e?n=t.download?new c(t):new g(t):!0===e.readable&&M(e.read)&&M(e.on)?n=new _(t):(f.File&&e instanceof File||e instanceof Object)&&(n=new p(t));return n.stream(e)},unparse:function(e,t){var i=!1,_=!0,m=",",y="\r\n",n='"',r=!1;!function(){if("object"!=typeof t)return;"string"!=typeof t.delimiter||k.BAD_DELIMITERS.filter(function(e){return -1!==t.delimiter.indexOf(e)}).length||(m=t.delimiter);("boolean"==typeof t.quotes||Array.isArray(t.quotes))&&(i=t.quotes);"boolean"!=typeof t.skipEmptyLines&&"string"!=typeof t.skipEmptyLines||(r=t.skipEmptyLines);"string"==typeof t.newline&&(y=t.newline);"string"==typeof t.quoteChar&&(n=t.quoteChar);"boolean"==typeof t.header&&(_=t.header);}();var s=new RegExp(n,"g");"string"==typeof e&&(e=JSON.parse(e));if(Array.isArray(e)){if(!e.length||Array.isArray(e[0]))return o(null,e,r);if("object"==typeof e[0])return o(a(e[0]),e,r)}else if("object"==typeof e)return "string"==typeof e.data&&(e.data=JSON.parse(e.data)),Array.isArray(e.data)&&(e.fields||(e.fields=e.meta&&e.meta.fields),e.fields||(e.fields=Array.isArray(e.data[0])?e.fields:a(e.data[0])),Array.isArray(e.data[0])||"object"==typeof e.data[0]||(e.data=[e.data])),o(e.fields||[],e.data||[],r);throw"exception: Unable to serialize unrecognized input";function a(e){if("object"!=typeof e)return [];var t=[];for(var r in e)t.push(r);return t}function o(e,t,r){var i="";"string"==typeof e&&(e=JSON.parse(e)),"string"==typeof t&&(t=JSON.parse(t));var n=Array.isArray(e)&&0<e.length,s=!Array.isArray(t[0]);if(n&&_){for(var a=0;a<e.length;a++)0<a&&(i+=m),i+=v(e[a],a);0<t.length&&(i+=y);}for(var o=0;o<t.length;o++){var h=n?e.length:t[o].length,u=!1,f=n?0===Object.keys(t[o]).length:0===t[o].length;if(r&&!n&&(u="greedy"===r?""===t[o].join("").trim():1===t[o].length&&0===t[o][0].length),"greedy"===r&&n){for(var d=[],l=0;l<h;l++){var c=s?e[l]:l;d.push(t[o][c]);}u=""===d.join("").trim();}if(!u){for(var p=0;p<h;p++){0<p&&!f&&(i+=m);var g=n&&s?e[p]:p;i+=v(t[o][g],p);}o<t.length-1&&(!r||0<h&&!f)&&(i+=y);}}return i}function v(e,t){if(null==e)return "";if(e.constructor===Date)return JSON.stringify(e).slice(1,25);e=e.toString().replace(s,n+n);var r="boolean"==typeof i&&i||Array.isArray(i)&&i[t]||function(e,t){for(var r=0;r<t.length;r++)if(-1<e.indexOf(t[r]))return !0;return !1}(e,k.BAD_DELIMITERS)||-1<e.indexOf(m)||" "===e.charAt(0)||" "===e.charAt(e.length-1);return r?n+e+n:e}}};if(k.RECORD_SEP=String.fromCharCode(30),k.UNIT_SEP=String.fromCharCode(31),k.BYTE_ORDER_MARK="\ufeff",k.BAD_DELIMITERS=["\r","\n",'"',k.BYTE_ORDER_MARK],k.WORKERS_SUPPORTED=!n&&!!f.Worker,k.SCRIPT_PATH=null,k.NODE_STREAM_INPUT=1,k.LocalChunkSize=10485760,k.RemoteChunkSize=5242880,k.DefaultDelimiter=",",k.Parser=b,k.ParserHandle=r,k.NetworkStreamer=c,k.FileStreamer=p,k.StringStreamer=g,k.ReadableStreamStreamer=_,f.jQuery){var d=f.jQuery;d.fn.parse=function(o){var r=o.config||{},h=[];return this.each(function(e){if(!("INPUT"===d(this).prop("tagName").toUpperCase()&&"file"===d(this).attr("type").toLowerCase()&&f.FileReader)||!this.files||0===this.files.length)return !0;for(var t=0;t<this.files.length;t++)h.push({file:this.files[t],inputElem:this,instanceConfig:d.extend({},r)});}),e(),this;function e(){if(0!==h.length){var e,t,r,i,n=h[0];if(M(o.before)){var s=o.before(n.file,n.inputElem);if("object"==typeof s){if("abort"===s.action)return e="AbortError",t=n.file,r=n.inputElem,i=s.reason,void(M(o.error)&&o.error({name:e},t,r,i));if("skip"===s.action)return void u();"object"==typeof s.config&&(n.instanceConfig=d.extend(n.instanceConfig,s.config));}else if("skip"===s)return void u()}var a=n.instanceConfig.complete;n.instanceConfig.complete=function(e){M(a)&&a(e,n.file,n.inputElem),u();},k.parse(n.file,n.instanceConfig);}else M(o.complete)&&o.complete();}function u(){h.splice(0,1),e();}};}function l(e){this._handle=null,this._finished=!1,this._completed=!1,this._input=null,this._baseIndex=0,this._partialLine="",this._rowCount=0,this._start=0,this._nextChunk=null,this.isFirstChunk=!0,this._completeResults={data:[],errors:[],meta:{}},function(e){var t=w(e);t.chunkSize=parseInt(t.chunkSize),e.step||e.chunk||(t.chunkSize=null);this._handle=new r(t),(this._handle.streamer=this)._config=t;}.call(this,e),this.parseChunk=function(e,t){if(this.isFirstChunk&&M(this._config.beforeFirstChunk)){var r=this._config.beforeFirstChunk(e);void 0!==r&&(e=r);}this.isFirstChunk=!1;var i=this._partialLine+e;this._partialLine="";var n=this._handle.parse(i,this._baseIndex,!this._finished);if(!this._handle.paused()&&!this._handle.aborted()){var s=n.meta.cursor;this._finished||(this._partialLine=i.substring(s-this._baseIndex),this._baseIndex=s),n&&n.data&&(this._rowCount+=n.data.length);var a=this._finished||this._config.preview&&this._rowCount>=this._config.preview;if(o)f.postMessage({results:n,workerId:k.WORKER_ID,finished:a});else if(M(this._config.chunk)&&!t){if(this._config.chunk(n,this._handle),this._handle.paused()||this._handle.aborted())return;n=void 0,this._completeResults=void 0;}return this._config.step||this._config.chunk||(this._completeResults.data=this._completeResults.data.concat(n.data),this._completeResults.errors=this._completeResults.errors.concat(n.errors),this._completeResults.meta=n.meta),this._completed||!a||!M(this._config.complete)||n&&n.meta.aborted||(this._config.complete(this._completeResults,this._input),this._completed=!0),a||n&&n.meta.paused||this._nextChunk(),n}},this._sendError=function(e){M(this._config.error)?this._config.error(e):o&&this._config.error&&f.postMessage({workerId:k.WORKER_ID,error:e,finished:!1});};}function c(e){var i;(e=e||{}).chunkSize||(e.chunkSize=k.RemoteChunkSize),l.call(this,e),this._nextChunk=n?function(){this._readChunk(),this._chunkLoaded();}:function(){this._readChunk();},this.stream=function(e){this._input=e,this._nextChunk();},this._readChunk=function(){if(this._finished)this._chunkLoaded();else{if(i=new XMLHttpRequest,this._config.withCredentials&&(i.withCredentials=this._config.withCredentials),n||(i.onload=C(this._chunkLoaded,this),i.onerror=C(this._chunkError,this)),i.open("GET",this._input,!n),this._config.downloadRequestHeaders){var e=this._config.downloadRequestHeaders;for(var t in e)i.setRequestHeader(t,e[t]);}if(this._config.chunkSize){var r=this._start+this._config.chunkSize-1;i.setRequestHeader("Range","bytes="+this._start+"-"+r),i.setRequestHeader("If-None-Match","webkit-no-cache");}try{i.send();}catch(e){this._chunkError(e.message);}n&&0===i.status?this._chunkError():this._start+=this._config.chunkSize;}},this._chunkLoaded=function(){4===i.readyState&&(i.status<200||400<=i.status?this._chunkError():(this._finished=!this._config.chunkSize||this._start>function(e){var t=e.getResponseHeader("Content-Range");if(null===t)return -1;return parseInt(t.substr(t.lastIndexOf("/")+1))}(i),this.parseChunk(i.responseText)));},this._chunkError=function(e){var t=i.statusText||e;this._sendError(new Error(t));};}function p(e){var i,n;(e=e||{}).chunkSize||(e.chunkSize=k.LocalChunkSize),l.call(this,e);var s="undefined"!=typeof FileReader;this.stream=function(e){this._input=e,n=e.slice||e.webkitSlice||e.mozSlice,s?((i=new FileReader).onload=C(this._chunkLoaded,this),i.onerror=C(this._chunkError,this)):i=new FileReaderSync,this._nextChunk();},this._nextChunk=function(){this._finished||this._config.preview&&!(this._rowCount<this._config.preview)||this._readChunk();},this._readChunk=function(){var e=this._input;if(this._config.chunkSize){var t=Math.min(this._start+this._config.chunkSize,this._input.size);e=n.call(e,this._start,t);}var r=i.readAsText(e,this._config.encoding);s||this._chunkLoaded({target:{result:r}});},this._chunkLoaded=function(e){this._start+=this._config.chunkSize,this._finished=!this._config.chunkSize||this._start>=this._input.size,this.parseChunk(e.target.result);},this._chunkError=function(){this._sendError(i.error);};}function g(e){var r;l.call(this,e=e||{}),this.stream=function(e){return r=e,this._nextChunk()},this._nextChunk=function(){if(!this._finished){var e=this._config.chunkSize,t=e?r.substr(0,e):r;return r=e?r.substr(e):"",this._finished=!r,this.parseChunk(t)}};}function _(e){l.call(this,e=e||{});var t=[],r=!0,i=!1;this.pause=function(){l.prototype.pause.apply(this,arguments),this._input.pause();},this.resume=function(){l.prototype.resume.apply(this,arguments),this._input.resume();},this.stream=function(e){this._input=e,this._input.on("data",this._streamData),this._input.on("end",this._streamEnd),this._input.on("error",this._streamError);},this._checkIsFinished=function(){i&&1===t.length&&(this._finished=!0);},this._nextChunk=function(){this._checkIsFinished(),t.length?this.parseChunk(t.shift()):r=!0;},this._streamData=C(function(e){try{t.push("string"==typeof e?e:e.toString(this._config.encoding)),r&&(r=!1,this._checkIsFinished(),this.parseChunk(t.shift()));}catch(e){this._streamError(e);}},this),this._streamError=C(function(e){this._streamCleanUp(),this._sendError(e);},this),this._streamEnd=C(function(){this._streamCleanUp(),i=!0,this._streamData("");},this),this._streamCleanUp=C(function(){this._input.removeListener("data",this._streamData),this._input.removeListener("end",this._streamEnd),this._input.removeListener("error",this._streamError);},this);}function r(_){var a,o,h,i=/^\s*-?(\d*\.?\d+|\d+\.?\d*)(e[-+]?\d+)?\s*$/i,n=/(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/,t=this,r=0,s=0,u=!1,e=!1,f=[],d={data:[],errors:[],meta:{}};if(M(_.step)){var l=_.step;_.step=function(e){if(d=e,p())c();else{if(c(),0===d.data.length)return;r+=e.data.length,_.preview&&r>_.preview?o.abort():l(d,t);}};}function m(e){return "greedy"===_.skipEmptyLines?""===e.join("").trim():1===e.length&&0===e[0].length}function c(){if(d&&h&&(y("Delimiter","UndetectableDelimiter","Unable to auto-detect delimiting character; defaulted to '"+k.DefaultDelimiter+"'"),h=!1),_.skipEmptyLines)for(var e=0;e<d.data.length;e++)m(d.data[e])&&d.data.splice(e--,1);return p()&&function(){if(!d)return;for(var e=0;p()&&e<d.data.length;e++)for(var t=0;t<d.data[e].length;t++){var r=d.data[e][t];_.trimHeaders&&(r=r.trim()),f.push(r);}d.data.splice(0,1);}(),function(){if(!d||!_.header&&!_.dynamicTyping&&!_.transform)return d;for(var e=0;e<d.data.length;e++){var t,r=_.header?{}:[];for(t=0;t<d.data[e].length;t++){var i=t,n=d.data[e][t];_.header&&(i=t>=f.length?"__parsed_extra":f[t]),_.transform&&(n=_.transform(n,i)),n=g(i,n),"__parsed_extra"===i?(r[i]=r[i]||[],r[i].push(n)):r[i]=n;}d.data[e]=r,_.header&&(t>f.length?y("FieldMismatch","TooManyFields","Too many fields: expected "+f.length+" fields but parsed "+t,s+e):t<f.length&&y("FieldMismatch","TooFewFields","Too few fields: expected "+f.length+" fields but parsed "+t,s+e));}_.header&&d.meta&&(d.meta.fields=f);return s+=d.data.length,d}()}function p(){return _.header&&0===f.length}function g(e,t){return r=e,_.dynamicTypingFunction&&void 0===_.dynamicTyping[r]&&(_.dynamicTyping[r]=_.dynamicTypingFunction(r)),!0===(_.dynamicTyping[r]||_.dynamicTyping)?"true"===t||"TRUE"===t||"false"!==t&&"FALSE"!==t&&(i.test(t)?parseFloat(t):n.test(t)?new Date(t):""===t?null:t):t;var r;}function y(e,t,r,i){d.errors.push({type:e,code:t,message:r,row:i});}this.parse=function(e,t,r){var i=_.quoteChar||'"';if(_.newline||(_.newline=function(e,t){e=e.substr(0,1048576);var r=new RegExp(v(t)+"([^]*?)"+v(t),"gm"),i=(e=e.replace(r,"")).split("\r"),n=e.split("\n"),s=1<n.length&&n[0].length<i[0].length;if(1===i.length||s)return "\n";for(var a=0,o=0;o<i.length;o++)"\n"===i[o][0]&&a++;return a>=i.length/2?"\r\n":"\r"}(e,i)),h=!1,_.delimiter)M(_.delimiter)&&(_.delimiter=_.delimiter(e),d.meta.delimiter=_.delimiter);else{var n=function(e,t,r,i){for(var n,s,a,o=[",","\t","|",";",k.RECORD_SEP,k.UNIT_SEP],h=0;h<o.length;h++){var u=o[h],f=0,d=0,l=0;a=void 0;for(var c=new b({comments:i,delimiter:u,newline:t,preview:10}).parse(e),p=0;p<c.data.length;p++)if(r&&m(c.data[p]))l++;else{var g=c.data[p].length;d+=g,void 0!==a?1<g&&(f+=Math.abs(g-a),a=g):a=g;}0<c.data.length&&(d/=c.data.length-l),(void 0===s||f<s)&&1.99<d&&(s=f,n=u);}return {successful:!!(_.delimiter=n),bestDelimiter:n}}(e,_.newline,_.skipEmptyLines,_.comments);n.successful?_.delimiter=n.bestDelimiter:(h=!0,_.delimiter=k.DefaultDelimiter),d.meta.delimiter=_.delimiter;}var s=w(_);return _.preview&&_.header&&s.preview++,a=e,o=new b(s),d=o.parse(a,t,r),c(),u?{meta:{paused:!0}}:d||{meta:{paused:!1}}},this.paused=function(){return u},this.pause=function(){u=!0,o.abort(),a=a.substr(o.getCharIndex());},this.resume=function(){u=!1,t.streamer.parseChunk(a,!0);},this.aborted=function(){return e},this.abort=function(){e=!0,o.abort(),d.meta.aborted=!0,M(_.complete)&&_.complete(d),a="";};}function v(e){return e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}function b(e){var S,O=(e=e||{}).delimiter,x=e.newline,T=e.comments,I=e.step,A=e.preview,D=e.fastMode,L=S=void 0===e.quoteChar?'"':e.quoteChar;if(void 0!==e.escapeChar&&(L=e.escapeChar),("string"!=typeof O||-1<k.BAD_DELIMITERS.indexOf(O))&&(O=","),T===O)throw"Comment character same as delimiter";!0===T?T="#":("string"!=typeof T||-1<k.BAD_DELIMITERS.indexOf(T))&&(T=!1),"\n"!==x&&"\r"!==x&&"\r\n"!==x&&(x="\n");var P=0,F=!1;this.parse=function(i,t,r){if("string"!=typeof i)throw"Input must be a string";var n=i.length,e=O.length,s=x.length,a=T.length,o=M(I),h=[],u=[],f=[],d=P=0;if(!i)return C();if(D||!1!==D&&-1===i.indexOf(S)){for(var l=i.split(x),c=0;c<l.length;c++){if(f=l[c],P+=f.length,c!==l.length-1)P+=x.length;else if(r)return C();if(!T||f.substr(0,a)!==T){if(o){if(h=[],k(f.split(O)),R(),F)return C()}else k(f.split(O));if(A&&A<=c)return h=h.slice(0,A),C(!0)}}return C()}for(var p,g=i.indexOf(O,P),_=i.indexOf(x,P),m=new RegExp(L.replace(/[-[\]/{}()*+?.\\^$|]/g,"\\$&")+S,"g");;)if(i[P]!==S)if(T&&0===f.length&&i.substr(P,a)===T){if(-1===_)return C();P=_+s,_=i.indexOf(x,P),g=i.indexOf(O,P);}else if(-1!==g&&(g<_||-1===_))f.push(i.substring(P,g)),P=g+e,g=i.indexOf(O,P);else{if(-1===_)break;if(f.push(i.substring(P,_)),w(_+s),o&&(R(),F))return C();if(A&&h.length>=A)return C(!0)}else for(p=P,P++;;){if(-1===(p=i.indexOf(S,p+1)))return r||u.push({type:"Quotes",code:"MissingQuotes",message:"Quoted field unterminated",row:h.length,index:P}),E();if(p===n-1)return E(i.substring(P,p).replace(m,S));if(S!==L||i[p+1]!==L){if(S===L||0===p||i[p-1]!==L){var y=b(-1===_?g:Math.min(g,_));if(i[p+1+y]===O){f.push(i.substring(P,p).replace(m,S)),P=p+1+y+e,g=i.indexOf(O,P),_=i.indexOf(x,P);break}var v=b(_);if(i.substr(p+1+v,s)===x){if(f.push(i.substring(P,p).replace(m,S)),w(p+1+v+s),g=i.indexOf(O,P),o&&(R(),F))return C();if(A&&h.length>=A)return C(!0);break}u.push({type:"Quotes",code:"InvalidQuotes",message:"Trailing quote on quoted field is malformed",row:h.length,index:P}),p++;}}else p++;}return E();function k(e){h.push(e),d=P;}function b(e){var t=0;if(-1!==e){var r=i.substring(p+1,e);r&&""===r.trim()&&(t=r.length);}return t}function E(e){return r||(void 0===e&&(e=i.substr(P)),f.push(e),P=n,k(f),o&&R()),C()}function w(e){P=e,k(f),f=[],_=i.indexOf(x,P);}function C(e){return {data:h,errors:u,meta:{delimiter:O,linebreak:x,aborted:F,truncated:!!e,cursor:d+(t||0)}}}function R(){I(C()),h=[],u=[];}},this.abort=function(){F=!0;},this.getCharIndex=function(){return P};}function m(e){var t=e.data,r=h[t.workerId],i=!1;if(t.error)r.userError(t.error,t.file);else if(t.results&&t.results.data){var n={abort:function(){i=!0,y(t.workerId,{data:[],errors:[],meta:{aborted:!0}});},pause:E,resume:E};if(M(r.userStep)){for(var s=0;s<t.results.data.length&&(r.userStep({data:[t.results.data[s]],errors:t.results.errors,meta:t.results.meta},n),!i);s++);delete t.results;}else M(r.userChunk)&&(r.userChunk(t.results,n,t.file),delete t.results);}t.finished&&!i&&y(t.workerId,t.results);}function y(e,t){var r=h[e];M(r.userComplete)&&r.userComplete(t),r.terminate(),delete h[e];}function E(){throw"Not implemented."}function w(e){if("object"!=typeof e||null===e)return e;var t=Array.isArray(e)?[]:{};for(var r in e)t[r]=w(e[r]);return t}function C(e,t){return function(){e.apply(t,arguments);}}function M(e){return "function"==typeof e}return o?f.onmessage=function(e){var t=e.data;void 0===k.WORKER_ID&&t&&(k.WORKER_ID=t.workerId);if("string"==typeof t.input)f.postMessage({workerId:k.WORKER_ID,results:k.parse(t.input,t.config),finished:!0});else if(f.File&&t.input instanceof File||t.input instanceof Object){var r=k.parse(t.input,t.config);r&&f.postMessage({workerId:k.WORKER_ID,results:r,finished:!0});}}:k.WORKERS_SUPPORTED&&(e=document.getElementsByTagName("script"),s=e.length?e[e.length-1].src:"",document.body?document.addEventListener("DOMContentLoaded",function(){a=!0;},!0):a=!0),(c.prototype=Object.create(l.prototype)).constructor=c,(p.prototype=Object.create(l.prototype)).constructor=p,(g.prototype=Object.create(g.prototype)).constructor=g,(_.prototype=Object.create(l.prototype)).constructor=_,k});
 	});
 
+	var setCurrentPageIndex = function setCurrentPageIndex(pageIndex) {
+	  return {
+	    type: 'SET_CURRENT_PAGE_INDEX',
+	    payload: {
+	      pageIndex: pageIndex
+	    }
+	  };
+	};
 	var loadCSV = function loadCSV(csvUrl) {
 	  return function (dispatch) {
 	    dispatch({
@@ -24567,55 +24668,6 @@
 	    });
 	  };
 	};
-
-	var classnames = createCommonjsModule(function (module) {
-	/*!
-	  Copyright (c) 2017 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-	/* global define */
-
-	(function () {
-
-		var hasOwn = {}.hasOwnProperty;
-
-		function classNames () {
-			var classes = [];
-
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-
-				var argType = typeof arg;
-
-				if (argType === 'string' || argType === 'number') {
-					classes.push(arg);
-				} else if (Array.isArray(arg) && arg.length) {
-					var inner = classNames.apply(null, arg);
-					if (inner) {
-						classes.push(inner);
-					}
-				} else if (argType === 'object') {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes.push(key);
-						}
-					}
-				}
-			}
-
-			return classes.join(' ');
-		}
-
-		if (module.exports) {
-			classNames.default = classNames;
-			module.exports = classNames;
-		} else {
-			window.classNames = classNames;
-		}
-	}());
-	});
 
 	function _interopDefault$1 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
@@ -24682,7 +24734,8 @@
 	    };
 	    _this.mounted = false;
 	    _this.handleDocumentClick = _this.handleDocumentClick.bind(_assertThisInitialized$1(_assertThisInitialized$1(_this)));
-	    _this.handleDocumentKeydown = _this.handleDocumentKeydown.bind(_assertThisInitialized$1(_assertThisInitialized$1(_this)));
+	    _this.handleDocumentKeydown = _this.handleDocumentKeydown.bind(_assertThisInitialized$1(_assertThisInitialized$1(_this))); // this.handleWindowScroll = this.handleWindowScroll.bind(this)
+
 	    return _this;
 	  }
 
@@ -24692,7 +24745,7 @@
 	      this.mounted = true;
 	      document.addEventListener('click', this.handleDocumentClick, false);
 	      document.addEventListener('touchend', this.handleDocumentClick, false);
-	      document.addEventListener('keydown', this.handleDocumentKeydown, false);
+	      document.addEventListener('keydown', this.handleDocumentKeydown, false); // window.addEventListener('scroll', this.handleWindowScroll, false)
 	    }
 	  }, {
 	    key: "componentWillUnmount",
@@ -24700,8 +24753,15 @@
 	      this.mounted = false;
 	      document.removeEventListener('click', this.handleDocumentClick, false);
 	      document.removeEventListener('touchend', this.handleDocumentClick, false);
-	      document.removeEventListener('keydown', this.handleDocumentKeydown, false);
-	    }
+	      document.removeEventListener('keydown', this.handleDocumentKeydown, false); // window.removeEventListener('scroll', this.handleWindowScroll, false)
+	    } // handleWindowScroll(event) {
+	    //   if (this.mounted) {
+	    //     if (this.state.open) {
+	    //       this.setState({ open: false })
+	    //     }
+	    //   }
+	    // }
+
 	  }, {
 	    key: "handleDocumentClick",
 	    value: function handleDocumentClick(event) {
@@ -24729,13 +24789,14 @@
 	    value: function render() {
 	      var _this2 = this;
 
+	      var triggerClassName = this.props.triggerClassName;
 	      return react.createElement("div", {
 	        className: classnames({
 	          'ca-pop-up': true,
 	          open: this.state.open
 	        })
 	      }, react.createElement("button", {
-	        className: "ca-pop-up__trigger",
+	        className: "ca-pop-up__trigger ".concat(triggerClassName ? triggerClassName : ''),
 	        onClick: function onClick() {
 	          return _this2.setState({
 	            open: !_this2.state.open
@@ -24753,7 +24814,8 @@
 	PopUp.propTypes = {
 	  open: propTypes.bool,
 	  label: propTypes.string.isRequired,
-	  render: propTypes.func.isRequired
+	  render: propTypes.func.isRequired,
+	  triggerClassName: propTypes.string
 	};
 
 	var Option = function Option(_ref) {
@@ -24801,29 +24863,7 @@
 	      optionContainerWidth: null
 	    };
 	    return _this;
-	  } // /**
-	  //  * When flexbox items wrap in column mode, container does not grow its width
-	  //  * https://stackoverflow.com/questions/33891709/when-flexbox-items-wrap-in-column-mode-container-does-not-grow-its-width
-	  //  */
-	  // calculateOptionContainerWidth() {
-	  // 	const listItemElements = this.optionContainerRef.current.querySelectorAll('li')
-	  // 	const first = listItemElements[0]
-	  // 	const last = listItemElements[listItemElements.length - 1]
-	  // 	const firstRect = first.getBoundingClientRect()
-	  // 	const lastRect = last.getBoundingClientRect()
-	  // 	this.setState({
-	  // 		optionContainerWidth: lastRect.x + lastRect.width - firstRect.x
-	  // 	})
-	  // }
-	  // componentDidMount() {
-	  // 	this.calculateOptionContainerWidth()
-	  // }
-	  // componentDidUpdate(prevProps, prevState) {
-	  // 	if (this.props.options.length !== prevProps.options.length) {
-	  // 		this.calculateOptionContainerWidth()
-	  // 	}
-	  // }
-
+	  }
 
 	  _createClass(OptionList, [{
 	    key: "render",
@@ -24863,6 +24903,7 @@
 	var OptionsPanel = function OptionsPanel(_ref) {
 	  var optionLists = _ref.optionLists,
 	      allSelected = _ref.allSelected,
+	      allSelectedLabel = _ref.allSelectedLabel,
 	      onSelectAll = _ref.onSelectAll,
 	      onDeselectAll = _ref.onDeselectAll,
 	      onChangeOptionListOption = _ref.onChangeOptionListOption;
@@ -24871,7 +24912,7 @@
 	  }, react.createElement("header", null, react.createElement(Option, {
 	    id: "_all",
 	    value: allSelected,
-	    label: "Todos",
+	    label: allSelectedLabel || 'Todos',
 	    onChange: function onChange(value) {
 	      if (value) {
 	        onSelectAll();
@@ -24893,6 +24934,7 @@
 	OptionsPanel.propTypes = {
 	  optionLists: propTypes.array.isRequired,
 	  allSelected: propTypes.bool.isRequired,
+	  allSelectedLabel: propTypes.string,
 	  onSelectAll: propTypes.func.isRequired,
 	  onDeselectAll: propTypes.func.isRequired,
 	  onChangeOptionListOption: propTypes.func.isRequired
@@ -24902,7 +24944,8 @@
 	  var parameters = _ref.parameters,
 	      onParameterSelectAll = _ref.onParameterSelectAll,
 	      onParameterDeselectAll = _ref.onParameterDeselectAll,
-	      onParameterChangeOption = _ref.onParameterChangeOption;
+	      onParameterChangeOption = _ref.onParameterChangeOption,
+	      popUpTriggerClassName = _ref.popUpTriggerClassName;
 	  return react.createElement("div", {
 	    className: "ca-filter"
 	  }, react.createElement("ul", null, parameters.map(function (parameter) {
@@ -24910,6 +24953,7 @@
 	      key: parameter.id
 	    }, react.createElement(PopUp, {
 	      label: parameter.label,
+	      triggerClassName: popUpTriggerClassName,
 	      render: function render() {
 	        return react.createElement(OptionsPanel, _extends$1({}, parameter, {
 	          onSelectAll: function onSelectAll() {
@@ -24931,22 +24975,1808 @@
 	  parameters: propTypes.array.isRequired,
 	  onParameterSelectAll: propTypes.func.isRequired,
 	  onParameterDeselectAll: propTypes.func.isRequired,
-	  onParameterChangeOption: propTypes.func.isRequired
+	  onParameterChangeOption: propTypes.func.isRequired,
+	  popUpTriggerClassName: propTypes.string
 	};
 
-	var OutputCard = function OutputCard(_ref) {
-	  var heading = _ref.heading,
-	      subHeadings = _ref.subHeadings,
-	      description = _ref.description,
-	      url = _ref.url,
-	      buttonText = _ref.buttonText,
-	      metadata = _ref.metadata,
-	      boldMetadata = _ref.boldMetadata,
-	      tags = _ref.tags;
+	function _interopDefault$2 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+	var React$1 = _interopDefault$2(react);
+
+	var _extends$3 = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+
+	  return target;
+	};
+
+	var objectWithoutProperties$1 = function (obj, keys) {
+	  var target = {};
+
+	  for (var i in obj) {
+	    if (keys.indexOf(i) >= 0) continue;
+	    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	    target[i] = obj[i];
+	  }
+
+	  return target;
+	};
+
+	var SearchIcon = function SearchIcon(_ref) {
+	  var _ref$color = _ref.color,
+	      color = _ref$color === undefined ? 'currentColor' : _ref$color,
+	      _ref$size = _ref.size,
+	      size = _ref$size === undefined ? 24 : _ref$size,
+	      children = _ref.children,
+	      props = objectWithoutProperties$1(_ref, ['color', 'size', 'children']);
+
+	  var className = 'mdi-icon ' + (props.className || '');
+
+	  return React$1.createElement(
+	    'svg',
+	    _extends$3({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
+	    React$1.createElement('path', { d: 'M9.5,3C13.09,3 16,5.91 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16C5.91,16 3,13.09 3,9.5C3,5.91 5.91,3 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z' })
+	  );
+	};
+
+	var SearchIcon_1 = SearchIcon;
+
+	var TextSearchForm =
+	/*#__PURE__*/
+	function (_React$Component) {
+	  _inherits(TextSearchForm, _React$Component);
+
+	  function TextSearchForm(props) {
+	    var _this;
+
+	    _classCallCheck(this, TextSearchForm);
+
+	    _this = _possibleConstructorReturn(this, _getPrototypeOf(TextSearchForm).call(this, props));
+	    _this.inputRef = react.createRef();
+	    return _this;
+	  }
+
+	  _createClass(TextSearchForm, [{
+	    key: "render",
+	    value: function render() {
+	      var _this2 = this;
+
+	      var _this$props = this.props,
+	          value = _this$props.value,
+	          label = _this$props.label,
+	          _onChange = _this$props.onChange,
+	          _onSubmit = _this$props.onSubmit;
+	      return react.createElement("form", {
+	        className: "ca-text-search-form",
+	        onSubmit: function onSubmit(e) {
+	          e.preventDefault();
+	          e.stopPropagation();
+
+	          _onSubmit(_this2.inputRef.current.value);
+	        }
+	      }, react.createElement("input", {
+	        name: "search",
+	        type: "text",
+	        ref: this.inputRef,
+	        value: value,
+	        onChange: function onChange(e) {
+	          _onChange(e.target.value);
+	        },
+	        placeholder: label
+	      }), react.createElement("button", {
+	        type: "submit"
+	      }, react.createElement(SearchIcon_1, null)));
+	    }
+	  }]);
+
+	  return TextSearchForm;
+	}(react.Component);
+
+	TextSearchForm.propTypes = {
+	  value: propTypes.string.isRequired,
+	  label: propTypes.string.isRequired,
+	  onChange: propTypes.func.isRequired,
+	  onSubmit: propTypes.func.isRequired
+	};
+
+	var main = createCommonjsModule(function (module) {
+	module.exports =
+	/******/ (function(modules) { // webpackBootstrap
+	/******/ 	// The module cache
+	/******/ 	var installedModules = {};
+	/******/
+	/******/ 	// The require function
+	/******/ 	function __webpack_require__(moduleId) {
+	/******/
+	/******/ 		// Check if module is in cache
+	/******/ 		if(installedModules[moduleId])
+	/******/ 			return installedModules[moduleId].exports;
+	/******/
+	/******/ 		// Create a new module (and put it into the cache)
+	/******/ 		var module = installedModules[moduleId] = {
+	/******/ 			exports: {},
+	/******/ 			id: moduleId,
+	/******/ 			loaded: false
+	/******/ 		};
+	/******/
+	/******/ 		// Execute the module function
+	/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+	/******/
+	/******/ 		// Flag the module as loaded
+	/******/ 		module.loaded = true;
+	/******/
+	/******/ 		// Return the exports of the module
+	/******/ 		return module.exports;
+	/******/ 	}
+	/******/
+	/******/
+	/******/ 	// expose the modules object (__webpack_modules__)
+	/******/ 	__webpack_require__.m = modules;
+	/******/
+	/******/ 	// expose the module cache
+	/******/ 	__webpack_require__.c = installedModules;
+	/******/
+	/******/ 	// __webpack_public_path__
+	/******/ 	__webpack_require__.p = "";
+	/******/
+	/******/ 	// Load entry module and return exports
+	/******/ 	return __webpack_require__(0);
+	/******/ })
+	/************************************************************************/
+	/******/ ([
+	/* 0 */
+	/***/ (function(module, exports, __webpack_require__) {
+
+		module.exports = __webpack_require__(1);
+
+
+	/***/ }),
+	/* 1 */
+	/***/ (function(module, exports, __webpack_require__) {
+		
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+		
+		var _Highlighter = __webpack_require__(2);
+		
+		var _Highlighter2 = _interopRequireDefault(_Highlighter);
+
+		exports['default'] = _Highlighter2['default'];
+		module.exports = exports['default'];
+
+	/***/ }),
+	/* 2 */
+	/***/ (function(module, exports, __webpack_require__) {
+		
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+		exports['default'] = Highlighter;
+		
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+		
+		var _highlightWordsCore = __webpack_require__(3);
+		
+		var _propTypes = __webpack_require__(4);
+		
+		var _propTypes2 = _interopRequireDefault(_propTypes);
+		
+		var _react = __webpack_require__(14);
+		
+		var _memoizeOne = __webpack_require__(15);
+		
+		var _memoizeOne2 = _interopRequireDefault(_memoizeOne);
+		
+		Highlighter.propTypes = {
+		  activeClassName: _propTypes2['default'].string,
+		  activeIndex: _propTypes2['default'].number,
+		  activeStyle: _propTypes2['default'].object,
+		  autoEscape: _propTypes2['default'].bool,
+		  className: _propTypes2['default'].string,
+		  findChunks: _propTypes2['default'].func,
+		  highlightClassName: _propTypes2['default'].oneOfType([_propTypes2['default'].object, _propTypes2['default'].string]),
+		  highlightStyle: _propTypes2['default'].object,
+		  highlightTag: _propTypes2['default'].oneOfType([_propTypes2['default'].node, _propTypes2['default'].func, _propTypes2['default'].string]),
+		  sanitize: _propTypes2['default'].func,
+		  searchWords: _propTypes2['default'].arrayOf(_propTypes2['default'].oneOfType([_propTypes2['default'].string, _propTypes2['default'].instanceOf(RegExp)])).isRequired,
+		  textToHighlight: _propTypes2['default'].string.isRequired,
+		  unhighlightClassName: _propTypes2['default'].string,
+		  unhighlightStyle: _propTypes2['default'].object
+		};
+		
+		/**
+		 * Highlights all occurrences of search terms (searchText) within a string (textToHighlight).
+		 * This function returns an array of strings and <span>s (wrapping highlighted words).
+		 */
+		
+		function Highlighter(_ref) {
+		  var _ref$activeClassName = _ref.activeClassName;
+		  var activeClassName = _ref$activeClassName === undefined ? '' : _ref$activeClassName;
+		  var _ref$activeIndex = _ref.activeIndex;
+		  var activeIndex = _ref$activeIndex === undefined ? -1 : _ref$activeIndex;
+		  var activeStyle = _ref.activeStyle;
+		  var autoEscape = _ref.autoEscape;
+		  var _ref$caseSensitive = _ref.caseSensitive;
+		  var caseSensitive = _ref$caseSensitive === undefined ? false : _ref$caseSensitive;
+		  var className = _ref.className;
+		  var findChunks = _ref.findChunks;
+		  var _ref$highlightClassName = _ref.highlightClassName;
+		  var highlightClassName = _ref$highlightClassName === undefined ? '' : _ref$highlightClassName;
+		  var _ref$highlightStyle = _ref.highlightStyle;
+		  var highlightStyle = _ref$highlightStyle === undefined ? {} : _ref$highlightStyle;
+		  var _ref$highlightTag = _ref.highlightTag;
+		  var highlightTag = _ref$highlightTag === undefined ? 'mark' : _ref$highlightTag;
+		  var sanitize = _ref.sanitize;
+		  var searchWords = _ref.searchWords;
+		  var textToHighlight = _ref.textToHighlight;
+		  var _ref$unhighlightClassName = _ref.unhighlightClassName;
+		  var unhighlightClassName = _ref$unhighlightClassName === undefined ? '' : _ref$unhighlightClassName;
+		  var unhighlightStyle = _ref.unhighlightStyle;
+		
+		  var chunks = (0, _highlightWordsCore.findAll)({
+		    autoEscape: autoEscape,
+		    caseSensitive: caseSensitive,
+		    findChunks: findChunks,
+		    sanitize: sanitize,
+		    searchWords: searchWords,
+		    textToHighlight: textToHighlight
+		  });
+		  var HighlightTag = highlightTag;
+		  var highlightIndex = -1;
+		  var highlightClassNames = '';
+		  var highlightStyles = undefined;
+		
+		  var lowercaseProps = function lowercaseProps(object) {
+		    var mapped = {};
+		    for (var key in object) {
+		      mapped[key.toLowerCase()] = object[key];
+		    }
+		    return mapped;
+		  };
+		  var memoizedLowercaseProps = (0, _memoizeOne2['default'])(lowercaseProps);
+		
+		  return (0, _react.createElement)('span', {
+		    className: className,
+		    children: chunks.map(function (chunk, index) {
+		      var text = textToHighlight.substr(chunk.start, chunk.end - chunk.start);
+		
+		      if (chunk.highlight) {
+		        highlightIndex++;
+		
+		        var highlightClass = undefined;
+		        if (typeof highlightClassName === 'object') {
+		          if (!caseSensitive) {
+		            highlightClassName = memoizedLowercaseProps(highlightClassName);
+		            highlightClass = highlightClassName[text.toLowerCase()];
+		          } else {
+		            highlightClass = highlightClassName[text];
+		          }
+		        } else {
+		          highlightClass = highlightClassName;
+		        }
+		
+		        var isActive = highlightIndex === +activeIndex;
+		
+		        highlightClassNames = highlightClass + ' ' + (isActive ? activeClassName : '');
+		        highlightStyles = isActive === true && activeStyle != null ? Object.assign({}, highlightStyle, activeStyle) : highlightStyle;
+		
+		        var props = {
+		          children: text,
+		          className: highlightClassNames,
+		          key: index,
+		          style: highlightStyles
+		        };
+		
+		        // Don't attach arbitrary props to DOM elements; this triggers React DEV warnings (https://fb.me/react-unknown-prop)
+		        // Only pass through the highlightIndex attribute for custom components.
+		        if (typeof HighlightTag !== 'string') {
+		          props.highlightIndex = highlightIndex;
+		        }
+		
+		        return (0, _react.createElement)(HighlightTag, props);
+		      } else {
+		        return (0, _react.createElement)('span', {
+		          children: text,
+		          className: unhighlightClassName,
+		          key: index,
+		          style: unhighlightStyle
+		        });
+		      }
+		    })
+		  });
+		}
+		
+		module.exports = exports['default'];
+
+	/***/ }),
+	/* 3 */
+	/***/ (function(module, exports) {
+
+		module.exports =
+		/******/ (function(modules) { // webpackBootstrap
+		/******/ 	// The module cache
+		/******/ 	var installedModules = {};
+		/******/
+		/******/ 	// The require function
+		/******/ 	function __webpack_require__(moduleId) {
+		/******/
+		/******/ 		// Check if module is in cache
+		/******/ 		if(installedModules[moduleId])
+		/******/ 			return installedModules[moduleId].exports;
+		/******/
+		/******/ 		// Create a new module (and put it into the cache)
+		/******/ 		var module = installedModules[moduleId] = {
+		/******/ 			exports: {},
+		/******/ 			id: moduleId,
+		/******/ 			loaded: false
+		/******/ 		};
+		/******/
+		/******/ 		// Execute the module function
+		/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+		/******/
+		/******/ 		// Flag the module as loaded
+		/******/ 		module.loaded = true;
+		/******/
+		/******/ 		// Return the exports of the module
+		/******/ 		return module.exports;
+		/******/ 	}
+		/******/
+		/******/
+		/******/ 	// expose the modules object (__webpack_modules__)
+		/******/ 	__webpack_require__.m = modules;
+		/******/
+		/******/ 	// expose the module cache
+		/******/ 	__webpack_require__.c = installedModules;
+		/******/
+		/******/ 	// __webpack_public_path__
+		/******/ 	__webpack_require__.p = "";
+		/******/
+		/******/ 	// Load entry module and return exports
+		/******/ 	return __webpack_require__(0);
+		/******/ })
+		/************************************************************************/
+		/******/ ([
+		/* 0 */
+		/***/ (function(module, exports, __webpack_require__) {
+		
+			module.exports = __webpack_require__(1);
+		
+		
+		/***/ }),
+		/* 1 */
+		/***/ (function(module, exports, __webpack_require__) {
+			
+			Object.defineProperty(exports, "__esModule", {
+			  value: true
+			});
+			
+			var _utils = __webpack_require__(2);
+			
+			Object.defineProperty(exports, 'combineChunks', {
+			  enumerable: true,
+			  get: function get() {
+			    return _utils.combineChunks;
+			  }
+			});
+			Object.defineProperty(exports, 'fillInChunks', {
+			  enumerable: true,
+			  get: function get() {
+			    return _utils.fillInChunks;
+			  }
+			});
+			Object.defineProperty(exports, 'findAll', {
+			  enumerable: true,
+			  get: function get() {
+			    return _utils.findAll;
+			  }
+			});
+			Object.defineProperty(exports, 'findChunks', {
+			  enumerable: true,
+			  get: function get() {
+			    return _utils.findChunks;
+			  }
+			});
+		
+		/***/ }),
+		/* 2 */
+		/***/ (function(module, exports) {
+			
+			Object.defineProperty(exports, "__esModule", {
+			  value: true
+			});
+			/**
+			 * Creates an array of chunk objects representing both higlightable and non highlightable pieces of text that match each search word.
+			 * @return Array of "chunks" (where a Chunk is { start:number, end:number, highlight:boolean })
+			 */
+			var findAll = exports.findAll = function findAll(_ref) {
+			  var autoEscape = _ref.autoEscape,
+			      _ref$caseSensitive = _ref.caseSensitive,
+			      caseSensitive = _ref$caseSensitive === undefined ? false : _ref$caseSensitive,
+			      _ref$findChunks = _ref.findChunks,
+			      findChunks = _ref$findChunks === undefined ? defaultFindChunks : _ref$findChunks,
+			      sanitize = _ref.sanitize,
+			      searchWords = _ref.searchWords,
+			      textToHighlight = _ref.textToHighlight;
+			  return fillInChunks({
+			    chunksToHighlight: combineChunks({
+			      chunks: findChunks({
+			        autoEscape: autoEscape,
+			        caseSensitive: caseSensitive,
+			        sanitize: sanitize,
+			        searchWords: searchWords,
+			        textToHighlight: textToHighlight
+			      })
+			    }),
+			    totalLength: textToHighlight ? textToHighlight.length : 0
+			  });
+			};
+			
+			/**
+			 * Takes an array of {start:number, end:number} objects and combines chunks that overlap into single chunks.
+			 * @return {start:number, end:number}[]
+			 */
+			var combineChunks = exports.combineChunks = function combineChunks(_ref2) {
+			  var chunks = _ref2.chunks;
+			
+			  chunks = chunks.sort(function (first, second) {
+			    return first.start - second.start;
+			  }).reduce(function (processedChunks, nextChunk) {
+			    // First chunk just goes straight in the array...
+			    if (processedChunks.length === 0) {
+			      return [nextChunk];
+			    } else {
+			      // ... subsequent chunks get checked to see if they overlap...
+			      var prevChunk = processedChunks.pop();
+			      if (nextChunk.start <= prevChunk.end) {
+			        // It may be the case that prevChunk completely surrounds nextChunk, so take the
+			        // largest of the end indeces.
+			        var endIndex = Math.max(prevChunk.end, nextChunk.end);
+			        processedChunks.push({ start: prevChunk.start, end: endIndex });
+			      } else {
+			        processedChunks.push(prevChunk, nextChunk);
+			      }
+			      return processedChunks;
+			    }
+			  }, []);
+			
+			  return chunks;
+			};
+			
+			/**
+			 * Examine text for any matches.
+			 * If we find matches, add them to the returned array as a "chunk" object ({start:number, end:number}).
+			 * @return {start:number, end:number}[]
+			 */
+			var defaultFindChunks = function defaultFindChunks(_ref3) {
+			  var autoEscape = _ref3.autoEscape,
+			      caseSensitive = _ref3.caseSensitive,
+			      _ref3$sanitize = _ref3.sanitize,
+			      sanitize = _ref3$sanitize === undefined ? identity : _ref3$sanitize,
+			      searchWords = _ref3.searchWords,
+			      textToHighlight = _ref3.textToHighlight;
+			
+			  textToHighlight = sanitize(textToHighlight);
+			
+			  return searchWords.filter(function (searchWord) {
+			    return searchWord;
+			  }) // Remove empty words
+			  .reduce(function (chunks, searchWord) {
+			    searchWord = sanitize(searchWord);
+			
+			    if (autoEscape) {
+			      searchWord = escapeRegExpFn(searchWord);
+			    }
+			
+			    var regex = new RegExp(searchWord, caseSensitive ? 'g' : 'gi');
+			
+			    var match = void 0;
+			    while (match = regex.exec(textToHighlight)) {
+			      var start = match.index;
+			      var end = regex.lastIndex;
+			      // We do not return zero-length matches
+			      if (end > start) {
+			        chunks.push({ start: start, end: end });
+			      }
+			
+			      // Prevent browsers like Firefox from getting stuck in an infinite loop
+			      // See http://www.regexguru.com/2008/04/watch-out-for-zero-length-matches/
+			      if (match.index == regex.lastIndex) {
+			        regex.lastIndex++;
+			      }
+			    }
+			
+			    return chunks;
+			  }, []);
+			};
+			// Allow the findChunks to be overridden in findAll,
+			// but for backwards compatibility we export as the old name
+			exports.findChunks = defaultFindChunks;
+			
+			/**
+			 * Given a set of chunks to highlight, create an additional set of chunks
+			 * to represent the bits of text between the highlighted text.
+			 * @param chunksToHighlight {start:number, end:number}[]
+			 * @param totalLength number
+			 * @return {start:number, end:number, highlight:boolean}[]
+			 */
+			
+			var fillInChunks = exports.fillInChunks = function fillInChunks(_ref4) {
+			  var chunksToHighlight = _ref4.chunksToHighlight,
+			      totalLength = _ref4.totalLength;
+			
+			  var allChunks = [];
+			  var append = function append(start, end, highlight) {
+			    if (end - start > 0) {
+			      allChunks.push({
+			        start: start,
+			        end: end,
+			        highlight: highlight
+			      });
+			    }
+			  };
+			
+			  if (chunksToHighlight.length === 0) {
+			    append(0, totalLength, false);
+			  } else {
+			    var lastIndex = 0;
+			    chunksToHighlight.forEach(function (chunk) {
+			      append(lastIndex, chunk.start, false);
+			      append(chunk.start, chunk.end, true);
+			      lastIndex = chunk.end;
+			    });
+			    append(lastIndex, totalLength, false);
+			  }
+			  return allChunks;
+			};
+			
+			function identity(value) {
+			  return value;
+			}
+			
+			function escapeRegExpFn(str) {
+			  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+			}
+		
+		/***/ })
+		/******/ ]);
+		
+
+	/***/ }),
+	/* 4 */
+	/***/ (function(module, exports, __webpack_require__) {
+
+		/* WEBPACK VAR INJECTION */(function(process) {/**
+		 * Copyright (c) 2013-present, Facebook, Inc.
+		 *
+		 * This source code is licensed under the MIT license found in the
+		 * LICENSE file in the root directory of this source tree.
+		 */
+		
+		{
+		  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
+		    Symbol.for &&
+		    Symbol.for('react.element')) ||
+		    0xeac7;
+		
+		  var isValidElement = function(object) {
+		    return typeof object === 'object' &&
+		      object !== null &&
+		      object.$$typeof === REACT_ELEMENT_TYPE;
+		  };
+		
+		  // By explicitly using `prop-types` you are opting into new development behavior.
+		  // http://fb.me/prop-types-in-prod
+		  var throwOnDirectAccess = true;
+		  module.exports = __webpack_require__(6)(isValidElement, throwOnDirectAccess);
+		}
+		
+		/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)));
+
+	/***/ }),
+	/* 5 */
+	/***/ (function(module, exports) {
+
+		// shim for using process in browser
+		var process = module.exports = {};
+		
+		// cached from whatever global is present so that test runners that stub it
+		// don't break things.  But we need to wrap it in a try catch in case it is
+		// wrapped in strict mode code which doesn't define any globals.  It's inside a
+		// function because try/catches deoptimize in certain engines.
+		
+		var cachedSetTimeout;
+		var cachedClearTimeout;
+		
+		function defaultSetTimout() {
+		    throw new Error('setTimeout has not been defined');
+		}
+		function defaultClearTimeout () {
+		    throw new Error('clearTimeout has not been defined');
+		}
+		(function () {
+		    try {
+		        if (typeof setTimeout === 'function') {
+		            cachedSetTimeout = setTimeout;
+		        } else {
+		            cachedSetTimeout = defaultSetTimout;
+		        }
+		    } catch (e) {
+		        cachedSetTimeout = defaultSetTimout;
+		    }
+		    try {
+		        if (typeof clearTimeout === 'function') {
+		            cachedClearTimeout = clearTimeout;
+		        } else {
+		            cachedClearTimeout = defaultClearTimeout;
+		        }
+		    } catch (e) {
+		        cachedClearTimeout = defaultClearTimeout;
+		    }
+		} ());
+		function runTimeout(fun) {
+		    if (cachedSetTimeout === setTimeout) {
+		        //normal enviroments in sane situations
+		        return setTimeout(fun, 0);
+		    }
+		    // if setTimeout wasn't available but was latter defined
+		    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+		        cachedSetTimeout = setTimeout;
+		        return setTimeout(fun, 0);
+		    }
+		    try {
+		        // when when somebody has screwed with setTimeout but no I.E. maddness
+		        return cachedSetTimeout(fun, 0);
+		    } catch(e){
+		        try {
+		            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+		            return cachedSetTimeout.call(null, fun, 0);
+		        } catch(e){
+		            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+		            return cachedSetTimeout.call(this, fun, 0);
+		        }
+		    }
+		
+		
+		}
+		function runClearTimeout(marker) {
+		    if (cachedClearTimeout === clearTimeout) {
+		        //normal enviroments in sane situations
+		        return clearTimeout(marker);
+		    }
+		    // if clearTimeout wasn't available but was latter defined
+		    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+		        cachedClearTimeout = clearTimeout;
+		        return clearTimeout(marker);
+		    }
+		    try {
+		        // when when somebody has screwed with setTimeout but no I.E. maddness
+		        return cachedClearTimeout(marker);
+		    } catch (e){
+		        try {
+		            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+		            return cachedClearTimeout.call(null, marker);
+		        } catch (e){
+		            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+		            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+		            return cachedClearTimeout.call(this, marker);
+		        }
+		    }
+		
+		
+		
+		}
+		var queue = [];
+		var draining = false;
+		var currentQueue;
+		var queueIndex = -1;
+		
+		function cleanUpNextTick() {
+		    if (!draining || !currentQueue) {
+		        return;
+		    }
+		    draining = false;
+		    if (currentQueue.length) {
+		        queue = currentQueue.concat(queue);
+		    } else {
+		        queueIndex = -1;
+		    }
+		    if (queue.length) {
+		        drainQueue();
+		    }
+		}
+		
+		function drainQueue() {
+		    if (draining) {
+		        return;
+		    }
+		    var timeout = runTimeout(cleanUpNextTick);
+		    draining = true;
+		
+		    var len = queue.length;
+		    while(len) {
+		        currentQueue = queue;
+		        queue = [];
+		        while (++queueIndex < len) {
+		            if (currentQueue) {
+		                currentQueue[queueIndex].run();
+		            }
+		        }
+		        queueIndex = -1;
+		        len = queue.length;
+		    }
+		    currentQueue = null;
+		    draining = false;
+		    runClearTimeout(timeout);
+		}
+		
+		process.nextTick = function (fun) {
+		    var args = new Array(arguments.length - 1);
+		    if (arguments.length > 1) {
+		        for (var i = 1; i < arguments.length; i++) {
+		            args[i - 1] = arguments[i];
+		        }
+		    }
+		    queue.push(new Item(fun, args));
+		    if (queue.length === 1 && !draining) {
+		        runTimeout(drainQueue);
+		    }
+		};
+		
+		// v8 likes predictible objects
+		function Item(fun, array) {
+		    this.fun = fun;
+		    this.array = array;
+		}
+		Item.prototype.run = function () {
+		    this.fun.apply(null, this.array);
+		};
+		process.title = 'browser';
+		process.browser = true;
+		process.env = {};
+		process.argv = [];
+		process.version = ''; // empty string to avoid regexp issues
+		process.versions = {};
+		
+		function noop() {}
+		
+		process.on = noop;
+		process.addListener = noop;
+		process.once = noop;
+		process.off = noop;
+		process.removeListener = noop;
+		process.removeAllListeners = noop;
+		process.emit = noop;
+		process.prependListener = noop;
+		process.prependOnceListener = noop;
+		
+		process.listeners = function (name) { return [] };
+		
+		process.binding = function (name) {
+		    throw new Error('process.binding is not supported');
+		};
+		
+		process.cwd = function () { return '/' };
+		process.chdir = function (dir) {
+		    throw new Error('process.chdir is not supported');
+		};
+		process.umask = function() { return 0; };
+
+
+	/***/ }),
+	/* 6 */
+	/***/ (function(module, exports, __webpack_require__) {
+
+		/* WEBPACK VAR INJECTION */(function(process) {/**
+		 * Copyright (c) 2013-present, Facebook, Inc.
+		 *
+		 * This source code is licensed under the MIT license found in the
+		 * LICENSE file in the root directory of this source tree.
+		 */
+		
+		var emptyFunction = __webpack_require__(7);
+		var invariant = __webpack_require__(8);
+		var warning = __webpack_require__(9);
+		var assign = __webpack_require__(10);
+		
+		var ReactPropTypesSecret = __webpack_require__(11);
+		var checkPropTypes = __webpack_require__(12);
+		
+		module.exports = function(isValidElement, throwOnDirectAccess) {
+		  /* global Symbol */
+		  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+		  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
+		
+		  /**
+		   * Returns the iterator method function contained on the iterable object.
+		   *
+		   * Be sure to invoke the function with the iterable as context:
+		   *
+		   *     var iteratorFn = getIteratorFn(myIterable);
+		   *     if (iteratorFn) {
+		   *       var iterator = iteratorFn.call(myIterable);
+		   *       ...
+		   *     }
+		   *
+		   * @param {?object} maybeIterable
+		   * @return {?function}
+		   */
+		  function getIteratorFn(maybeIterable) {
+		    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+		    if (typeof iteratorFn === 'function') {
+		      return iteratorFn;
+		    }
+		  }
+		
+		  /**
+		   * Collection of methods that allow declaration and validation of props that are
+		   * supplied to React components. Example usage:
+		   *
+		   *   var Props = require('ReactPropTypes');
+		   *   var MyArticle = React.createClass({
+		   *     propTypes: {
+		   *       // An optional string prop named "description".
+		   *       description: Props.string,
+		   *
+		   *       // A required enum prop named "category".
+		   *       category: Props.oneOf(['News','Photos']).isRequired,
+		   *
+		   *       // A prop named "dialog" that requires an instance of Dialog.
+		   *       dialog: Props.instanceOf(Dialog).isRequired
+		   *     },
+		   *     render: function() { ... }
+		   *   });
+		   *
+		   * A more formal specification of how these methods are used:
+		   *
+		   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
+		   *   decl := ReactPropTypes.{type}(.isRequired)?
+		   *
+		   * Each and every declaration produces a function with the same signature. This
+		   * allows the creation of custom validation functions. For example:
+		   *
+		   *  var MyLink = React.createClass({
+		   *    propTypes: {
+		   *      // An optional string or URI prop named "href".
+		   *      href: function(props, propName, componentName) {
+		   *        var propValue = props[propName];
+		   *        if (propValue != null && typeof propValue !== 'string' &&
+		   *            !(propValue instanceof URI)) {
+		   *          return new Error(
+		   *            'Expected a string or an URI for ' + propName + ' in ' +
+		   *            componentName
+		   *          );
+		   *        }
+		   *      }
+		   *    },
+		   *    render: function() {...}
+		   *  });
+		   *
+		   * @internal
+		   */
+		
+		  var ANONYMOUS = '<<anonymous>>';
+		
+		  // Important!
+		  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
+		  var ReactPropTypes = {
+		    array: createPrimitiveTypeChecker('array'),
+		    bool: createPrimitiveTypeChecker('boolean'),
+		    func: createPrimitiveTypeChecker('function'),
+		    number: createPrimitiveTypeChecker('number'),
+		    object: createPrimitiveTypeChecker('object'),
+		    string: createPrimitiveTypeChecker('string'),
+		    symbol: createPrimitiveTypeChecker('symbol'),
+		
+		    any: createAnyTypeChecker(),
+		    arrayOf: createArrayOfTypeChecker,
+		    element: createElementTypeChecker(),
+		    instanceOf: createInstanceTypeChecker,
+		    node: createNodeChecker(),
+		    objectOf: createObjectOfTypeChecker,
+		    oneOf: createEnumTypeChecker,
+		    oneOfType: createUnionTypeChecker,
+		    shape: createShapeTypeChecker,
+		    exact: createStrictShapeTypeChecker,
+		  };
+		
+		  /**
+		   * inlined Object.is polyfill to avoid requiring consumers ship their own
+		   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+		   */
+		  /*eslint-disable no-self-compare*/
+		  function is(x, y) {
+		    // SameValue algorithm
+		    if (x === y) {
+		      // Steps 1-5, 7-10
+		      // Steps 6.b-6.e: +0 != -0
+		      return x !== 0 || 1 / x === 1 / y;
+		    } else {
+		      // Step 6.a: NaN == NaN
+		      return x !== x && y !== y;
+		    }
+		  }
+		  /*eslint-enable no-self-compare*/
+		
+		  /**
+		   * We use an Error-like object for backward compatibility as people may call
+		   * PropTypes directly and inspect their output. However, we don't use real
+		   * Errors anymore. We don't inspect their stack anyway, and creating them
+		   * is prohibitively expensive if they are created too often, such as what
+		   * happens in oneOfType() for any type before the one that matched.
+		   */
+		  function PropTypeError(message) {
+		    this.message = message;
+		    this.stack = '';
+		  }
+		  // Make `instanceof Error` still work for returned errors.
+		  PropTypeError.prototype = Error.prototype;
+		
+		  function createChainableTypeChecker(validate) {
+		    {
+		      var manualPropTypeCallCache = {};
+		      var manualPropTypeWarningCount = 0;
+		    }
+		    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+		      componentName = componentName || ANONYMOUS;
+		      propFullName = propFullName || propName;
+		
+		      if (secret !== ReactPropTypesSecret) {
+		        if (throwOnDirectAccess) {
+		          // New behavior only for users of `prop-types` package
+		          invariant(
+		            false,
+		            'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+		            'Use `PropTypes.checkPropTypes()` to call them. ' +
+		            'Read more at http://fb.me/use-check-prop-types'
+		          );
+		        } else if (typeof console !== 'undefined') {
+		          // Old behavior for people using React.PropTypes
+		          var cacheKey = componentName + ':' + propName;
+		          if (
+		            !manualPropTypeCallCache[cacheKey] &&
+		            // Avoid spamming the console because they are often not actionable except for lib authors
+		            manualPropTypeWarningCount < 3
+		          ) {
+		            warning(
+		              false,
+		              'You are manually calling a React.PropTypes validation ' +
+		              'function for the `%s` prop on `%s`. This is deprecated ' +
+		              'and will throw in the standalone `prop-types` package. ' +
+		              'You may be seeing this warning due to a third-party PropTypes ' +
+		              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.',
+		              propFullName,
+		              componentName
+		            );
+		            manualPropTypeCallCache[cacheKey] = true;
+		            manualPropTypeWarningCount++;
+		          }
+		        }
+		      }
+		      if (props[propName] == null) {
+		        if (isRequired) {
+		          if (props[propName] === null) {
+		            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
+		          }
+		          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
+		        }
+		        return null;
+		      } else {
+		        return validate(props, propName, componentName, location, propFullName);
+		      }
+		    }
+		
+		    var chainedCheckType = checkType.bind(null, false);
+		    chainedCheckType.isRequired = checkType.bind(null, true);
+		
+		    return chainedCheckType;
+		  }
+		
+		  function createPrimitiveTypeChecker(expectedType) {
+		    function validate(props, propName, componentName, location, propFullName, secret) {
+		      var propValue = props[propName];
+		      var propType = getPropType(propValue);
+		      if (propType !== expectedType) {
+		        // `propValue` being instance of, say, date/regexp, pass the 'object'
+		        // check, but we can offer a more precise error message here rather than
+		        // 'of type `object`'.
+		        var preciseType = getPreciseType(propValue);
+		
+		        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
+		      }
+		      return null;
+		    }
+		    return createChainableTypeChecker(validate);
+		  }
+		
+		  function createAnyTypeChecker() {
+		    return createChainableTypeChecker(emptyFunction.thatReturnsNull);
+		  }
+		
+		  function createArrayOfTypeChecker(typeChecker) {
+		    function validate(props, propName, componentName, location, propFullName) {
+		      if (typeof typeChecker !== 'function') {
+		        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
+		      }
+		      var propValue = props[propName];
+		      if (!Array.isArray(propValue)) {
+		        var propType = getPropType(propValue);
+		        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
+		      }
+		      for (var i = 0; i < propValue.length; i++) {
+		        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret);
+		        if (error instanceof Error) {
+		          return error;
+		        }
+		      }
+		      return null;
+		    }
+		    return createChainableTypeChecker(validate);
+		  }
+		
+		  function createElementTypeChecker() {
+		    function validate(props, propName, componentName, location, propFullName) {
+		      var propValue = props[propName];
+		      if (!isValidElement(propValue)) {
+		        var propType = getPropType(propValue);
+		        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
+		      }
+		      return null;
+		    }
+		    return createChainableTypeChecker(validate);
+		  }
+		
+		  function createInstanceTypeChecker(expectedClass) {
+		    function validate(props, propName, componentName, location, propFullName) {
+		      if (!(props[propName] instanceof expectedClass)) {
+		        var expectedClassName = expectedClass.name || ANONYMOUS;
+		        var actualClassName = getClassName(props[propName]);
+		        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
+		      }
+		      return null;
+		    }
+		    return createChainableTypeChecker(validate);
+		  }
+		
+		  function createEnumTypeChecker(expectedValues) {
+		    if (!Array.isArray(expectedValues)) {
+		      warning(false, 'Invalid argument supplied to oneOf, expected an instance of array.');
+		      return emptyFunction.thatReturnsNull;
+		    }
+		
+		    function validate(props, propName, componentName, location, propFullName) {
+		      var propValue = props[propName];
+		      for (var i = 0; i < expectedValues.length; i++) {
+		        if (is(propValue, expectedValues[i])) {
+		          return null;
+		        }
+		      }
+		
+		      var valuesString = JSON.stringify(expectedValues);
+		      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + propValue + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
+		    }
+		    return createChainableTypeChecker(validate);
+		  }
+		
+		  function createObjectOfTypeChecker(typeChecker) {
+		    function validate(props, propName, componentName, location, propFullName) {
+		      if (typeof typeChecker !== 'function') {
+		        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
+		      }
+		      var propValue = props[propName];
+		      var propType = getPropType(propValue);
+		      if (propType !== 'object') {
+		        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
+		      }
+		      for (var key in propValue) {
+		        if (propValue.hasOwnProperty(key)) {
+		          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+		          if (error instanceof Error) {
+		            return error;
+		          }
+		        }
+		      }
+		      return null;
+		    }
+		    return createChainableTypeChecker(validate);
+		  }
+		
+		  function createUnionTypeChecker(arrayOfTypeCheckers) {
+		    if (!Array.isArray(arrayOfTypeCheckers)) {
+		      warning(false, 'Invalid argument supplied to oneOfType, expected an instance of array.');
+		      return emptyFunction.thatReturnsNull;
+		    }
+		
+		    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+		      var checker = arrayOfTypeCheckers[i];
+		      if (typeof checker !== 'function') {
+		        warning(
+		          false,
+		          'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
+		          'received %s at index %s.',
+		          getPostfixForTypeWarning(checker),
+		          i
+		        );
+		        return emptyFunction.thatReturnsNull;
+		      }
+		    }
+		
+		    function validate(props, propName, componentName, location, propFullName) {
+		      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+		        var checker = arrayOfTypeCheckers[i];
+		        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret) == null) {
+		          return null;
+		        }
+		      }
+		
+		      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
+		    }
+		    return createChainableTypeChecker(validate);
+		  }
+		
+		  function createNodeChecker() {
+		    function validate(props, propName, componentName, location, propFullName) {
+		      if (!isNode(props[propName])) {
+		        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
+		      }
+		      return null;
+		    }
+		    return createChainableTypeChecker(validate);
+		  }
+		
+		  function createShapeTypeChecker(shapeTypes) {
+		    function validate(props, propName, componentName, location, propFullName) {
+		      var propValue = props[propName];
+		      var propType = getPropType(propValue);
+		      if (propType !== 'object') {
+		        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+		      }
+		      for (var key in shapeTypes) {
+		        var checker = shapeTypes[key];
+		        if (!checker) {
+		          continue;
+		        }
+		        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+		        if (error) {
+		          return error;
+		        }
+		      }
+		      return null;
+		    }
+		    return createChainableTypeChecker(validate);
+		  }
+		
+		  function createStrictShapeTypeChecker(shapeTypes) {
+		    function validate(props, propName, componentName, location, propFullName) {
+		      var propValue = props[propName];
+		      var propType = getPropType(propValue);
+		      if (propType !== 'object') {
+		        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+		      }
+		      // We need to check all keys in case some are required but missing from
+		      // props.
+		      var allKeys = assign({}, props[propName], shapeTypes);
+		      for (var key in allKeys) {
+		        var checker = shapeTypes[key];
+		        if (!checker) {
+		          return new PropTypeError(
+		            'Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' +
+		            '\nBad object: ' + JSON.stringify(props[propName], null, '  ') +
+		            '\nValid keys: ' +  JSON.stringify(Object.keys(shapeTypes), null, '  ')
+		          );
+		        }
+		        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+		        if (error) {
+		          return error;
+		        }
+		      }
+		      return null;
+		    }
+		
+		    return createChainableTypeChecker(validate);
+		  }
+		
+		  function isNode(propValue) {
+		    switch (typeof propValue) {
+		      case 'number':
+		      case 'string':
+		      case 'undefined':
+		        return true;
+		      case 'boolean':
+		        return !propValue;
+		      case 'object':
+		        if (Array.isArray(propValue)) {
+		          return propValue.every(isNode);
+		        }
+		        if (propValue === null || isValidElement(propValue)) {
+		          return true;
+		        }
+		
+		        var iteratorFn = getIteratorFn(propValue);
+		        if (iteratorFn) {
+		          var iterator = iteratorFn.call(propValue);
+		          var step;
+		          if (iteratorFn !== propValue.entries) {
+		            while (!(step = iterator.next()).done) {
+		              if (!isNode(step.value)) {
+		                return false;
+		              }
+		            }
+		          } else {
+		            // Iterator will provide entry [k,v] tuples rather than values.
+		            while (!(step = iterator.next()).done) {
+		              var entry = step.value;
+		              if (entry) {
+		                if (!isNode(entry[1])) {
+		                  return false;
+		                }
+		              }
+		            }
+		          }
+		        } else {
+		          return false;
+		        }
+		
+		        return true;
+		      default:
+		        return false;
+		    }
+		  }
+		
+		  function isSymbol(propType, propValue) {
+		    // Native Symbol.
+		    if (propType === 'symbol') {
+		      return true;
+		    }
+		
+		    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
+		    if (propValue['@@toStringTag'] === 'Symbol') {
+		      return true;
+		    }
+		
+		    // Fallback for non-spec compliant Symbols which are polyfilled.
+		    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
+		      return true;
+		    }
+		
+		    return false;
+		  }
+		
+		  // Equivalent of `typeof` but with special handling for array and regexp.
+		  function getPropType(propValue) {
+		    var propType = typeof propValue;
+		    if (Array.isArray(propValue)) {
+		      return 'array';
+		    }
+		    if (propValue instanceof RegExp) {
+		      // Old webkits (at least until Android 4.0) return 'function' rather than
+		      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
+		      // passes PropTypes.object.
+		      return 'object';
+		    }
+		    if (isSymbol(propType, propValue)) {
+		      return 'symbol';
+		    }
+		    return propType;
+		  }
+		
+		  // This handles more types than `getPropType`. Only used for error messages.
+		  // See `createPrimitiveTypeChecker`.
+		  function getPreciseType(propValue) {
+		    if (typeof propValue === 'undefined' || propValue === null) {
+		      return '' + propValue;
+		    }
+		    var propType = getPropType(propValue);
+		    if (propType === 'object') {
+		      if (propValue instanceof Date) {
+		        return 'date';
+		      } else if (propValue instanceof RegExp) {
+		        return 'regexp';
+		      }
+		    }
+		    return propType;
+		  }
+		
+		  // Returns a string that is postfixed to a warning about an invalid type.
+		  // For example, "undefined" or "of type array"
+		  function getPostfixForTypeWarning(value) {
+		    var type = getPreciseType(value);
+		    switch (type) {
+		      case 'array':
+		      case 'object':
+		        return 'an ' + type;
+		      case 'boolean':
+		      case 'date':
+		      case 'regexp':
+		        return 'a ' + type;
+		      default:
+		        return type;
+		    }
+		  }
+		
+		  // Returns class name of the object, if any.
+		  function getClassName(propValue) {
+		    if (!propValue.constructor || !propValue.constructor.name) {
+		      return ANONYMOUS;
+		    }
+		    return propValue.constructor.name;
+		  }
+		
+		  ReactPropTypes.checkPropTypes = checkPropTypes;
+		  ReactPropTypes.PropTypes = ReactPropTypes;
+		
+		  return ReactPropTypes;
+		};
+		
+		/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)));
+
+	/***/ }),
+	/* 7 */
+	/***/ (function(module, exports) {
+		
+		/**
+		 * Copyright (c) 2013-present, Facebook, Inc.
+		 *
+		 * This source code is licensed under the MIT license found in the
+		 * LICENSE file in the root directory of this source tree.
+		 *
+		 * 
+		 */
+		
+		function makeEmptyFunction(arg) {
+		  return function () {
+		    return arg;
+		  };
+		}
+		
+		/**
+		 * This function accepts and discards inputs; it has no side effects. This is
+		 * primarily useful idiomatically for overridable function endpoints which
+		 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+		 */
+		var emptyFunction = function emptyFunction() {};
+		
+		emptyFunction.thatReturns = makeEmptyFunction;
+		emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+		emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+		emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+		emptyFunction.thatReturnsThis = function () {
+		  return this;
+		};
+		emptyFunction.thatReturnsArgument = function (arg) {
+		  return arg;
+		};
+		
+		module.exports = emptyFunction;
+
+	/***/ }),
+	/* 8 */
+	/***/ (function(module, exports, __webpack_require__) {
+
+		/* WEBPACK VAR INJECTION */(function(process) {/**
+		 * Copyright (c) 2013-present, Facebook, Inc.
+		 *
+		 * This source code is licensed under the MIT license found in the
+		 * LICENSE file in the root directory of this source tree.
+		 *
+		 */
+		
+		/**
+		 * Use invariant() to assert state which your program assumes to be true.
+		 *
+		 * Provide sprintf-style format (only %s is supported) and arguments
+		 * to provide information about what broke and what you were
+		 * expecting.
+		 *
+		 * The invariant message will be stripped in production, but the invariant
+		 * will remain to ensure logic does not differ in production.
+		 */
+		
+		var validateFormat = function validateFormat(format) {};
+		
+		{
+		  validateFormat = function validateFormat(format) {
+		    if (format === undefined) {
+		      throw new Error('invariant requires an error message argument');
+		    }
+		  };
+		}
+		
+		function invariant(condition, format, a, b, c, d, e, f) {
+		  validateFormat(format);
+		
+		  if (!condition) {
+		    var error;
+		    if (format === undefined) {
+		      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+		    } else {
+		      var args = [a, b, c, d, e, f];
+		      var argIndex = 0;
+		      error = new Error(format.replace(/%s/g, function () {
+		        return args[argIndex++];
+		      }));
+		      error.name = 'Invariant Violation';
+		    }
+		
+		    error.framesToPop = 1; // we don't care about invariant's own frame
+		    throw error;
+		  }
+		}
+		
+		module.exports = invariant;
+		/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)));
+
+	/***/ }),
+	/* 9 */
+	/***/ (function(module, exports, __webpack_require__) {
+
+		/* WEBPACK VAR INJECTION */(function(process) {/**
+		 * Copyright (c) 2014-present, Facebook, Inc.
+		 *
+		 * This source code is licensed under the MIT license found in the
+		 * LICENSE file in the root directory of this source tree.
+		 *
+		 */
+		
+		var emptyFunction = __webpack_require__(7);
+		
+		/**
+		 * Similar to invariant but only logs a warning if the condition is not met.
+		 * This can be used to log issues in development environments in critical
+		 * paths. Removing the logging code for production environments will keep the
+		 * same logic and follow the same code paths.
+		 */
+		
+		var warning = emptyFunction;
+		
+		{
+		  var printWarning = function printWarning(format) {
+		    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+		      args[_key - 1] = arguments[_key];
+		    }
+		
+		    var argIndex = 0;
+		    var message = 'Warning: ' + format.replace(/%s/g, function () {
+		      return args[argIndex++];
+		    });
+		    if (typeof console !== 'undefined') {
+		      console.error(message);
+		    }
+		    try {
+		      // --- Welcome to debugging React ---
+		      // This error was thrown as a convenience so that you can use this stack
+		      // to find the callsite that caused this warning to fire.
+		      throw new Error(message);
+		    } catch (x) {}
+		  };
+		
+		  warning = function warning(condition, format) {
+		    if (format === undefined) {
+		      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+		    }
+		
+		    if (format.indexOf('Failed Composite propType: ') === 0) {
+		      return; // Ignore CompositeComponent proptype check.
+		    }
+		
+		    if (!condition) {
+		      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+		        args[_key2 - 2] = arguments[_key2];
+		      }
+		
+		      printWarning.apply(undefined, [format].concat(args));
+		    }
+		  };
+		}
+		
+		module.exports = warning;
+		/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)));
+
+	/***/ }),
+	/* 10 */
+	/***/ (function(module, exports) {
+		/* eslint-disable no-unused-vars */
+		var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+		var hasOwnProperty = Object.prototype.hasOwnProperty;
+		var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+		
+		function toObject(val) {
+			if (val === null || val === undefined) {
+				throw new TypeError('Object.assign cannot be called with null or undefined');
+			}
+		
+			return Object(val);
+		}
+		
+		function shouldUseNative() {
+			try {
+				if (!Object.assign) {
+					return false;
+				}
+		
+				// Detect buggy property enumeration order in older V8 versions.
+		
+				// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+				var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+				test1[5] = 'de';
+				if (Object.getOwnPropertyNames(test1)[0] === '5') {
+					return false;
+				}
+		
+				// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+				var test2 = {};
+				for (var i = 0; i < 10; i++) {
+					test2['_' + String.fromCharCode(i)] = i;
+				}
+				var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+					return test2[n];
+				});
+				if (order2.join('') !== '0123456789') {
+					return false;
+				}
+		
+				// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+				var test3 = {};
+				'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+					test3[letter] = letter;
+				});
+				if (Object.keys(Object.assign({}, test3)).join('') !==
+						'abcdefghijklmnopqrst') {
+					return false;
+				}
+		
+				return true;
+			} catch (err) {
+				// We don't expect any of the above to throw, but better to be safe.
+				return false;
+			}
+		}
+		
+		module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+			var from;
+			var to = toObject(target);
+			var symbols;
+		
+			for (var s = 1; s < arguments.length; s++) {
+				from = Object(arguments[s]);
+		
+				for (var key in from) {
+					if (hasOwnProperty.call(from, key)) {
+						to[key] = from[key];
+					}
+				}
+		
+				if (getOwnPropertySymbols) {
+					symbols = getOwnPropertySymbols(from);
+					for (var i = 0; i < symbols.length; i++) {
+						if (propIsEnumerable.call(from, symbols[i])) {
+							to[symbols[i]] = from[symbols[i]];
+						}
+					}
+				}
+			}
+		
+			return to;
+		};
+
+
+	/***/ }),
+	/* 11 */
+	/***/ (function(module, exports) {
+		
+		var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+		
+		module.exports = ReactPropTypesSecret;
+
+
+	/***/ }),
+	/* 12 */
+	/***/ (function(module, exports, __webpack_require__) {
+
+		/* WEBPACK VAR INJECTION */(function(process) {/**
+		 * Copyright (c) 2013-present, Facebook, Inc.
+		 *
+		 * This source code is licensed under the MIT license found in the
+		 * LICENSE file in the root directory of this source tree.
+		 */
+		
+		{
+		  var invariant = __webpack_require__(8);
+		  var warning = __webpack_require__(9);
+		  var ReactPropTypesSecret = __webpack_require__(11);
+		  var loggedTypeFailures = {};
+		}
+		
+		/**
+		 * Assert that the values match with the type specs.
+		 * Error messages are memorized and will only be shown once.
+		 *
+		 * @param {object} typeSpecs Map of name to a ReactPropType
+		 * @param {object} values Runtime values that need to be type-checked
+		 * @param {string} location e.g. "prop", "context", "child context"
+		 * @param {string} componentName Name of the component for error messages.
+		 * @param {?Function} getStack Returns the component stack.
+		 * @private
+		 */
+		function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
+		  {
+		    for (var typeSpecName in typeSpecs) {
+		      if (typeSpecs.hasOwnProperty(typeSpecName)) {
+		        var error;
+		        // Prop type validation may throw. In case they do, we don't want to
+		        // fail the render phase where it didn't fail before. So we log it.
+		        // After these have been cleaned up, we'll let them throw.
+		        try {
+		          // This is intentionally an invariant that gets caught. It's the same
+		          // behavior as without this statement except with a better message.
+		          invariant(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'the `prop-types` package, but received `%s`.', componentName || 'React class', location, typeSpecName, typeof typeSpecs[typeSpecName]);
+		          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
+		        } catch (ex) {
+		          error = ex;
+		        }
+		        warning(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error);
+		        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
+		          // Only monitor this failure once because there tends to be a lot of the
+		          // same error.
+		          loggedTypeFailures[error.message] = true;
+		
+		          var stack = getStack ? getStack() : '';
+		
+		          warning(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
+		        }
+		      }
+		    }
+		  }
+		}
+		
+		module.exports = checkPropTypes;
+		
+		/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)));
+
+	/***/ }),
+	/* 13 */
+	/***/ (function(module, exports, __webpack_require__) {
+		
+		var emptyFunction = __webpack_require__(7);
+		var invariant = __webpack_require__(8);
+		var ReactPropTypesSecret = __webpack_require__(11);
+		
+		module.exports = function() {
+		  function shim(props, propName, componentName, location, propFullName, secret) {
+		    if (secret === ReactPropTypesSecret) {
+		      // It is still safe when called from React.
+		      return;
+		    }
+		    invariant(
+		      false,
+		      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+		      'Use PropTypes.checkPropTypes() to call them. ' +
+		      'Read more at http://fb.me/use-check-prop-types'
+		    );
+		  }	  shim.isRequired = shim;
+		  function getShim() {
+		    return shim;
+		  }	  // Important!
+		  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+		  var ReactPropTypes = {
+		    array: shim,
+		    bool: shim,
+		    func: shim,
+		    number: shim,
+		    object: shim,
+		    string: shim,
+		    symbol: shim,
+		
+		    any: shim,
+		    arrayOf: getShim,
+		    element: shim,
+		    instanceOf: getShim,
+		    node: shim,
+		    objectOf: getShim,
+		    oneOf: getShim,
+		    oneOfType: getShim,
+		    shape: getShim,
+		    exact: getShim
+		  };
+		
+		  ReactPropTypes.checkPropTypes = emptyFunction;
+		  ReactPropTypes.PropTypes = ReactPropTypes;
+		
+		  return ReactPropTypes;
+		};
+
+
+	/***/ }),
+	/* 14 */
+	/***/ (function(module, exports) {
+
+		module.exports = react;
+
+	/***/ }),
+	/* 15 */
+	/***/ (function(module, exports) {
+		
+		var simpleIsEqual = function simpleIsEqual(a, b) {
+		  return a === b;
+		};
+		
+		function index (resultFn) {
+		  var isEqual = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : simpleIsEqual;
+		
+		  var lastThis = void 0;
+		  var lastArgs = [];
+		  var lastResult = void 0;
+		  var calledOnce = false;
+		
+		  var isNewArgEqualToLast = function isNewArgEqualToLast(newArg, index) {
+		    return isEqual(newArg, lastArgs[index]);
+		  };
+		
+		  var result = function result() {
+		    for (var _len = arguments.length, newArgs = Array(_len), _key = 0; _key < _len; _key++) {
+		      newArgs[_key] = arguments[_key];
+		    }
+		
+		    if (calledOnce && lastThis === this && newArgs.length === lastArgs.length && newArgs.every(isNewArgEqualToLast)) {
+		      return lastResult;
+		    }
+		
+		    calledOnce = true;
+		    lastThis = this;
+		    lastArgs = newArgs;
+		    lastResult = resultFn.apply(this, newArgs);
+		    return lastResult;
+		  };
+		
+		  return result;
+		}
+		
+		module.exports = index;
+
+
+	/***/ })
+	/******/ ]);
+
+	});
+
+	var Highlighter = unwrapExports(main);
+
+	var MaybeHighlightedText = function MaybeHighlightedText(_ref) {
+	  var highlightWords = _ref.highlightWords,
+	      text = _ref.text;
+	  return highlightWords ? react.createElement(Highlighter, {
+	    highlightClassName: "ca-output-card__search-highlight",
+	    searchWords: highlightWords,
+	    autoEscape: true,
+	    textToHighlight: text
+	  }) : text;
+	};
+
+	var OutputCard = function OutputCard(_ref2) {
+	  var heading = _ref2.heading,
+	      subHeadings = _ref2.subHeadings,
+	      description = _ref2.description,
+	      url = _ref2.url,
+	      buttonText = _ref2.buttonText,
+	      metadata = _ref2.metadata,
+	      boldMetadata = _ref2.boldMetadata,
+	      tags = _ref2.tags,
+	      tagClassName = _ref2.tagClassName,
+	      onTagClick = _ref2.onTagClick,
+	      highlightWords = _ref2.highlightWords;
 	  return react.createElement("div", {
 	    className: "ca-output-card"
 	  }, heading ? react.createElement("h2", {
-	    className: "ca-output-card__heading "
+	    className: "ca-output-card__heading"
 	  }, heading) : null, react.createElement("div", {
 	    className: "ca-output-card__body"
 	  }, react.createElement("div", {
@@ -24955,11 +26785,18 @@
 	    return subHeading ? react.createElement("h3", {
 	      key: index,
 	      className: "ca-output-card__body__main__subheading"
-	    }, subHeading) : null;
+	    }, react.createElement(MaybeHighlightedText, {
+	      highlightWords: highlightWords,
+	      text: subHeading
+	    })) : null;
 	  }) : null, description ? react.createElement("div", {
 	    className: "ca-output-card__body__main__description"
-	  }, description) : null, url && buttonText ? react.createElement("a", {
+	  }, react.createElement(MaybeHighlightedText, {
+	    highlightWords: highlightWords,
+	    text: description
+	  })) : null, url && buttonText ? react.createElement("a", {
 	    className: "ca-output-card__body__main__button",
+	    target: "_blank",
 	    href: url
 	  }, buttonText) : null), react.createElement("div", {
 	    className: "ca-output-card__body__side"
@@ -24968,23 +26805,39 @@
 	  }, metadata.map(function (data, index) {
 	    return data ? react.createElement("li", {
 	      key: index
-	    }, data) : null;
+	    }, react.createElement(MaybeHighlightedText, {
+	      highlightWords: highlightWords,
+	      text: data
+	    })) : null;
 	  })) : null, boldMetadata ? react.createElement("ul", {
 	    className: "ca-output-card__body__side__metadata ca-output-card__body__side__metadata--bold"
 	  }, boldMetadata.map(function (data, index) {
 	    return data ? react.createElement("li", {
 	      key: index
-	    }, data) : null;
+	    }, react.createElement(MaybeHighlightedText, {
+	      highlightWords: highlightWords,
+	      text: data
+	    })) : null;
 	  })) : null, tags ? react.createElement("ul", {
 	    className: "ca-output-card__body__side__tags"
 	  }, tags.map(function (tag, index) {
+	    var _classnames;
+
 	    return tag ? react.createElement("li", {
 	      key: index,
+	      className: classnames((_classnames = {}, _defineProperty$1(_classnames, tagClassName, tagClassName ? true : false), _defineProperty$1(_classnames, 'ca-bg-gray-dark', true), _classnames)),
 	      onClick: function onClick(e) {
-	        alert('clicke tag');
+	        onTagClick(tag);
 	      }
-	    }, tag) : null;
-	  })) : null)));
+	    }, react.createElement(MaybeHighlightedText, {
+	      highlightWords: highlightWords,
+	      text: tag
+	    })) : null;
+	  })) : null, url && buttonText ? react.createElement("a", {
+	    className: "ca-output-card__body__side__button",
+	    target: "_blank",
+	    href: url
+	  }, buttonText) : null)));
 	};
 
 	OutputCard.propTypes = {
@@ -24995,9 +26848,217 @@
 	  buttonText: propTypes.string,
 	  metadata: propTypes.array,
 	  boldMetadata: propTypes.array,
-	  tags: propTypes.array
+	  tags: propTypes.array,
+	  tagClassName: propTypes.string,
+	  onTagClick: propTypes.func.isRequired,
+	  highlightWords: propTypes.array
 	};
 
+	function _interopDefault$3 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+	var React$2 = _interopDefault$3(react);
+
+	var _extends$4 = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+
+	  return target;
+	};
+
+	var objectWithoutProperties$2 = function (obj, keys) {
+	  var target = {};
+
+	  for (var i in obj) {
+	    if (keys.indexOf(i) >= 0) continue;
+	    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	    target[i] = obj[i];
+	  }
+
+	  return target;
+	};
+
+	var ChevronLeftIcon = function ChevronLeftIcon(_ref) {
+	  var _ref$color = _ref.color,
+	      color = _ref$color === undefined ? 'currentColor' : _ref$color,
+	      _ref$size = _ref.size,
+	      size = _ref$size === undefined ? 24 : _ref$size,
+	      children = _ref.children,
+	      props = objectWithoutProperties$2(_ref, ['color', 'size', 'children']);
+
+	  var className = 'mdi-icon ' + (props.className || '');
+
+	  return React$2.createElement(
+	    'svg',
+	    _extends$4({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
+	    React$2.createElement('path', { d: 'M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z' })
+	  );
+	};
+
+	var ChevronLeftIcon_1 = ChevronLeftIcon;
+
+	function _interopDefault$4 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+	var React$3 = _interopDefault$4(react);
+
+	var _extends$5 = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+
+	  return target;
+	};
+
+	var objectWithoutProperties$3 = function (obj, keys) {
+	  var target = {};
+
+	  for (var i in obj) {
+	    if (keys.indexOf(i) >= 0) continue;
+	    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	    target[i] = obj[i];
+	  }
+
+	  return target;
+	};
+
+	var ChevronRightIcon = function ChevronRightIcon(_ref) {
+	  var _ref$color = _ref.color,
+	      color = _ref$color === undefined ? 'currentColor' : _ref$color,
+	      _ref$size = _ref.size,
+	      size = _ref$size === undefined ? 24 : _ref$size,
+	      children = _ref.children,
+	      props = objectWithoutProperties$3(_ref, ['color', 'size', 'children']);
+
+	  var className = 'mdi-icon ' + (props.className || '');
+
+	  return React$3.createElement(
+	    'svg',
+	    _extends$5({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
+	    React$3.createElement('path', { d: 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z' })
+	  );
+	};
+
+	var ChevronRightIcon_1 = ChevronRightIcon;
+
+	var PaginationControl = function PaginationControl(_ref) {
+	  var _classnames, _classnames3;
+
+	  var hasPreviousPage = _ref.hasPreviousPage,
+	      hasNextPage = _ref.hasNextPage,
+	      pages = _ref.pages,
+	      currentPageIndex = _ref.currentPageIndex,
+	      onClickPrevious = _ref.onClickPrevious,
+	      onClickNext = _ref.onClickNext,
+	      onClickPage = _ref.onClickPage,
+	      buttonClassName = _ref.buttonClassName;
+	  return react.createElement("div", {
+	    className: "ca-pagination-control"
+	  }, react.createElement("button", {
+	    className: classnames((_classnames = {}, _defineProperty$1(_classnames, buttonClassName, buttonClassName ? true : false), _defineProperty$1(_classnames, 'ca-pagination-control__previous', true), _defineProperty$1(_classnames, "enabled", hasPreviousPage), _classnames)),
+	    onClick: onClickPrevious
+	  }, react.createElement(ChevronLeftIcon_1, null)), pages.map(function (targetPageIndex) {
+	    var _classnames2;
+
+	    return react.createElement("button", {
+	      key: targetPageIndex,
+	      className: classnames((_classnames2 = {}, _defineProperty$1(_classnames2, buttonClassName, buttonClassName ? true : false), _defineProperty$1(_classnames2, 'ca-pagination-control__page', true), _defineProperty$1(_classnames2, "active", currentPageIndex === targetPageIndex), _classnames2)),
+	      onClick: function onClick() {
+	        onClickPage(targetPageIndex);
+	      }
+	    }, targetPageIndex + 1);
+	  }), react.createElement("button", {
+	    className: classnames((_classnames3 = {}, _defineProperty$1(_classnames3, buttonClassName, buttonClassName ? true : false), _defineProperty$1(_classnames3, 'ca-pagination-control__next', true), _defineProperty$1(_classnames3, "enabled", hasNextPage), _classnames3)),
+	    onClick: onClickNext
+	  }, react.createElement(ChevronRightIcon_1, null)));
+	};
+
+	PaginationControl.propTypes = {
+	  hasPreviousPage: propTypes.bool.isRequired,
+	  hasNextPage: propTypes.bool.isRequired,
+	  pages: propTypes.array.isRequired,
+	  currentPageIndex: propTypes.number.isRequired,
+	  onClickPrevious: propTypes.func.isRequired,
+	  onClickNext: propTypes.func.isRequired,
+	  onClickPage: propTypes.func.isRequired,
+	  buttonClassName: propTypes.string
+	};
+
+	function _interopDefault$5 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+	var React$4 = _interopDefault$5(react);
+
+	var _extends$6 = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+
+	  return target;
+	};
+
+	var objectWithoutProperties$4 = function (obj, keys) {
+	  var target = {};
+
+	  for (var i in obj) {
+	    if (keys.indexOf(i) >= 0) continue;
+	    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	    target[i] = obj[i];
+	  }
+
+	  return target;
+	};
+
+	var RefreshIcon = function RefreshIcon(_ref) {
+	  var _ref$color = _ref.color,
+	      color = _ref$color === undefined ? 'currentColor' : _ref$color,
+	      _ref$size = _ref.size,
+	      size = _ref$size === undefined ? 24 : _ref$size,
+	      children = _ref.children,
+	      props = objectWithoutProperties$4(_ref, ['color', 'size', 'children']);
+
+	  var className = 'mdi-icon ' + (props.className || '');
+
+	  return React$4.createElement(
+	    'svg',
+	    _extends$6({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
+	    React$4.createElement('path', { d: 'M17.65,6.35C16.2,4.9 14.21,4 12,4C7.58,4 4,7.58 4,12C4,16.42 7.58,20 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18C8.69,18 6,15.31 6,12C6,8.69 8.69,6 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z' })
+	  );
+	};
+
+	var RefreshIcon_1 = RefreshIcon;
+
+	var LoadingIndicator = function LoadingIndicator(_ref) {
+	  var active = _ref.active;
+	  return react.createElement("div", {
+	    className: classnames({
+	      'ca-loading-indicator': true,
+	      'active': active
+	    })
+	  }, react.createElement(RefreshIcon_1, null));
+	};
+
+	LoadingIndicator.propTypes = {
+	  active: propTypes.bool.isRequired
+	};
+
+	var SEARCHABLE_OUTPUT_DATA_PROPERTIES = ['heading', 'subHeadings', 'description', 'metadata', 'boldMetadata', 'tags'];
 	var mapOutputData = function mapOutputData(applicationConfig, data) {
 	  return {
 	    _id: data._id,
@@ -25018,22 +27079,6 @@
 	  };
 	};
 
-	var queryData = function queryData(applicationConfig, query, list) {
-	  return list.filter(function (item) {
-	    return Object.keys(query).every(function (parameterId) {
-	      var parameterValues = query[parameterId];
-
-	      if (parameterValues.allSelected) {
-	        return true;
-	      } else {
-	        return parameterValues.selected.some(function (parameterValue) {
-	          return item[parameterId] && item[parameterId].toLowerCase().includes(parameterValue.toLowerCase());
-	        });
-	      }
-	    });
-	  });
-	};
-
 	var App =
 	/*#__PURE__*/
 	function (_React$Component) {
@@ -25046,6 +27091,15 @@
 	  }
 
 	  _createClass(App, [{
+	    key: "scrollToTop",
+	    value: function scrollToTop() {
+	      var $html = jQuery('body,html');
+	      var $mainHeader = jQuery('#main-header');
+	      $html.animate({
+	        scrollTop: jQuery(reactDom_2(this)).offset().top - $mainHeader.outerHeight()
+	      });
+	    }
+	  }, {
 	    key: "componentDidMount",
 	    value: function componentDidMount() {
 	      this.props.queryDefineParameters(this.props.applicationConfig.parameters);
@@ -25056,32 +27110,100 @@
 	    value: function render() {
 	      var _this = this;
 
+	      var HOVER_CLASSNAME = "ca-hover-".concat(this.props.applicationConfig.hoverColorScheme);
 	      return react.createElement("div", {
-	        className: "csv-filter"
-	      }, react.createElement("header", {
-	        className: "csv-filter__header"
-	      }, react.createElement(Filter, {
+	        className: "ca-csv-filter-app"
+	      }, react.createElement(LoadingIndicator, {
+	        active: this.props.loadingState === 'loading'
+	      }), react.createElement("header", {
+	        className: "ca-csv-filter-app__header"
+	      }, react.createElement("div", {
+	        className: "ca-csv-filter-app__header__bar"
+	      }, react.createElement("div", {
+	        className: "ca-csv-filter-app__header__bar__left"
+	      }, react.createElement("h3", {
+	        className: "ca-heading-3"
+	      }, "Filtrar por:"), react.createElement(Filter, {
 	        parameters: this.props.parameters,
 	        onParameterSelectAll: this.props.querySelectParameterAllSelected,
-	        onParameterDeselectAll: this.props.queryDeselectParameterAllSelected,
+	        onParameterDeselectAll: function onParameterDeselectAll() {
+	          if (_this.props.parameters.length > 0 && _this.props.parameters[0].optionLists.length > 0 && _this.props.parameters[0].optionLists[0].options.length > 0) {
+	            _this.props.querySelectParameterOption(_this.props.parameters[0].id, _this.props.parameters[0].optionLists[0].options[0].id);
+	          }
+	        },
 	        onParameterChangeOption: function onParameterChangeOption(parameterId, listId, optionId, value) {
 	          if (value) {
 	            _this.props.querySelectParameterOption(parameterId, optionId);
 	          } else {
 	            _this.props.queryDeselectParameterOption(parameterId, optionId);
 	          }
+
+	          _this.scrollToTop();
+	        },
+	        popUpTriggerClassName: "ca-bg-transparent ".concat(HOVER_CLASSNAME)
+	      })), react.createElement("div", {
+	        className: "ca-csv-filter-app__header__bar__right"
+	      }, react.createElement(TextSearchForm, {
+	        value: this.props.textSearchValue,
+	        label: "Buscar por palavra",
+	        onChange: function onChange(value) {
+	          _this.props.querySetTextSearchValue(value);
+	        },
+	        onSubmit: function onSubmit(value) {
+	          _this.scrollToTop();
 	        }
-	      }), react.createElement("div", {
-	        className: "loading-indicator",
-	        style: {
-	          display: this.props.loadingState === 'loading' ? 'block' : 'none'
-	        }
-	      }, this.props.loadingState)), react.createElement("div", {
-	        className: "csv-filter__body"
-	      }, this.props.entries.map(function (entry) {
+	      }))), react.createElement("div", {
+	        className: "ca-csv-filter-app__header__bar"
+	      }, react.createElement("div", {
+	        className: "ca-csv-filter-app__header__bar__left"
+	      }, react.createElement("h3", {
+	        className: "ca-heading-3"
+	      }, "Resultados:")), react.createElement("div", {
+	        className: "ca-csv-filter-app__header__bar__right"
+	      }, this.props.applicationConfig.linkButtons.map(function (btn, index) {
+	        return react.createElement("a", {
+	          key: index,
+	          className: "ca-link-button ".concat(HOVER_CLASSNAME),
+	          target: btn.targetBlank ? '_blank' : '',
+	          href: btn.url
+	        }, btn.text);
+	      })))), react.createElement("div", {
+	        className: "ca-csv-filter-app__body"
+	      }, this.props.shownEntries.map(function (entry) {
 	        return react.createElement(OutputCard, _extends$1({
 	          key: entry._id
-	        }, entry));
+	        }, entry, {
+	          tagClassName: "".concat(HOVER_CLASSNAME),
+	          onTagClick: function onTagClick(tag) {
+	            _this.props.querySetTextSearchValue(tag);
+
+	            _this.scrollToTop();
+	          },
+	          highlightWords: _this.props.textSearchValue ? [_this.props.textSearchValue] : null
+	        }));
+	      })), react.createElement("footer", {
+	        className: "ca-csv-filter-app__footer"
+	      }, react.createElement(PaginationControl, {
+	        hasPreviousPage: this.props.hasPreviousPage,
+	        hasNextPage: this.props.hasNextPage,
+	        pages: this.props.shownPages,
+	        currentPageIndex: this.props.currentPageIndex,
+	        onClickPrevious: function onClickPrevious() {
+	          _this.props.setCurrentPageIndex(_this.props.currentPageIndex - 1);
+
+	          _this.scrollToTop();
+	        },
+	        onClickNext: function onClickNext() {
+	          _this.props.setCurrentPageIndex(_this.props.currentPageIndex + 1);
+
+	          _this.scrollToTop();
+	        },
+	        onClickPage: function onClickPage(targetPageIndex) {
+	          _this.props.setCurrentPageIndex(targetPageIndex);
+
+	          _this.scrollToTop();
+	        },
+	        buttonClassName: "".concat(HOVER_CLASSNAME)
 	      })));
 	    }
 	  }]);
@@ -25095,27 +27217,59 @@
 
 	var mapStateToProps = function mapStateToProps(state) {
 	  var applicationConfig = state.applicationConfig;
+	  var pageLength = state.pagination.pageLength;
+	  var currentPageIndex = state.pagination.currentPageIndex;
+	  var parameters = state.query.parameters.map(function (parameter) {
+	    var allSelectedValue = state.query.values[parameter.id].allSelected;
+	    var availableItemsForAllSelected = applyParametersQuery(state.entries, _objectSpread$1({}, state.query.values, _defineProperty$1({}, parameter.id, {
+	      allSelected: true,
+	      selected: []
+	    }))).length;
+	    return _objectSpread$1({}, parameter, {
+	      allSelected: allSelectedValue,
+	      allSelectedLabel: "Todos (".concat(availableItemsForAllSelected, ")"),
+	      optionLists: parameter.optionLists.map(function (optionList) {
+	        return _objectSpread$1({}, optionList, {
+	          options: optionList.options.map(function (option) {
+	            var optionIsSelected = state.query.values[parameter.id].selected.indexOf(option.id) !== -1;
+	            var availableItemsForOption = applyParametersQuery(state.entries, _objectSpread$1({}, state.query.values, _defineProperty$1({}, parameter.id, {
+	              allSelected: false,
+	              selected: [option.id]
+	            }))).length;
+	            return _objectSpread$1({}, option, {
+	              label: "".concat(option.label, " (").concat(availableItemsForOption, ")"),
+	              value: optionIsSelected,
+	              disabled: optionIsSelected ? false : availableItemsForOption === 0
+	            });
+	          })
+	        });
+	      })
+	    });
+	  });
+	  var parameterMatchedEntries = applyParametersQuery(state.entries, state.query.values);
+	  var matchedEntries = applyTextSearchQuery( // match the text search query against the output data (makes configuration easier)
+	  parameterMatchedEntries.map(function (entry) {
+	    return mapOutputData(state.applicationConfig, entry);
+	  }), SEARCHABLE_OUTPUT_DATA_PROPERTIES, state.query.textSearchValue);
+	  var shownEntriesStartingIndex = pageLength * currentPageIndex;
+	  var shownEntriesEndingIndex = shownEntriesStartingIndex + pageLength;
+	  var shownEntries = matchedEntries.slice(shownEntriesStartingIndex, shownEntriesEndingIndex + 1);
+	  var pageCount = matchedEntries.length % pageLength === 0 ? matchedEntries.length / pageLength : Math.floor(matchedEntries.length / pageLength) + 1;
+	  var shownPagesStartingIndex = Math.max(0, currentPageIndex - 2);
+	  var shownPagesEndingIndex = shownPagesStartingIndex + 4;
+	  var shownPages = Array.apply(null, Array(pageCount)).map(function (x, i) {
+	    return i;
+	  }).slice(shownPagesStartingIndex, shownPagesEndingIndex + 1);
 	  return {
 	    applicationConfig: state.applicationConfig,
-	    parameters: state.query.parameters.map(function (parameter) {
-	      var allSelectedValue = state.query.values[parameter.id].allSelected;
-	      return _objectSpread$1({}, parameter, {
-	        allSelected: allSelectedValue,
-	        optionLists: parameter.optionLists.map(function (optionList) {
-	          return _objectSpread$1({}, optionList, {
-	            options: optionList.options.map(function (option) {
-	              return _objectSpread$1({}, option, {
-	                value: state.query.values[parameter.id].selected.indexOf(option.id) !== -1
-	              });
-	            })
-	          });
-	        })
-	      });
-	    }),
+	    textSearchValue: state.query.textSearchValue,
 	    loadingState: state.loadingState,
-	    entries: queryData(applicationConfig, state.query.values, state.entries).map(function (entry) {
-	      return mapOutputData(state.applicationConfig, entry);
-	    })
+	    parameters: parameters,
+	    shownEntries: shownEntries,
+	    currentPageIndex: currentPageIndex,
+	    hasPreviousPage: currentPageIndex > 0,
+	    hasNextPage: currentPageIndex < pageCount - 1,
+	    shownPages: shownPages
 	  };
 	};
 
@@ -25125,7 +27279,9 @@
 	  queryDeselectParameterAllSelected: queryDeselectParameterAllSelected,
 	  querySelectParameterOption: querySelectParameterOption,
 	  queryDeselectParameterOption: queryDeselectParameterOption,
-	  loadCSV: loadCSV
+	  querySetTextSearchValue: querySetTextSearchValue,
+	  loadCSV: loadCSV,
+	  setCurrentPageIndex: setCurrentPageIndex
 	};
 	var App$1 = connect(mapStateToProps, mapDispatchToProps)(App);
 
@@ -25240,9 +27396,52 @@
 	  }
 	};
 
+	var textSearchValue = function textSearchValue() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+	  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+	  switch (action.type) {
+	    case 'QUERY_SET_TEXT_SEARCH_VALUE':
+	      return action.payload.value;
+
+	    default:
+	      return state;
+	  }
+	};
+
 	var query = combineReducers({
 	  parameters: parameters,
-	  values: values
+	  values: values,
+	  textSearchValue: textSearchValue
+	});
+
+	var currentPageIndex = function currentPageIndex() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+	  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+	  switch (action.type) {
+	    case 'SET_CURRENT_PAGE_INDEX':
+	      return action.payload.pageIndex;
+
+	    case 'QUERY_SELECT_PARAMETER_OPTION':
+	    case 'QUERY_DESELECT_PARAMETER_OPTION':
+	    case 'QUERY_SELECT_PARAMETER_ALL_SELECTED':
+	    case 'QUERY_DESELECT_PARAMETER_ALL_SELECTED':
+	      return 0;
+
+	    default:
+	      return state;
+	  }
+	};
+
+	var pageLength = function pageLength() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 10;
+	  return state;
+	};
+
+	var pagination = combineReducers({
+	  currentPageIndex: currentPageIndex,
+	  pageLength: pageLength
 	});
 
 	var entries = function entries() {
@@ -25286,7 +27485,8 @@
 	  entries: entries,
 	  query: query,
 	  loadingState: loadingState,
-	  applicationConfig: applicationConfig
+	  applicationConfig: applicationConfig,
+	  pagination: pagination
 	});
 
 	var parseConfig = function parseConfig() {
@@ -25294,6 +27494,13 @@
 	  var config = JSON.parse(configElement.innerHTML);
 	  return {
 	    csvFile: config.csv_file,
+	    backgroundColorScheme: config.background_color_scheme,
+	    hoverColorScheme: config.hover_color_scheme,
+	    linkButtons: config.link_buttons.map(function (btn) {
+	      return _objectSpread$1({}, btn, {
+	        targetBlank: btn.target_blank
+	      });
+	    }),
 	    parameters: config.parameters.map(function (param) {
 	      return {
 	        id: param.label,

@@ -2,6 +2,8 @@
 use Carbon_Fields\Container;
 use Carbon_Fields\Field;
 
+require_once(dirname(__DIR__) . '/auxiliary.php');
+
 function ca_csv_filter__prettify_complex_cf($field, $title_attribute) {
 	$field->set_layout('tabbed-vertical');
 	$field->set_header_template('<%- $_index + 1 %> <% if (' . $title_attribute . ') { %>- <%- ' . $title_attribute . ' %><% } %>');
@@ -9,11 +11,10 @@ function ca_csv_filter__prettify_complex_cf($field, $title_attribute) {
 	return $field;
 }
 
-Container::make('post_meta', 'Abertura')
-  ->where('post_template', '=', 'page-templates/csv-filter.php')
-  ->add_fields(array(
-    Field::make('text', 'ca_csv_filter__abertura_title', 'Título')
-  ));
+Container::make('post_meta', 'Configurações do Cabeçalho')
+	->add_fields(array(
+		ca_aux__make_link_buttons_field('ca_csv_filter__heading_link_buttons', 'Links')
+	));
 
 Container::make('post_meta', 'Configurações do filtro')
 	->where('post_template', '=', 'page-templates/csv-filter.php')
@@ -92,9 +93,31 @@ function ca_csv_filter__get_config($post_id) {
 		$config[$config_name] = carbon_get_post_meta($post_id, $field_name);
 	}
 
-	// file
+	// CSV File
 	$config['csv_file'] = wp_get_attachment_url($config['csv_file']);
 
+	// Color schmes
+	$config['background_color_scheme'] = carbon_get_post_meta(
+		$post_id,
+		'ca_page__color_scheme'
+	);
+	$config['hover_color_scheme'] = ca_page__get_hover_color_scheme(
+		$config['background_color_scheme']
+	);
+
+	// Link buttons
+	$config['link_buttons'] = array_map(function ($button) {
+		if ($button['file']) {
+			$button['url'] = wp_get_attachment_url($button['file']);
+		}
+
+		return $button;
+
+	}, carbon_get_post_meta(
+		$post_id,
+		'ca_csv_filter__heading_link_buttons'
+	));
+	
 	return $config;
 }
 

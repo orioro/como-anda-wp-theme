@@ -7,6 +7,7 @@ import OptionList from '../OptionList'
 const OptionsPanel = ({
 	optionLists,
 	allSelected,
+	allSelectedLabel,
 	onSelectAll,
 	onDeselectAll,
 	onChangeOptionListOption
@@ -16,7 +17,7 @@ const OptionsPanel = ({
 			<Option
 				id='_all'
 				value={allSelected}
-				label='Todos'
+				label={allSelectedLabel || 'Todos'}
 				onChange={value => {
 					if (value) {
 						onSelectAll()
@@ -44,6 +45,7 @@ const OptionsPanel = ({
 OptionsPanel.propTypes = {
 	optionLists: PropTypes.array.isRequired,
 	allSelected: PropTypes.bool.isRequired,
+	allSelectedLabel: PropTypes.string,
 	onSelectAll: PropTypes.func.isRequired,
 	onDeselectAll: PropTypes.func.isRequired,
 	onChangeOptionListOption: PropTypes.func.isRequired,

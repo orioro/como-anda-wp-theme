@@ -2,6 +2,10 @@
 	position: relative;
 	box-sizing: border-box;
 
+  &.ca-page-section--last {
+    padding-bottom: 100px;
+  }
+
 	// padding-top: @spacing-unit-6;
 	// padding-bottom: @spacing-unit-6;
 
@@ -25,6 +29,7 @@
 
  	.ca-page-section__image-container {
     padding-top: 20px;
+    padding-bottom: 20px;
     padding-right: 50px;
     box-sizing: border-box;
 		display: flex;
@@ -52,13 +57,12 @@
     	margin-bottom: 0;
     }
   }
-
-  // .ca-link-image-list {
-  // 	margin-top: @spacing-unit-4;
-  // }
-
 	
   @media (max-width: @tablet-max-width) {
+    &.ca-page-section--last {
+      padding-bottom: 0;
+    }
+
     .ca-page-section__contents { 
       // padding-top: 10px;
       // padding-bottom: 10px;

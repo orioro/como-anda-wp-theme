@@ -85,7 +85,17 @@ const values = (state = {}, action) => {
 	}
 }
 
+const textSearchValue = (state = '', action) => {
+	switch (action.type) {
+		case 'QUERY_SET_TEXT_SEARCH_VALUE':
+			return action.payload.value
+		default:
+			return state
+	}
+}
+
 export default combineReducers({
 	parameters,
-	values
+	values,
+	textSearchValue
 })

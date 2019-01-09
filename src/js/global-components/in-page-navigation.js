@@ -1,4 +1,5 @@
 export default () => {
+	const $html = jQuery('html,body')
 	const $mainHeader = jQuery('#main-header')
 
 	const scrollTo = (selector) => {

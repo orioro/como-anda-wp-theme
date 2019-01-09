@@ -2,13 +2,6 @@
 use Carbon_Fields\Container;
 use Carbon_Fields\Field;
 
-Container::make('post_meta', 'Abertura')
-  ->where('post_template', '=', 'page-templates/timeline.php')
-  ->add_fields(array(
-    Field::make('text', 'ca_timeline__abertura_title', 'Título')
-  ));
-
-
 Container::make('post_meta', 'Configurações da linha do tempo')
 	->where('post_template', '=', 'page-templates/timeline.php')
 	->add_fields(array(
