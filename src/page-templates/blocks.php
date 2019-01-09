@@ -22,24 +22,33 @@ get_header(); ?>
 	$ca_blocks__blocks_count = count($ca_blocks__blocks);
 	?>
 	<?php foreach ($ca_blocks__blocks as $block_index => $block) : ?>
+
+  <?php
+  $block_has_textual_items = $block['title'] ? true : false;
+  $block_has_link_images = count($block['link_images']) > 0;
+
+  $block_variant_class = '';
+  if ($block_has_textual_items && $block_has_link_images) {
+  	$block_variant_class = 'ca-page-block--has-main-and-library';
+  } else if ($block_has_textual_items) {
+  	$block_variant_class = 'ca-page-block--has-main-only';
+  } else if ($block_has_link_images) {
+  	$block_variant_class = 'ca-page-block--has-library-only';
+  }
+  ?>
 	<section
 		id="<?php echo sanitize_title($block['id'] ? $block['id'] : $block['title']); ?>"
-		class="ca-page-section ca-bg-<?php echo $ca_page__color_scheme; ?> <?php if ($block_index === $ca_blocks__blocks_count - 1) : ?>ca-page-section--last<?php endif; ?>"
+		class="ca-page-block ca-bg-<?php echo $ca_page__color_scheme; ?> <?php echo $block_variant_class; ?>"
 	  data-bg-color-section="<?php echo $ca_page__color_scheme; ?>">
 	  <div class="container max-width-container side-padding-container">
 
-	    <?php
-	    $block_has_textual_items = $block['title'] ? true : false;
-	    $block_has_link_images = count($block['link_images']) > 0;
-	    ?>
-
 	    <?php if ($block_has_textual_items) : ?>
-			<div class="row">
-				<div class="col-md-4 ca-page-section__image-container">
+			<div class="row ca-page-block__main">
+				<div class="col-md-4 ca-page-block__main__image-container">
 					<img src="<?php echo wp_get_attachment_image_src($block['image'], 'ca-square-image')[0]; ?>">
 				</div>
 	  
-				<div class="col-md-8 ca-page-section__contents ca-margin-top-6">
+				<div class="col-md-8 ca-page-block__main__contents">
 	        <?php if ($block['title']) : ?>
 					<h3 class="ca-heading-3">
 						<?php echo $block['title']; ?>
@@ -47,13 +56,13 @@ get_header(); ?>
 	        <?php endif; ?>
 
 	        <?php if ($block['content']) : ?>
-					<div class="wysiwyg-content ca-page-section__contents_description">
+					<div class="wysiwyg-content ca-page-block__main__contents_description">
 						<?php echo apply_filters('the_content', $block['content']); ?>
 					</div>
 	        <?php endif; ?>
 
 	        <?php if (count($block['link_buttons']) > 0) : ?>
-					<ul class="ca-link-button-list ca-padding-bottom-6">
+					<ul class="ca-link-button-list">
 						<?php foreach ($block['link_buttons'] as $button) : ?>
 						<li>
 							<a
@@ -72,7 +81,7 @@ get_header(); ?>
 	    <?php endif; ?>
 
 	    <?php if ($block_has_link_images) : ?>
-			<div class="row <?php if (!$block_has_textual_items) : ?>ca-padding-top-6<?php else : ?>ca-padding-top-4<?php endif; ?> ca-padding-bottom-6">
+			<div class="row ca-page-block__library">
 				<div class="col-md-12">
 					<ul class="ca-link-image-list ca-link-image-list--vertical-images">
 						<?php foreach ($block['link_images'] as $image) : ?>

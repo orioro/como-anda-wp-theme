@@ -1,0 +1,122 @@
+.ca-page-block {
+	position: relative;
+	box-sizing: border-box;
+
+	&::before {
+		content: '';
+		display: block;
+		position: absolute;
+
+		left: @side-padding-desktop;
+		right: @side-padding-desktop;
+		top: 1px;
+
+		height: 2px;
+		background-color: black;
+  }
+
+  .ca-page-block__main__image-container {
+    padding-top: @spacing-unit-5;
+    padding-bottom: @spacing-unit-5;
+    padding-right: @spacing-unit-5;
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    align-self: center;
+
+    > img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  .ca-page-block__main__contents {
+    > * {
+      margin-top: @spacing-unit-4;
+      margin-bottom: @spacing-unit-4;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.ca-page-block--has-main-only {
+    .ca-page-block__main__contents {
+      padding-top: @spacing-unit-6;
+      padding-bottom: @spacing-unit-6;
+    }
+  }
+
+  &.ca-page-block--has-library-only {
+    .ca-page-block__library {
+      padding-top: @spacing-unit-6;
+      padding-bottom: @spacing-unit-6;
+    }
+  }
+
+  &.ca-page-block--has-main-and-library {
+    .ca-page-block__main__contents {
+      padding-top: @spacing-unit-6;
+      margin-bottom: @spacing-unit-4;
+    }
+    
+    .ca-page-block__library {
+      padding-bottom: @spacing-unit-6;
+    }
+  }
+	
+  @media (max-width: @tablet-max-width) {
+    .ca-page-block__main__image-container {
+      display: none;
+    }
+
+    .ca-page-block__main__contents {
+      > * {
+        margin-top: @spacing-unit-4-mobile;
+        margin-bottom: @spacing-unit-4-mobile;
+      }
+    }
+
+
+    &.ca-page-block--has-main-only {
+      .ca-page-block__main__contents {
+        padding-top: @spacing-unit-6-mobile;
+        padding-bottom: @spacing-unit-6-mobile;
+      }
+    }
+
+    &.ca-page-block--has-library-only {
+      .ca-page-block__library {
+        padding-top: @spacing-unit-6-mobile;
+        padding-bottom: @spacing-unit-6-mobile;
+      }
+    }
+
+    &.ca-page-block--has-main-and-library {
+      .ca-page-block__main__contents {
+        padding-top: @spacing-unit-6-mobile;
+        margin-bottom: @spacing-unit-4-mobile;
+      }
+      
+      .ca-page-block__library {
+        padding-bottom: @spacing-unit-6-mobile;
+      }
+    }
+  }
+
+  @media (max-width: @mobile-max-width) {
+    &::before {
+      left: @side-padding-mobile;
+      right: @side-padding-mobile;
+    }
+  }
+}
