@@ -9,8 +9,8 @@ module.exports = (gulp) => {
 			'src/style.css',
 		]
 
-		const CUSTOM_STYLES = [
-			'src/js/page-template-infografico-roda/styles.css'
+		const CUSTOM_RESOURCES = [
+			'src/js/page-template-infografico-roda/**/*'
 		]
 
 		const SCRIPTS = [
@@ -34,7 +34,7 @@ module.exports = (gulp) => {
 
 		return gulp.src([
 			...WORDPRESS_FILES,
-			...CUSTOM_STYLES,
+			...CUSTOM_RESOURCES,
 			...SCRIPTS,
 			...RESOURCES,
 			...VENDOR,
