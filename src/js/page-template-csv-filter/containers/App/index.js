@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import classnames from 'classnames'
 import { findDOMNode } from 'react-dom'
+import CloseIcon from 'mdi-react/CloseIcon'
 
 import {
 	queryDefineParameters,
@@ -122,17 +123,54 @@ class App extends React.Component {
 				</div>
 			</header>
 			<div className='ca-csv-filter-app__body'>
-				{this.props.pageEntries.map(entry => {
-					return <OutputCard
-						key={entry._id}
-						{...entry}
-						tagClassName={`${HOVER_CLASSNAME}`}
-						onTagClick={tag => {
-							this.props.querySetTextSearchValue(tag)
-							this.scrollToTop()
-						}}
-						highlightWords={this.props.textSearchValue ? [this.props.textSearchValue] : null}/>
-				})}
+				{this.props.pageEntries.length > 0 ?
+					this.props.pageEntries.map(entry => {
+						return <OutputCard
+							key={entry._id}
+							{...entry}
+							tagClassName={`${HOVER_CLASSNAME}`}
+							onTagClick={tag => {
+								this.props.querySetTextSearchValue(tag)
+								this.scrollToTop()
+							}}
+							highlightWords={this.props.textSearchValue ? [this.props.textSearchValue] : null}/>
+					}) : 
+					<div className='ca-csv-filter-app__body__no-results-message'>
+						<h3>
+							Infelizmente não encontramos nenhum resultado para esta busca.
+						</h3>
+						<ul>
+							{this.props.parameters.map(parameter => {
+								return parameter.allSelected ? null : <li key={parameter.id}>
+									<div>
+										<button onClick={() => {
+											this.props.querySelectParameterAllSelected(parameter.id)
+										}}>
+											<CloseIcon />
+										</button>
+										{parameter.label}
+									</div>
+									<ul>
+										{parameter.optionLists.map(optionList => {
+											return optionList.options
+												.filter(option => option.value)
+												.map(option => <li key={parameter.id}>{option.labelSrc}</li>)
+										})}
+									</ul>
+								</li>
+							})}
+							{this.props.textSearchValue ? <li key='text-search'>
+								<div>
+									<button onClick={() => this.props.querySetTextSearchValue('')}>
+										<CloseIcon />
+									</button>
+									Busca textual:
+								</div>
+								<div>{this.props.textSearchValue}</div>
+							</li> : null}
+						</ul>
+					</div>
+				}
 			</div>
 			<footer className='ca-csv-filter-app__footer'>
 				{this.props.pages.length > 1 ? <PaginationControl

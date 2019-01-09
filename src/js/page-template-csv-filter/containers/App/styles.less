@@ -38,6 +38,74 @@
 
 	> .ca-csv-filter-app__body {
 		padding-top: 20px;
+
+		> .ca-csv-filter-app__body__no-results-message {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+
+			> h3 {
+				max-width: 300px;
+				text-align: center;
+			}
+
+			> ul {
+				width: 400px;
+				list-style: none;
+				padding: 0;
+				margin: 0;
+
+				> li {
+					display: flex;
+					justify-content: space-between;
+
+					/**
+					 * Remove search button
+					 */
+					button {
+				    display: flex;
+				    justify-content: center;
+				    align-items: center;
+
+				    margin-right: 10px;
+
+				    padding: 0;
+				    border: none;
+				    color: inherit;
+
+				    cursor: pointer;
+
+				    width: 15px;
+				    height: 15px;
+
+				    background-color: transparent;
+
+				    > svg {
+				    	height: 100%;
+				    	width: 100%;
+				    }
+					}
+
+
+					> * {
+						width: 48%;
+
+						&:first-child {
+							display: flex;
+							justify-content: flex-end;
+							align-items: center;
+						}
+					}
+
+					> ul {
+						list-style: none;
+						padding: 0;
+						margin: 0;
+					}
+				}
+			}
+		}
 	}
 
 	> .ca-csv-filter-app__footer {

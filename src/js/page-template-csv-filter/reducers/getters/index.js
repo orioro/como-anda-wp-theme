@@ -137,6 +137,7 @@ export const getFilterParameters = state => {
 						return {
 							...option,
 							label: `${option.label} (${availableItemsForOption})`,
+							labelSrc: option.label,
 							value: optionIsSelected,
 							disabled: optionIsSelected ? false : availableItemsForOption === 0,
 						}

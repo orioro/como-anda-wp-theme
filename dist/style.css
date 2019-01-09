@@ -5928,6 +5928,84 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 .ca-csv-filter-app > .ca-csv-filter-app__body {
   padding-top: 20px;
 }
+.ca-csv-filter-app > .ca-csv-filter-app__body > .ca-csv-filter-app__body__no-results-message {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.ca-csv-filter-app > .ca-csv-filter-app__body > .ca-csv-filter-app__body__no-results-message > h3 {
+  max-width: 300px;
+  text-align: center;
+}
+.ca-csv-filter-app > .ca-csv-filter-app__body > .ca-csv-filter-app__body__no-results-message > ul {
+  width: 400px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.ca-csv-filter-app > .ca-csv-filter-app__body > .ca-csv-filter-app__body__no-results-message > ul > li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  /**
+					 * Remove search button
+					 */
+}
+.ca-csv-filter-app > .ca-csv-filter-app__body > .ca-csv-filter-app__body__no-results-message > ul > li button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: 10px;
+  padding: 0;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
+}
+.ca-csv-filter-app > .ca-csv-filter-app__body > .ca-csv-filter-app__body__no-results-message > ul > li button > svg {
+  height: 100%;
+  width: 100%;
+}
+.ca-csv-filter-app > .ca-csv-filter-app__body > .ca-csv-filter-app__body__no-results-message > ul > li > * {
+  width: 48%;
+}
+.ca-csv-filter-app > .ca-csv-filter-app__body > .ca-csv-filter-app__body__no-results-message > ul > li > *:first-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.ca-csv-filter-app > .ca-csv-filter-app__body > .ca-csv-filter-app__body__no-results-message > ul > li > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 .ca-csv-filter-app > .ca-csv-filter-app__footer {
   padding-top: 40px;
   padding-bottom: 40px;

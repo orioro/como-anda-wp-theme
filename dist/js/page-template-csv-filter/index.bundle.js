@@ -24013,6 +24013,55 @@
 	}());
 	});
 
+	function _interopDefault$1 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+	var React = _interopDefault$1(react);
+
+	var _extends$2 = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+
+	  return target;
+	};
+
+	var objectWithoutProperties = function (obj, keys) {
+	  var target = {};
+
+	  for (var i in obj) {
+	    if (keys.indexOf(i) >= 0) continue;
+	    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	    target[i] = obj[i];
+	  }
+
+	  return target;
+	};
+
+	var CloseIcon = function CloseIcon(_ref) {
+	  var _ref$color = _ref.color,
+	      color = _ref$color === undefined ? 'currentColor' : _ref$color,
+	      _ref$size = _ref.size,
+	      size = _ref$size === undefined ? 24 : _ref$size,
+	      children = _ref.children,
+	      props = objectWithoutProperties(_ref, ['color', 'size', 'children']);
+
+	  var className = 'mdi-icon ' + (props.className || '');
+
+	  return React.createElement(
+	    'svg',
+	    _extends$2({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
+	    React.createElement('path', { d: 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z' })
+	  );
+	};
+
+	var CloseIcon_1 = CloseIcon;
+
 	var queryDefineParameters = function queryDefineParameters(parameters) {
 	  return {
 	    type: 'QUERY_DEFINE_PARAMETERS',
@@ -24223,6 +24272,7 @@
 	            var availableItemsForOption = countEntriesForParameterOption(state, parameter.id, option.id);
 	            return _objectSpread$1({}, option, {
 	              label: "".concat(option.label, " (").concat(availableItemsForOption, ")"),
+	              labelSrc: option.label,
 	              value: optionIsSelected,
 	              disabled: optionIsSelected ? false : availableItemsForOption === 0
 	            });
@@ -24802,11 +24852,11 @@
 	  };
 	};
 
-	function _interopDefault$1 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+	function _interopDefault$2 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-	var React = _interopDefault$1(react);
+	var React$1 = _interopDefault$2(react);
 
-	var _extends$2 = Object.assign || function (target) {
+	var _extends$3 = Object.assign || function (target) {
 	  for (var i = 1; i < arguments.length; i++) {
 	    var source = arguments[i];
 
@@ -24820,7 +24870,7 @@
 	  return target;
 	};
 
-	var objectWithoutProperties = function (obj, keys) {
+	var objectWithoutProperties$1 = function (obj, keys) {
 	  var target = {};
 
 	  for (var i in obj) {
@@ -24838,14 +24888,14 @@
 	      _ref$size = _ref.size,
 	      size = _ref$size === undefined ? 24 : _ref$size,
 	      children = _ref.children,
-	      props = objectWithoutProperties(_ref, ['color', 'size', 'children']);
+	      props = objectWithoutProperties$1(_ref, ['color', 'size', 'children']);
 
 	  var className = 'mdi-icon ' + (props.className || '');
 
-	  return React.createElement(
+	  return React$1.createElement(
 	    'svg',
-	    _extends$2({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
-	    React.createElement('path', { d: 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z' })
+	    _extends$3({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
+	    React$1.createElement('path', { d: 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z' })
 	  );
 	};
 
@@ -25112,55 +25162,6 @@
 	  getPopUpTriggerClassName: propTypes.func
 	};
 
-	function _interopDefault$2 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-	var React$1 = _interopDefault$2(react);
-
-	var _extends$3 = Object.assign || function (target) {
-	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i];
-
-	    for (var key in source) {
-	      if (Object.prototype.hasOwnProperty.call(source, key)) {
-	        target[key] = source[key];
-	      }
-	    }
-	  }
-
-	  return target;
-	};
-
-	var objectWithoutProperties$1 = function (obj, keys) {
-	  var target = {};
-
-	  for (var i in obj) {
-	    if (keys.indexOf(i) >= 0) continue;
-	    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-	    target[i] = obj[i];
-	  }
-
-	  return target;
-	};
-
-	var SearchIcon = function SearchIcon(_ref) {
-	  var _ref$color = _ref.color,
-	      color = _ref$color === undefined ? 'currentColor' : _ref$color,
-	      _ref$size = _ref.size,
-	      size = _ref$size === undefined ? 24 : _ref$size,
-	      children = _ref.children,
-	      props = objectWithoutProperties$1(_ref, ['color', 'size', 'children']);
-
-	  var className = 'mdi-icon ' + (props.className || '');
-
-	  return React$1.createElement(
-	    'svg',
-	    _extends$3({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
-	    React$1.createElement('path', { d: 'M9.5,3C13.09,3 16,5.91 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16C5.91,16 3,13.09 3,9.5C3,5.91 5.91,3 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z' })
-	  );
-	};
-
-	var SearchIcon_1 = SearchIcon;
-
 	function _interopDefault$3 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 	var React$2 = _interopDefault$3(react);
@@ -25191,7 +25192,7 @@
 	  return target;
 	};
 
-	var CloseIcon = function CloseIcon(_ref) {
+	var SearchIcon = function SearchIcon(_ref) {
 	  var _ref$color = _ref.color,
 	      color = _ref$color === undefined ? 'currentColor' : _ref$color,
 	      _ref$size = _ref.size,
@@ -25204,11 +25205,11 @@
 	  return React$2.createElement(
 	    'svg',
 	    _extends$4({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
-	    React$2.createElement('path', { d: 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z' })
+	    React$2.createElement('path', { d: 'M9.5,3C13.09,3 16,5.91 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16C5.91,16 3,13.09 3,9.5C3,5.91 5.91,3 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z' })
 	  );
 	};
 
-	var CloseIcon_1 = CloseIcon;
+	var SearchIcon_1 = SearchIcon;
 
 	var TextSearchForm =
 	/*#__PURE__*/
@@ -27353,7 +27354,7 @@
 	        }, btn.text);
 	      })))), react.createElement("div", {
 	        className: "ca-csv-filter-app__body"
-	      }, this.props.pageEntries.map(function (entry) {
+	      }, this.props.pageEntries.length > 0 ? this.props.pageEntries.map(function (entry) {
 	        return react.createElement(OutputCard, _extends$1({
 	          key: entry._id
 	        }, entry, {
@@ -27365,7 +27366,31 @@
 	          },
 	          highlightWords: _this.props.textSearchValue ? [_this.props.textSearchValue] : null
 	        }));
-	      })), react.createElement("footer", {
+	      }) : react.createElement("div", {
+	        className: "ca-csv-filter-app__body__no-results-message"
+	      }, react.createElement("h3", null, "Infelizmente n\xE3o encontramos nenhum resultado para esta busca."), react.createElement("ul", null, this.props.parameters.map(function (parameter) {
+	        return parameter.allSelected ? null : react.createElement("li", {
+	          key: parameter.id
+	        }, react.createElement("div", null, react.createElement("button", {
+	          onClick: function onClick() {
+	            _this.props.querySelectParameterAllSelected(parameter.id);
+	          }
+	        }, react.createElement(CloseIcon_1, null)), parameter.label), react.createElement("ul", null, parameter.optionLists.map(function (optionList) {
+	          return optionList.options.filter(function (option) {
+	            return option.value;
+	          }).map(function (option) {
+	            return react.createElement("li", {
+	              key: parameter.id
+	            }, option.labelSrc);
+	          });
+	        })));
+	      }), this.props.textSearchValue ? react.createElement("li", {
+	        key: "text-search"
+	      }, react.createElement("div", null, react.createElement("button", {
+	        onClick: function onClick() {
+	          return _this.props.querySetTextSearchValue('');
+	        }
+	      }, react.createElement(CloseIcon_1, null)), "Busca textual:"), react.createElement("div", null, this.props.textSearchValue)) : null))), react.createElement("footer", {
 	        className: "ca-csv-filter-app__footer"
 	      }, this.props.pages.length > 1 ? react.createElement(PaginationControl, {
 	        hasPreviousPage: this.props.hasPreviousPage,

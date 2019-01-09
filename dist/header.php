@@ -29,6 +29,22 @@ $queried_object = get_queried_object();
 <?php else : ?>
 <header id="main-header">
 	<div class="container max-width-container side-padding-container">
+		<?php
+		$ca_home__illustration_uris = array_map(function ($item) {
+			return get_template_directory_uri() . '/resources/ilustracoes/' . $item;
+		}, array(
+			'ilustracao-1.png',
+			'ilustracao-2.png',
+			'ilustracao-3.png',
+			'ilustracao-4.png',
+			'ilustracao-5.png',
+			'ilustracao-6.png',
+			'ilustracao-7.png',
+			'ilustracao-8.png',
+			'ilustracao-9.png',
+			'ilustracao-10.png',
+		));
+		?>
 		<a
 			id="logo-anchor"
 			href="<?php echo get_home_url(); ?>">
@@ -37,7 +53,7 @@ $queried_object = get_queried_object();
 				src="<?php echo get_template_directory_uri(); ?>/resources/logo.svg">
 			<img
 				id="logo-illustration"
-				src="<?php echo get_template_directory_uri(); ?>/resources/ilustracoes/ilustracao-5.png">
+				src="<?php echo $ca_home__illustration_uris[array_rand($ca_home__illustration_uris)]; ?>">
 		</a>
 
     <button id="mobile-menu-trigger">
