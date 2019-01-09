@@ -26967,7 +26967,7 @@
 	      highlightWords = _ref2.highlightWords;
 
 	  var renterLinkButtonList = function renterLinkButtonList() {
-	    return linkButtons ? react.createElement("ul", {
+	    return linkButtons && linkButtons.length > 0 ? react.createElement("ul", {
 	      className: "ca-output-card__link-button-list"
 	    }, linkButtons.map(function (_ref3, index) {
 	      var buttonText = _ref3.buttonText,

@@ -622,6 +622,8 @@ ul.menu > li:hover > ul.sub-menu {
   display: block;
   position: relative;
   height: 45%;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 #main-header > div.max-width-container #logo-anchor #logo-main {
   display: block;
@@ -648,7 +650,7 @@ ul.menu > li:hover > ul.sub-menu {
 #main-header.far-from-top #logo-illustration {
   opacity: 0;
 }
-@media (max-width: 450px) {
+@media (max-width: 850px) {
   #main-header {
     height: 70px;
   }
@@ -4112,7 +4114,7 @@ img {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-@media (max-width: 450px) {
+@media (max-width: 850px) {
   .side-padding-container {
     padding-left: 20px;
     padding-right: 20px;
@@ -5468,6 +5470,14 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   flex-wrap: wrap;
   margin-bottom: -10px;
 }
+@media (max-width: 450px) {
+  .ca-filter > ul {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
 .ca-filter > ul > li {
   margin-right: 10px;
   margin-bottom: 10px;
@@ -5574,6 +5584,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   -ms-flex-positive: 1;
   flex-grow: 1;
   width: 220px;
+  max-width: 90vw;
   line-height: 1.2;
   font-size: 1.125rem;
   -webkit-user-select: none;
@@ -5602,6 +5613,14 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+@media (max-width: 850px) {
+  .ca-options-panel > ul {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 .ca-options-panel > ul > li {
   margin-right: 20px;
@@ -5654,7 +5673,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   display: block;
 }
 .ca-output-card {
-  margin-top: 20px;
+  margin-bottom: 20px;
   padding: 40px;
   background-color: rgba(255, 255, 255, 0.4);
   border: 2px solid black;
@@ -5705,7 +5724,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   list-style: none;
   padding-left: 50px;
 }
-.ca-output-card > .ca-output-card__body > .ca-output-card__body__side > ul.ca-output-card__body__side__metadata--bold {
+.ca-output-card > .ca-output-card__body > .ca-output-card__body__side > ul.ca-output-card__body__side__metadata.ca-output-card__body__side__metadata--bold {
   font-weight: bold;
 }
 .ca-output-card > .ca-output-card__body > .ca-output-card__body__side > ul.ca-output-card__body__side__tags {
@@ -5730,7 +5749,13 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 .ca-output-card > .ca-output-card__body > .ca-output-card__body__side > .ca-output-card__link-button-list {
   display: none;
 }
+.ca-output-card:last-child {
+  margin-bottom: 0;
+}
 @media (max-width: 450px) {
+  .ca-output-card {
+    padding: 20px;
+  }
   .ca-output-card .ca-output-card__body {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -5900,6 +5925,9 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 .ca-csv-filter-app > .ca-csv-filter-app__header > .ca-csv-filter-app__header__bar > .ca-csv-filter-app__header__bar__right > * {
   margin-left: 10px;
 }
+.ca-csv-filter-app > .ca-csv-filter-app__body {
+  padding-top: 20px;
+}
 .ca-csv-filter-app > .ca-csv-filter-app__footer {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -5909,6 +5937,39 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+@media (max-width: 850px) {
+  .ca-csv-filter-app > .ca-csv-filter-app__header > .ca-csv-filter-app__header__bar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+  .ca-csv-filter-app > .ca-csv-filter-app__header > .ca-csv-filter-app__header__bar > .ca-csv-filter-app__header__bar__left {
+    max-width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+  .ca-csv-filter-app > .ca-csv-filter-app__header > .ca-csv-filter-app__header__bar > .ca-csv-filter-app__header__bar__left > * {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  .ca-csv-filter-app > .ca-csv-filter-app__header > .ca-csv-filter-app__header__bar > .ca-csv-filter-app__header__bar__right {
+    max-width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+  .ca-csv-filter-app > .ca-csv-filter-app__header > .ca-csv-filter-app__header__bar > .ca-csv-filter-app__header__bar__right > * {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
 }
 /**
  * Page templates
