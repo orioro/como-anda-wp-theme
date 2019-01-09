@@ -3,6 +3,15 @@ import 'whatwg-fetch'
 // import parse from 'csv-parse'
 import Papa from 'papaparse'
 
+export const setCurrentPageIndex = pageIndex => {
+	return {
+		type: 'SET_CURRENT_PAGE_INDEX',
+		payload: {
+			pageIndex
+		}
+	}
+}
+
 export const loadCSV = csvUrl => dispatch => {
 	dispatch({
 		type: 'LOAD_DATA_REQUEST'

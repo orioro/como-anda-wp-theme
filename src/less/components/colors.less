@@ -17,6 +17,10 @@ each(@dark-colors, {
 	}
 });
 
+.ca-bg-transparent {
+	background-color: transparent;
+}
+
 each(@light-colors, {
 	.ca-fg-@{key} {
 		color: @value;
@@ -27,4 +31,34 @@ each(@dark-colors, {
 	.ca-fg-@{key} {
 		color: @value;
 	}
+});
+
+each(@light-colors, {
+	.ca-hover-@{key}:hover,
+	.ca-hover-@{key}.ca-link-button:hover,
+	.ca-hover-@{key}.active {
+		background-color: @value;
+		color: @color-text-dark;
+		border-color: @color-text-light;
+  }
+  @media (max-width: @mobile-max-width) {
+    .ca-hover-@{key} {
+      background-color: @value;
+    }
+  }
+});
+
+each(@dark-colors, {
+	.ca-hover-@{key}:hover,
+	.ca-hover-@{key}.ca-link-button:hover,
+	.ca-hover-@{key}.active {
+		background-color: @value;
+		color: @color-text-light;
+		border-color: @color-text-dark;
+	}
+  @media (max-width: @mobile-max-width) {
+    .ca-hover-@{key} {
+      background-color: @value;
+    }
+  }
 });

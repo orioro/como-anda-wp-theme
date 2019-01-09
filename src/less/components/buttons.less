@@ -16,30 +16,30 @@ a.ca-link-button {
 
 	text-decoration: none;
 
-	each(@light-colors, {
-		&.ca-hover-@{key}:hover {
-			background-color: @value;
-			color: @color-text-dark;
-			border-color: @color-text-light;
-    }
-    @media (max-width: @mobile-max-width) {
-      &.ca-hover-@{key} {
-        background-color: @value;
-      }
-    }
-	});
+	// each(@light-colors, {
+	// 	&.ca-hover-@{key}:hover {
+	// 		background-color: @value;
+	// 		color: @color-text-dark;
+	// 		border-color: @color-text-light;
+ //    }
+ //    @media (max-width: @mobile-max-width) {
+ //      &.ca-hover-@{key} {
+ //        background-color: @value;
+ //      }
+ //    }
+	// });
 
-	each(@dark-colors, {
-		&.ca-hover-@{key}:hover {
-			background-color: @value;
-			color: @color-text-light;
-			border-color: @color-text-dark;
-		}
-    @media (max-width: @mobile-max-width) {
-      &.ca-hover-@{key} {
-        background-color: @value;
-      }
-    }
-	});
+	// each(@dark-colors, {
+	// 	&.ca-hover-@{key}:hover {
+	// 		background-color: @value;
+	// 		color: @color-text-light;
+	// 		border-color: @color-text-dark;
+	// 	}
+ //    @media (max-width: @mobile-max-width) {
+ //      &.ca-hover-@{key} {
+ //        background-color: @value;
+ //      }
+ //    }
+	// });
 }
 

@@ -22,14 +22,14 @@ $ca_page__color_scheme = carbon_get_post_meta(
           <h1
             data-component="ca-animated-text"
             class="ca-heading-1 ca-fg-black ca-decorative-border-bottom ca-padding-bottom-3 ca-animated-text not-visible">
-          <?php echo do_shortcode(carbon_get_post_meta(get_the_ID(), 'ca_home__abertura_title'));  ?>
+            <?php echo carbon_get_post_meta(get_the_ID(), 'ca_page__header_title'); ?>
           </h1>
         </div>
       </div>
       <div class="row ca-padding-top-4">
         <div class="col-md-8 offset-md-4">
           <div class="wysiwyg-content ca-section-header__contents">
-            <?php echo apply_filters('the_content',carbon_get_post_meta(get_the_ID(), 'ca_home__abertura_description')); ?>
+            <?php the_content(); ?>
           </div>
         </div>
       </div>

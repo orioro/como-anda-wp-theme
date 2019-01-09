@@ -44,3 +44,12 @@ export const queryDeselectParameterAllSelected = parameterId => {
 		}
 	}
 }
+
+export const querySetTextSearchValue = value => {
+	return {
+		type: 'QUERY_SET_TEXT_SEARCH_VALUE',
+		payload: {
+			value
+		}
+	}
+}

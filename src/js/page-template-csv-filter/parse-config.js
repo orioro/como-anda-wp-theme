@@ -1,10 +1,17 @@
 const parseConfig = () => {
 	const configElement = document.getElementById('ca-csv-filter-config')
-
 	const config = JSON.parse(configElement.innerHTML)
 
 	return {
 		csvFile: config.csv_file,
+		backgroundColorScheme: config.background_color_scheme,
+		hoverColorScheme: config.hover_color_scheme,
+		linkButtons: config.link_buttons.map(btn => {
+			return {
+				...btn,
+				targetBlank: btn.target_blank,
+			}
+		}),
 		parameters: config.parameters.map(param => {
 			return {
 				id: param.label,

@@ -39,7 +39,7 @@
   				<?php the_post_thumbnail(); ?>
   				<?php the_excerpt(); ?>
   				<a
-  					class="ca-link-button ca-hover-<?php echo carbon_get_post_meta(get_the_ID(), 'ca_page__color_scheme') ?>"
+  					class="ca-link-button ca-hover-<?php echo ca_page__get_hover_color_scheme(carbon_get_post_meta(get_the_ID(), 'ca_page__color_scheme')); ?>"
   					href="<?php the_permalink(); ?>">
   					<?php echo carbon_get_post_meta(get_the_ID(), 'ca_page__call_to_action'); ?>
   				</a>

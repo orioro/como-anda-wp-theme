@@ -1,0 +1,38 @@
+.ca-text-search-form {
+  display: flex;
+  align-items: center;
+  border-width: 1px;
+  border-style: solid;
+  border-color: currentColor;
+
+	> input {
+    flex-grow: 1;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+
+    color: inherit;
+    font-weight: bold;
+    padding: 16px 4px 16px 20px;
+    outline: none;
+
+    &::placeholder {
+      color: inherit;
+    }
+	}
+
+	> button[type="submit"] {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 25px;
+    height: 25px;
+
+    margin-right: 8px;
+
+    color: inherit;
+    background-color: transparent;
+    border: none;
+
+    padding: 0;
+	}
+}
