@@ -26935,15 +26935,13 @@
 
 	var Highlighter = unwrapExports(main);
 
-	var React$3 = require('react');
-
 	var MaybeHighlightedText = function MaybeHighlightedText(_ref) {
 	  var highlightWords = _ref.highlightWords,
 	      text = _ref.text;
 	  var shouldHighlight = highlightWords && highlightWords.every(function (word) {
 	    return word.length > 3;
 	  });
-	  return shouldHighlight ? React$3.createElement(Highlighter, {
+	  return shouldHighlight ? react.createElement(Highlighter, {
 	    highlightClassName: "ca-output-card__search-highlight",
 	    searchWords: highlightWords,
 	    autoEscape: true,
@@ -26963,70 +26961,70 @@
 	      tagClassName = _ref2.tagClassName,
 	      onTagClick = _ref2.onTagClick,
 	      highlightWords = _ref2.highlightWords;
-	  return React$3.createElement("div", {
+	  return react.createElement("div", {
 	    className: "ca-output-card"
-	  }, heading ? React$3.createElement("h2", {
+	  }, heading ? react.createElement("h2", {
 	    className: "ca-output-card__heading"
-	  }, React$3.createElement(MaybeHighlightedText, {
+	  }, react.createElement(MaybeHighlightedText, {
 	    highlightWords: highlightWords,
 	    text: heading
-	  })) : null, React$3.createElement("div", {
+	  })) : null, react.createElement("div", {
 	    className: "ca-output-card__body"
-	  }, React$3.createElement("div", {
+	  }, react.createElement("div", {
 	    className: "ca-output-card__body__main"
 	  }, subHeadings ? subHeadings.map(function (subHeading, index) {
-	    return subHeading ? React$3.createElement("h3", {
+	    return subHeading ? react.createElement("h3", {
 	      key: index,
 	      className: "ca-output-card__body__main__subheading"
-	    }, React$3.createElement(MaybeHighlightedText, {
+	    }, react.createElement(MaybeHighlightedText, {
 	      highlightWords: highlightWords,
 	      text: subHeading
 	    })) : null;
-	  }) : null, description ? React$3.createElement("div", {
+	  }) : null, description ? react.createElement("div", {
 	    className: "ca-output-card__body__main__description"
-	  }, React$3.createElement(MaybeHighlightedText, {
+	  }, react.createElement(MaybeHighlightedText, {
 	    highlightWords: highlightWords,
 	    text: description
-	  })) : null, url && buttonText ? React$3.createElement("a", {
+	  })) : null, url && buttonText ? react.createElement("a", {
 	    className: "ca-output-card__body__main__button",
 	    target: "_blank",
 	    href: url
-	  }, buttonText) : null), React$3.createElement("div", {
+	  }, buttonText) : null), react.createElement("div", {
 	    className: "ca-output-card__body__side"
-	  }, metadata ? React$3.createElement("ul", {
+	  }, metadata ? react.createElement("ul", {
 	    className: "ca-output-card__body__side__metadata"
 	  }, metadata.map(function (data, index) {
-	    return data ? React$3.createElement("li", {
+	    return data ? react.createElement("li", {
 	      key: index
-	    }, React$3.createElement(MaybeHighlightedText, {
+	    }, react.createElement(MaybeHighlightedText, {
 	      highlightWords: highlightWords,
 	      text: data
 	    })) : null;
-	  })) : null, boldMetadata ? React$3.createElement("ul", {
+	  })) : null, boldMetadata ? react.createElement("ul", {
 	    className: "ca-output-card__body__side__metadata ca-output-card__body__side__metadata--bold"
 	  }, boldMetadata.map(function (data, index) {
-	    return data ? React$3.createElement("li", {
+	    return data ? react.createElement("li", {
 	      key: index
-	    }, React$3.createElement(MaybeHighlightedText, {
+	    }, react.createElement(MaybeHighlightedText, {
 	      highlightWords: highlightWords,
 	      text: data
 	    })) : null;
-	  })) : null, tags ? React$3.createElement("ul", {
+	  })) : null, tags ? react.createElement("ul", {
 	    className: "ca-output-card__body__side__tags"
 	  }, tags.map(function (tag, index) {
 	    var _classnames;
 
-	    return tag ? React$3.createElement("li", {
+	    return tag ? react.createElement("li", {
 	      key: index,
 	      className: classnames((_classnames = {}, _defineProperty$1(_classnames, tagClassName, tagClassName ? true : false), _defineProperty$1(_classnames, 'ca-bg-gray-dark', true), _classnames)),
 	      onClick: function onClick(e) {
 	        onTagClick(tag);
 	      }
-	    }, React$3.createElement(MaybeHighlightedText, {
+	    }, react.createElement(MaybeHighlightedText, {
 	      highlightWords: highlightWords,
 	      text: tag
 	    })) : null;
-	  })) : null, url && buttonText ? React$3.createElement("a", {
+	  })) : null, url && buttonText ? react.createElement("a", {
 	    className: "ca-output-card__body__side__button",
 	    target: "_blank",
 	    href: url
@@ -27049,7 +27047,7 @@
 
 	function _interopDefault$4 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-	var React$4 = _interopDefault$4(react);
+	var React$3 = _interopDefault$4(react);
 
 	var _extends$5 = Object.assign || function (target) {
 	  for (var i = 1; i < arguments.length; i++) {
@@ -27087,10 +27085,10 @@
 
 	  var className = 'mdi-icon ' + (props.className || '');
 
-	  return React$4.createElement(
+	  return React$3.createElement(
 	    'svg',
 	    _extends$5({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
-	    React$4.createElement('path', { d: 'M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z' })
+	    React$3.createElement('path', { d: 'M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z' })
 	  );
 	};
 
@@ -27098,7 +27096,7 @@
 
 	function _interopDefault$5 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-	var React$5 = _interopDefault$5(react);
+	var React$4 = _interopDefault$5(react);
 
 	var _extends$6 = Object.assign || function (target) {
 	  for (var i = 1; i < arguments.length; i++) {
@@ -27136,10 +27134,10 @@
 
 	  var className = 'mdi-icon ' + (props.className || '');
 
-	  return React$5.createElement(
+	  return React$4.createElement(
 	    'svg',
 	    _extends$6({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
-	    React$5.createElement('path', { d: 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z' })
+	    React$4.createElement('path', { d: 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z' })
 	  );
 	};
 
@@ -27190,7 +27188,7 @@
 
 	function _interopDefault$6 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-	var React$6 = _interopDefault$6(react);
+	var React$5 = _interopDefault$6(react);
 
 	var _extends$7 = Object.assign || function (target) {
 	  for (var i = 1; i < arguments.length; i++) {
@@ -27228,10 +27226,10 @@
 
 	  var className = 'mdi-icon ' + (props.className || '');
 
-	  return React$6.createElement(
+	  return React$5.createElement(
 	    'svg',
 	    _extends$7({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
-	    React$6.createElement('path', { d: 'M17.65,6.35C16.2,4.9 14.21,4 12,4C7.58,4 4,7.58 4,12C4,16.42 7.58,20 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18C8.69,18 6,15.31 6,12C6,8.69 8.69,6 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z' })
+	    React$5.createElement('path', { d: 'M17.65,6.35C16.2,4.9 14.21,4 12,4C7.58,4 4,7.58 4,12C4,16.42 7.58,20 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18C8.69,18 6,15.31 6,12C6,8.69 8.69,6 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z' })
 	  );
 	};
 
