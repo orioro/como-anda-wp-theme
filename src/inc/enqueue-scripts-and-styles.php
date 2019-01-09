@@ -18,6 +18,13 @@ function ca__enqueue_scripts_and_styles() {
 		'1.0.0'
 	);
 
+	wp_register_style(
+		'ca--page-template-infografico-roda',
+		get_template_directory_uri() . '/js/page-template-infografico-roda/styles.css',
+		array(),
+		'1.0.0'
+	);
+
 	/**
 	 * Register scripts
 	 */
@@ -84,6 +91,7 @@ function ca__enqueue_scripts_and_styles() {
 
 	if (is_page_template('page-templates/infografico-roda.php')) {
 		wp_enqueue_script('ca--page-template-infografico-roda');
+		wp_enqueue_style('ca--page-template-infografico-roda');
 	}
 }
 add_action('wp_enqueue_scripts', 'ca__enqueue_scripts_and_styles');

@@ -7,6 +7,7 @@ const babel = require('rollup-plugin-babel')
 const replace = require('rollup-plugin-replace')
 const builtins = require('rollup-plugin-node-builtins')
 const globals = require('rollup-plugin-node-globals')
+const json = require('rollup-plugin-json')
 
 const SCRIPTS_DIR = path.join(__dirname, 'src/js')
 
@@ -18,9 +19,11 @@ const isFile = filepath => {
 	}
 }
 
-const scripts = fs.readdirSync(SCRIPTS_DIR).filter(name => {
-	return isFile(path.join(SCRIPTS_DIR, name, 'index.js'))
-})
+// const scripts = fs.readdirSync(SCRIPTS_DIR).filter(name => {
+// 	return isFile(path.join(SCRIPTS_DIR, name, 'index.js'))
+// })
+
+const scripts = ['page-template-infografico-roda']
 
 const scriptConfig = scriptName => ({
 	input: `src/js/${scriptName}/index.js`,
@@ -36,6 +39,7 @@ const scriptConfig = scriptName => ({
 			babelrc: true,
 			exclude: 'node_modules/**'
 		}),
+		json(),
 		replace({
 			'process.env.NODE_ENV': '"development"',
 		}),
@@ -54,9 +58,6 @@ const scriptConfig = scriptName => ({
 		}),
     globals(),
     builtins()
-		// string({
-		// 	include: ['src/**/*.css'],
-		// })
 	]
 })
 

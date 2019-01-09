@@ -1,0 +1,615 @@
+body {
+  font-family: 'News Cycle', sans-serif;
+  background-color: #E0E0E0;
+  
+  margin: 0 0;
+  color: black;
+}
+
+h1, h2, h3 {
+  margin: 0 0;
+}
+
+/**
+ * 
+ * Navigation
+ * 
+ */
+#timeline-link {
+  position: fixed;
+  z-index: 1;
+  bottom: 16px;
+  left: 67%;
+  line-height: 14px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #808080;
+  opacity: 1;
+  transition: color ease 0.3s, opacity ease 0.5s;
+
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+}
+
+#timeline-link.hide {
+  opacity: 0;
+}
+
+
+#timeline-link img {
+  display: block;
+  padding-right: 10px;
+}
+
+#timeline-link div {
+  margin-top: -3px;
+}
+
+#timeline-link:hover {
+  color: #000000;
+}
+
+#know-more-link {
+  position: fixed;
+  z-index: 1;
+  bottom: 20px;
+  right: 20px;
+  opacity: 1;
+  text-decoration: none;
+  transition: opacity ease 0.5s;
+  
+  color: black;
+}
+
+#know-more-link.hide {
+  opacity: 0;
+}
+
+/**
+ * 
+ * Entity details
+ * 
+ */
+#entity-details {
+  width: 50vw;
+  border: none;
+  
+  padding: 0 0;
+}
+
+#entity-details > * {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+#entity-details > header {
+  border-bottom: 2px #e0e0e0 solid;
+  color: grey;
+  font-family: "Terrorista", sans-serif;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#entity-details section {
+  height: 300px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  overflow: auto;
+}
+
+#entity-details header h1 {
+  font-size: 2em;
+  letter-spacing: 0.02em;
+  line-height: 1.2em;
+}
+
+#entity-details section h3 {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#entity-details section h3 span{
+  font-weight: normal;
+}
+
+#entity-details section p {
+  font-size: 12px;
+  padding-bottom: 20px;
+}
+
+#entity-details footer {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#entity-details a {
+  cursor: pointer;
+  font-family: 'News Cycle', sans-serif;
+  height: 50px;
+  width: 100px;
+  border: 2px solid grey;
+  outline: none;
+  background-color: white;
+  
+  color: black;
+  text-decoration: none;
+  
+  box-sizing: border-box;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  
+  margin-right: 10px;
+}
+
+#entity-details a:hover {
+  background-color: #608B43;
+  color: white;
+}
+
+#entity-details form {
+  margin: 0;
+}
+
+#entity-details button {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    border: none;
+    background: none;
+    font-size: 2em;
+    color: #fff;
+    cursor: pointer;
+}
+
+#entity-details + .backdrop {
+  background-color: rgba(0,0,0,0.75);
+}
+ 
+#entity-details::backdrop {
+  background-color: rgba(0,0,0,0.75);
+}
+
+/**
+ * 
+ * Data visualization tool
+ * 
+ */
+#viz-tooltip {
+  position: fixed;
+  z-index: 1000;
+  padding: 8px;
+  
+  transition: opacity .1s ease;
+  
+  background-color: #E9353A;
+  color: white;
+  font-size: 10px;
+  line-height: 12px;
+  
+  pointer-events: none;
+  
+  max-width: 100px;
+  
+  transform: translate(5px, -5px);
+  
+  opacity: 0;
+}
+#viz-tooltip.active {
+  opacity: 1;
+}
+
+#comoanda-viz {
+  position: absolute;
+  top: 0;
+  left: 0;
+/*   left: 50%;
+top: 50%;
+transform: translate(-50%, -50%); */
+  z-index: 0;
+}
+
+#stats {
+  position: fixed;
+  width: 20%;
+  
+  opacity: 1;
+  transition: opacity 1s ease;
+  
+  top: 50px;
+  left: 50px;
+}
+#stats.hidden {
+  opacity: 0;
+}
+
+#stats h1 {
+  font-family: 'Terrorista', sans-serif;
+  color: #3c81bb;
+  font-size: 40px;
+  line-height: 1em;
+  
+  margin: 0 0;
+}
+
+#stats h3 {
+  margin: 0 0;
+  font-weight: normal;
+  line-height: 1.3;
+  font-size: 18px;
+}
+
+#stats h3 strong {
+  font-weight: bold;
+}
+
+/**
+ * Year brush styles
+ */
+#year-brush .overlay {
+  fill: #808080;
+}
+
+#year-brush .selection {
+  fill: #ED8744;
+  fill-opacity: 1;
+  stroke: none;
+  opacity: 1;
+}
+
+#year-brush .handle {
+  fill: #f9f9f9;
+  stroke: #b5b5b5;
+  /* stroke-width: 5px; */
+}
+
+#year-brush .handle--e {
+}
+
+#year-brush .handle--w {
+}
+
+#year-brush .brush-label {
+  fill: black;
+  background-color: red;
+}
+
+/**
+ * Entity and state arc styles
+ */
+#comoanda-viz .state-arc path {
+  fill: #8DBEE1;
+}
+#comoanda-viz .state-arc text {
+  alignment-baseline: middle;
+  user-select: none;
+}
+#comoanda-viz .state-arc text:hover {
+  cursor: pointer;
+}
+
+#comoanda-viz .entity-arc:hover {
+  cursor: pointer;
+}
+#comoanda-viz .entity-arc text {
+  opacity: .5;
+  alignment-baseline: middle;
+  font-family: sans-serif;
+}
+#comoanda-viz .entity-arc:hover text {
+  opacity: 1;
+  fill: #417295;
+}
+#comoanda-viz .entity-arc.active text {
+  opacity: 1;
+}
+#comoanda-viz .entity-arc.active path {
+  fill: #417295;
+}
+
+/**
+ * Text hide and show
+ */
+#state-arc-container text,
+#entity-arc-container text {
+  transition: opacity 2s ease;
+  opacity: 1;
+}
+#state-arc-container.hide-text text,
+#entity-arc-container.hide-text text {
+  opacity: 0 !important;
+}
+
+/**
+ * Year arc styles
+ */
+#comoanda-viz .year-arc text {
+  /* opacity: 0; */
+  alignment-baseline: middle;
+}
+#comoanda-viz .year-arc path {
+  fill: #C3C3C3;
+}
+#comoanda-viz .year-arc.show-label text {
+  opacity: 1;
+}
+/* #comoanda-viz .year-arc.active text {
+  opacity: 1;
+} */
+#comoanda-viz .year-arc.active path {
+  fill: #E57435;
+}
+
+/**
+ * Question arc styles
+ */
+/* question-arc is a class that is applied to all arcs in the questions */
+#comoanda-viz .question-arc {
+  cursor: pointer;
+}
+#comoanda-viz .question-arc text {
+  alignment-baseline: middle;
+}
+
+#comoanda-viz .closed-question path {
+  fill: #C3C3C3;
+}
+#comoanda-viz .closed-question text {
+  fill: black;
+}
+
+#comoanda-viz .open-question path {
+  fill: #C3C3C3;
+}
+#comoanda-viz .open-question text {
+  fill: #E9353A;
+}
+
+#comoanda-viz .question-option path {
+  fill: #FCA2A9;
+}
+#comoanda-viz .question-option text {
+  fill: #A5A5A5;
+}
+#comoanda-viz .question-option.selected text {
+  fill: #0C0C0C;
+}
+#comoanda-viz .question-option:hover text {
+  fill: #8C8C8C;
+}
+#comoanda-viz .question-option.active text {
+  fill: #0C0C0C;
+}
+#comoanda-viz .question-option:hover path {
+  fill: #F76173;
+}
+#comoanda-viz .question-option.active path {
+  fill: #E9353A;
+}
+
+#question-arc-container text {
+  transition: opacity .5s ease;
+  opacity: 1;
+}
+#question-arc-container.hide-text text {
+  opacity: 0 !important;
+}
+
+/**
+ * Map styles
+ */
+#map-container {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+#map-container.hidden {
+  opacity: 0;
+}
+#map-container path {
+  opacity: 0.8;
+  fill: white;
+  cursor: pointer;
+  
+  stroke: #e0e0e0;
+}
+
+#map-container path:hover {
+  fill: #8bb7dc;
+}
+
+#map-container path.active {
+  fill: #3c81bb;
+}
+
+#map-container path.active:hover {
+  fill: #124e7f;
+}
+/**
+ * Link lines
+ */
+#comoanda-viz .link-line path {
+  opacity: 0.5;
+}
+
+
+
+
+/**
+ * 
+ * INTRO STYLES
+ *
+ */
+#intro-overlay {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  
+  opacity: 1;
+  transition: opacity 3s ease;
+  background-color: #A2B5B6;
+  
+  z-index: 2;
+}
+
+#intro-overlay.fade-away {
+  opacity: 0;
+}
+
+#intro-container {
+  position: fixed;
+  height: 40vh;
+  min-height: 100px;
+  max-height: 250px;
+  width: 18vw;
+  min-width: 210px;
+  
+  top: 50%;
+  left: 3vw;
+  
+  transform: translateY(-50%);
+  
+  opacity: 1;
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  
+  z-index: 2;
+}
+
+#intro-container .intro-control {
+  position: absolute;
+  top: 50%;
+  
+  height: 20px;
+  
+  transition: opacity 1s;
+  
+  opacity: 0.1;
+}
+#intro-container .intro-control.active {
+  opacity: 1;
+  cursor: pointer;
+}
+#intro-container .intro-control.previous {
+  left: 0;
+  transform: translate(-100%, -50%) rotate(180deg);
+}
+#intro-container .intro-control.next {
+  right: 0;
+  transform: translate(100%, -50%);
+}
+
+#intro-container .intro-skip {
+  position: absolute;
+  top: 104%;
+  right: 3vh;
+  text-decoration: none;
+  
+  /* color: #bcbcbc; */
+  /* color: #8C8C8C; */
+  color: black;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+#intro-text-container {
+  
+  height: 100%;
+  width: 100%;
+  
+  /**
+   * Let only overflow-y hidden in order not to hide controls
+   */
+  overflow-y: hidden;
+  background-color: transparent;
+}
+#intro-text-container.opaque {
+  background-color: rgba(224,224,224,0.8); /* same color of bg-color of body, but with opacity */
+}
+
+#intro-text-scroller {
+  transition: transform ease 2s;
+}
+
+#intro-text-scroller p {
+  font-size: 20px;
+  line-height: 1.5;
+  text-align: right;
+  padding: 5px 20px;
+  margin: 0 0;
+  transition: opacity ease 3s;
+  opacity: 0.05;
+}
+
+#intro-text-scroller p strong{
+  font-weight: bold;
+}
+
+#intro-text-scroller p.current {
+  opacity: 1;
+}
+
+
+/**
+ * Foot animation
+ */
+#intro-image-container {
+  position: fixed;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  
+  display: flex;
+  
+  transition: transform 2s ease, opacity 2s ease;
+  opacity: 1;
+  
+  transform: translate(-10%, -50%);
+}
+
+#intro-image-container.fade-away {
+  opacity: 0;
+  transform: translate(-50%, 120%) scaleX(0.1);
+}
+
+#intro-image-container > img {
+  position: relative;
+  display: block;
+  margin-right: -150px;
+  
+  transition: opacity 1s ease;
+  
+  opacity: 0;
+}
+
+#intro-image-container > img.active {
+  opacity: 1;
+}
+
+#intro-image-container > .floor {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  height: 2px;
+  width: 300px;
+  background-color: black;
+  
+  opacity: 0;
+  transition: width 6s ease, opacity 3s ease;
+}
+
+#intro-image-container > .floor.active {
+  opacity: 1;
+}
+
+#intro-image-container > .floor.walkable {
+  width: 100%;
+}

@@ -4,7 +4,7 @@ use Carbon_Fields\Field;
 
 Container::make('theme_options', 'Informações de contato e redes sociais')
   ->add_fields(array(
-  	// Contact info
+    // Contact info
     Field::make('text','ca__email', 'E-mail'),
     Field::make('text','ca__instagram_url', 'Instagram'),
     Field::make('text','ca__facebook_url', 'Facebook'),

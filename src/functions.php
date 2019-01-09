@@ -43,7 +43,7 @@ function ca__setup() {
 	 * Image sizes
 	 */
 	require_once('inc/image-sizes.php');
-
+	
 	/**
 	 * Ensure functions depended upon exist
 	 */
@@ -70,6 +70,7 @@ function ca__setup() {
 		require_once('inc/carbon-fields/page-template-blocks.php');
 		require_once('inc/carbon-fields/page-template-timeline.php');
 		require_once('inc/carbon-fields/page-template-csv-filter.php');
+		require_once('inc/carbon-fields/page-template-infografico-roda.php');
 	}
 	
 	/*
