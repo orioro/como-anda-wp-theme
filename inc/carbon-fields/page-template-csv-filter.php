@@ -20,10 +20,12 @@ Container::make('post_meta', 'Configurações do filtro')
 	->where('post_template', '=', 'page-templates/csv-filter.php')
 	->add_fields(array(
 		Field::make('file', 'ca_csv_filter__csv_file', 'Arquivo CSV'),
+		Field::make('text', 'ca_csv_filter__pagination_page_length', 'Tamanho da página'),
 		Field::make('complex', 'ca_csv_filter__parameters', 'Parâmetros')
 			->set_layout('tabbed-vertical')
 			->add_fields(array(
-				Field::make('text', 'label', 'Nome da coluna'),
+				Field::make('text', 'label', 'Nome do parâmetro'),
+				Field::make('text', 'id', 'Nome da coluna'),
 				Field::make('complex', 'option_lists', 'Listas de opções')
 					->set_layout('tabbed-vertical')
 					->add_fields(array(
@@ -67,9 +69,14 @@ Container::make('post_meta', 'Configurações do output')
 			->set_header_template('<%- $_index + 1 %> <% if (column_name) { %>- <%- column_name %><% } %>'),
 		Field::make('text', 'ca_csv_filter__output_tags_column', 'Nome da coluna de tags'),
 	))
-	->add_tab('Link', array(
-		Field::make('text', 'ca_csv_filter__output_button_text', 'Texto de chamada do link'),
-		Field::make('text', 'ca_csv_filter__output_url_column', 'Nome da coluna de link'),
+	->add_tab('Links', array(
+		Field::make('complex', 'ca_csv_filter__output_link_buttons', 'Links')
+			->set_layout('tabbed-vertical')
+			->add_fields(array(
+				Field::make('text', 'button_text', 'Texto de chamada do link'),
+				Field::make('text', 'column_name', 'Nome da coluna de link')
+			))
+			->set_header_template('<%- $_index + 1 %> <% if (column_name) { %>- <%- column_name %><% } %>'),
 	));
 
 /**
@@ -86,8 +93,7 @@ function ca_csv_filter__get_config($post_id) {
 		'output_bold_metadata_columns' => 'ca_csv_filter__output_bold_metadata_columns',
 		'output_bold_metadata_columns' => 'ca_csv_filter__output_bold_metadata_columns',
 		'output_tags_column' => 'ca_csv_filter__output_tags_column',
-		'output_button_text' => 'ca_csv_filter__output_button_text',
-		'output_url_column' => 'ca_csv_filter__output_url_column',
+		'output_link_buttons' => 'ca_csv_filter__output_link_buttons',
 	);
 
 	$config = array();
@@ -98,6 +104,12 @@ function ca_csv_filter__get_config($post_id) {
 
 	// CSV File
 	$config['csv_file'] = wp_get_attachment_url($config['csv_file']);
+
+	// Page length
+	$config['pagination_page_length'] = carbon_get_post_meta(
+		$post_id,
+		'ca_csv_filter__pagination_page_length'
+	);
 
 	// Color schmes
 	$config['background_color_scheme'] = carbon_get_post_meta(

@@ -24124,13 +24124,17 @@
 	      return entry[columnName];
 	    }),
 	    description: entry[cfg.outputDescriptionColumn],
-	    url: entry[cfg.outputUrlColumn],
-	    buttonText: cfg.outputButtonText,
 	    metadata: cfg.outputMetadataColumns.map(function (columnName) {
 	      return entry[columnName];
 	    }),
 	    boldMetadata: cfg.outputBoldMetadataColumns.map(function (columnName) {
 	      return entry[columnName];
+	    }),
+	    linkButtons: cfg.outputLinkButtons.map(function (linkButton) {
+	      return {
+	        buttonText: linkButton.buttonText,
+	        url: entry[linkButton.columnName]
+	      };
 	    }),
 	    tags: entry[cfg.outputTagsColumn] ? entry[cfg.outputTagsColumn].split(/\s*;\s*/g) : []
 	  };
@@ -24155,6 +24159,7 @@
 	  var _state$pagination = state.pagination,
 	      pageLength = _state$pagination.pageLength,
 	      currentPageIndex = _state$pagination.currentPageIndex;
+	  pageLength = pageLength || state.applicationConfig.paginationPageLength || 10;
 	  var pageEntriesStart = pageLength * currentPageIndex;
 	  var pageEntriesEnd = pageEntriesStart + pageLength;
 	  var pageEntries = entries.slice(pageEntriesStart, pageEntriesEnd + 1);
@@ -25048,9 +25053,9 @@
 	        onDeselectAll();
 	      }
 	    }
-	  })), react.createElement("ul", null, optionLists.map(function (list) {
+	  })), react.createElement("ul", null, optionLists.map(function (list, index) {
 	    return react.createElement("li", {
-	      key: list.id
+	      key: list.id || index
 	    }, react.createElement(OptionList, _extends$1({}, list, {
 	      onChangeOption: function onChangeOption(optionId, value) {
 	        onChangeOptionListOption(list.id, optionId, value);
@@ -25268,7 +25273,7 @@
 	  label: propTypes.string.isRequired,
 	  onChange: propTypes.func.isRequired,
 	  onSubmit: propTypes.func.isRequired,
-	  className: propTypes.stirng
+	  className: propTypes.string
 	};
 
 	var main = createCommonjsModule(function (module) {
@@ -26953,14 +26958,29 @@
 	  var heading = _ref2.heading,
 	      subHeadings = _ref2.subHeadings,
 	      description = _ref2.description,
-	      url = _ref2.url,
-	      buttonText = _ref2.buttonText,
+	      linkButtons = _ref2.linkButtons,
 	      metadata = _ref2.metadata,
 	      boldMetadata = _ref2.boldMetadata,
 	      tags = _ref2.tags,
 	      tagClassName = _ref2.tagClassName,
 	      onTagClick = _ref2.onTagClick,
 	      highlightWords = _ref2.highlightWords;
+
+	  var renterLinkButtonList = function renterLinkButtonList() {
+	    return linkButtons ? react.createElement("ul", {
+	      className: "ca-output-card__link-button-list"
+	    }, linkButtons.map(function (_ref3, index) {
+	      var buttonText = _ref3.buttonText,
+	          url = _ref3.url;
+	      return buttonText && url ? react.createElement("li", {
+	        key: index
+	      }, react.createElement("a", {
+	        target: "_blank",
+	        href: url
+	      }, buttonText)) : null;
+	    })) : null;
+	  };
+
 	  return react.createElement("div", {
 	    className: "ca-output-card"
 	  }, heading ? react.createElement("h2", {
@@ -26972,7 +26992,7 @@
 	    className: "ca-output-card__body"
 	  }, react.createElement("div", {
 	    className: "ca-output-card__body__main"
-	  }, subHeadings ? subHeadings.map(function (subHeading, index) {
+	  }, subHeadings && subHeadings.length > 0 ? subHeadings.map(function (subHeading, index) {
 	    return subHeading ? react.createElement("h3", {
 	      key: index,
 	      className: "ca-output-card__body__main__subheading"
@@ -26985,13 +27005,9 @@
 	  }, react.createElement(MaybeHighlightedText, {
 	    highlightWords: highlightWords,
 	    text: description
-	  })) : null, url && buttonText ? react.createElement("a", {
-	    className: "ca-output-card__body__main__button",
-	    target: "_blank",
-	    href: url
-	  }, buttonText) : null), react.createElement("div", {
+	  })) : null, renterLinkButtonList()), react.createElement("div", {
 	    className: "ca-output-card__body__side"
-	  }, metadata ? react.createElement("ul", {
+	  }, metadata && metadata.length > 0 ? react.createElement("ul", {
 	    className: "ca-output-card__body__side__metadata"
 	  }, metadata.map(function (data, index) {
 	    return data ? react.createElement("li", {
@@ -27000,7 +27016,7 @@
 	      highlightWords: highlightWords,
 	      text: data
 	    })) : null;
-	  })) : null, boldMetadata ? react.createElement("ul", {
+	  })) : null, boldMetadata && boldMetadata.length > 0 ? react.createElement("ul", {
 	    className: "ca-output-card__body__side__metadata ca-output-card__body__side__metadata--bold"
 	  }, boldMetadata.map(function (data, index) {
 	    return data ? react.createElement("li", {
@@ -27009,7 +27025,7 @@
 	      highlightWords: highlightWords,
 	      text: data
 	    })) : null;
-	  })) : null, tags ? react.createElement("ul", {
+	  })) : null, tags && tags.length > 0 ? react.createElement("ul", {
 	    className: "ca-output-card__body__side__tags"
 	  }, tags.map(function (tag, index) {
 	    var _classnames;
@@ -27024,19 +27040,14 @@
 	      highlightWords: highlightWords,
 	      text: tag
 	    })) : null;
-	  })) : null, url && buttonText ? react.createElement("a", {
-	    className: "ca-output-card__body__side__button",
-	    target: "_blank",
-	    href: url
-	  }, buttonText) : null)));
+	  })) : null, renterLinkButtonList())));
 	};
 
 	OutputCard.propTypes = {
 	  heading: propTypes.string,
 	  subHeadings: propTypes.array,
 	  description: propTypes.string,
-	  url: propTypes.string,
-	  buttonText: propTypes.string,
+	  linkButtons: propTypes.array,
 	  metadata: propTypes.array,
 	  boldMetadata: propTypes.array,
 	  tags: propTypes.array,
@@ -27562,7 +27573,7 @@
 	};
 
 	var pageLength = function pageLength() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 10;
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 	  return state;
 	};
 
@@ -27621,6 +27632,7 @@
 	  var config = JSON.parse(configElement.innerHTML);
 	  var parsed = {
 	    csvFile: config.csv_file,
+	    paginationPageLength: config.pagination_page_length ? parseInt(config.pagination_page_length) : null,
 	    backgroundColorScheme: config.background_color_scheme,
 	    hoverColorScheme: config.hover_color_scheme,
 	    linkButtons: config.link_buttons.map(function (btn) {
@@ -27630,16 +27642,16 @@
 	    }),
 	    parameters: config.parameters.map(function (param) {
 	      return {
-	        id: param.label,
+	        id: param.id || param.label,
 	        label: param.label,
 	        // allSelected: true,
 	        optionLists: param.option_lists.map(function (optionList) {
 	          return {
-	            id: optionList.label,
+	            id: optionList.id || optionList.label,
 	            label: optionList.label,
 	            options: optionList.options.map(function (option) {
 	              return {
-	                id: option.label,
+	                id: option.id || option.label,
 	                label: option.label // value: false,
 
 	              };
@@ -27654,8 +27666,12 @@
 	      return i.column_name;
 	    }),
 	    outputDescriptionColumn: config.output_description_column,
-	    outputButtonText: config.output_button_text,
-	    outputUrlColumn: config.output_url_column,
+	    outputLinkButtons: config.output_link_buttons.map(function (i) {
+	      return {
+	        buttonText: i.button_text,
+	        columnName: i.column_name
+	      };
+	    }),
 	    outputMetadataColumns: config.output_metadata_columns.map(function (i) {
 	      return i.column_name;
 	    }),
@@ -27679,8 +27695,6 @@
 	};
 
 	document.addEventListener('DOMContentLoaded', function (e) {
-	  var config = parseConfig();
-
 	  var _configureStore = configureStore(),
 	      store = _configureStore.store;
 
