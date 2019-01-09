@@ -24064,6 +24064,10 @@
 	  };
 	};
 
+	var strMatchesTextSearch = function strMatchesTextSearch(str, textSearchValue) {
+	  return str.toLowerCase().includes(textSearchValue);
+	};
+
 	var applyParametersQuery = function applyParametersQuery(items, parameterValues) {
 	  return items.filter(function (item) {
 	    return Object.keys(parameterValues).every(function (parameterId) {
@@ -24073,29 +24077,153 @@
 	        return true;
 	      } else {
 	        return value.selected.some(function (parameterValue) {
-	          return item[parameterId] && item[parameterId].toLowerCase().includes(parameterValue.toLowerCase());
+	          return item[parameterId] && strMatchesTextSearch(item[parameterId], parameterValue.toLowerCase());
 	        });
 	      }
 	    });
 	  });
 	};
-
-	var strMatchesTextSearch = function strMatchesTextSearch(str, textSearchValue) {
-	  return str.toLowerCase().includes(textSearchValue);
-	};
-
-	var applyTextSearchQuery = function applyTextSearchQuery(items, searchProperties, textSearchValue) {
+	var applyTextSearchQuery = function applyTextSearchQuery(items, textSearchProperties, textSearchValue) {
 	  if (!textSearchValue) {
 	    return items;
 	  }
 
 	  textSearchValue = textSearchValue.toLowerCase();
 	  return items.filter(function (item) {
-	    return searchProperties.some(function (prop) {
+	    return textSearchProperties.some(function (prop) {
 	      var value = item[prop];
-	      return value && Array.isArray(value) ? value.some(function (v) {
+
+	      if (!value) {
+	        return false;
+	      }
+
+	      return Array.isArray(value) ? value.some(function (v) {
 	        return v && strMatchesTextSearch(v, textSearchValue);
 	      }) : strMatchesTextSearch(value, textSearchValue);
+	    });
+	  });
+	};
+	var applyFullQuery = function applyFullQuery(items, _ref) {
+	  var parameterValues = _ref.parameterValues,
+	      textSearchProperties = _ref.textSearchProperties,
+	      textSearchValue = _ref.textSearchValue;
+	  return applyTextSearchQuery( // Apply text search query only after applying parameters query
+	  applyParametersQuery(items, parameterValues), textSearchProperties, textSearchValue);
+	};
+
+	/**
+	 * Maps the source entry to the application output entry
+	 */
+
+	var getEntryOutputData = function getEntryOutputData(state, entry) {
+	  var cfg = state.applicationConfig;
+	  return {
+	    _id: entry._id,
+	    heading: entry[cfg.outputHeadingColumn],
+	    subHeadings: cfg.outputSubHeadingColumns.map(function (columnName) {
+	      return entry[columnName];
+	    }),
+	    description: entry[cfg.outputDescriptionColumn],
+	    url: entry[cfg.outputUrlColumn],
+	    buttonText: cfg.outputButtonText,
+	    metadata: cfg.outputMetadataColumns.map(function (columnName) {
+	      return entry[columnName];
+	    }),
+	    boldMetadata: cfg.outputBoldMetadataColumns.map(function (columnName) {
+	      return entry[columnName];
+	    }),
+	    tags: entry[cfg.outputTagsColumn] ? entry[cfg.outputTagsColumn].split(/\s*;\s*/g) : []
+	  };
+	};
+	/**
+	 * Applies the full query (parameter and text) to the entries
+	 * and returns the matching entries.
+	 */
+
+	var getMatchingEntries = function getMatchingEntries(state) {
+	  return applyFullQuery(state.entries, {
+	    parameterValues: state.query.values,
+	    textSearchProperties: state.applicationConfig.textSearchColumns,
+	    textSearchValue: state.query.textSearchValue
+	  });
+	};
+	/**
+	 * Retrieves all data required for pagination given a set of entries
+	 */
+
+	var getPaginationData = function getPaginationData(state, entries) {
+	  var _state$pagination = state.pagination,
+	      pageLength = _state$pagination.pageLength,
+	      currentPageIndex = _state$pagination.currentPageIndex;
+	  var pageEntriesStart = pageLength * currentPageIndex;
+	  var pageEntriesEnd = pageEntriesStart + pageLength;
+	  var pageEntries = entries.slice(pageEntriesStart, pageEntriesEnd + 1);
+	  var pageCount = entries.length % pageLength === 0 ? entries.length / pageLength : Math.floor(entries.length / pageLength) + 1;
+	  var pagesStart = Math.max(0, currentPageIndex - 2);
+	  var pagesEnd = pagesStart + 4;
+	  var pages = Array.apply(null, Array(pageCount)).map(function (x, i) {
+	    return i;
+	  }).slice(pagesStart, pagesEnd + 1);
+	  return {
+	    pageEntries: pageEntries,
+	    pages: pages,
+	    currentPageIndex: currentPageIndex,
+	    hasPreviousPage: currentPageIndex > 0,
+	    hasNextPage: currentPageIndex < pageCount - 1
+	  };
+	};
+	/**
+	 * Counts matching entries in case the parameterId had 'allSelected' true
+	 *
+	 * Uses as the base for computation all entries available
+	 */
+
+	var countEntriesForParameter = function countEntriesForParameter(state, parameterId) {
+	  return applyFullQuery(state.entries, {
+	    parameterValues: _objectSpread$1({}, state.query.values, _defineProperty$1({}, parameterId, {
+	      allSelected: true
+	    })),
+	    textSearchProperties: state.applicationConfig.textSearchColumns,
+	    textSearchValue: state.query.textSearchValue
+	  }).length;
+	};
+	/**
+	 * Counts matching entries in a scenario that the given parameterId and optionId
+	 * are effectively selected
+	 */
+
+	var countEntriesForParameterOption = function countEntriesForParameterOption(state, parameterId, optionId) {
+	  return applyFullQuery(state.entries, {
+	    parameterValues: _objectSpread$1({}, state.query.values, _defineProperty$1({}, parameterId, {
+	      allSelected: false,
+	      selected: [optionId]
+	    })),
+	    textSearchProperties: state.applicationConfig.textSearchColumns,
+	    textSearchValue: state.query.textSearchValue
+	  }).length;
+	};
+	/**
+	 * Retrieves the filter parameters
+	 */
+
+	var getFilterParameters = function getFilterParameters(state) {
+	  return state.query.parameters.map(function (parameter) {
+	    return _objectSpread$1({}, parameter, {
+	      allSelected: state.query.values[parameter.id].allSelected,
+	      allSelectedLabel: "Todos (".concat(countEntriesForParameter(state, parameter.id), ")"),
+	      optionLists: parameter.optionLists.map(function (optionList) {
+	        return _objectSpread$1({}, optionList, {
+	          options: optionList.options.map(function (option) {
+	            var optionIsSelected = state.query.values[parameter.id].selected.indexOf(option.id) !== -1;
+	            var availableItemsForOption = countEntriesForParameterOption(state, parameter.id, option.id);
+	            return _objectSpread$1({}, option, {
+	              label: "".concat(option.label, " (").concat(availableItemsForOption, ")"),
+	              value: optionIsSelected,
+	              disabled: optionIsSelected ? false : availableItemsForOption === 0
+	            });
+	          })
+	        });
+	      })
 	    });
 	  });
 	};
@@ -24945,7 +25073,7 @@
 	      onParameterSelectAll = _ref.onParameterSelectAll,
 	      onParameterDeselectAll = _ref.onParameterDeselectAll,
 	      onParameterChangeOption = _ref.onParameterChangeOption,
-	      popUpTriggerClassName = _ref.popUpTriggerClassName;
+	      getPopUpTriggerClassName = _ref.getPopUpTriggerClassName;
 	  return react.createElement("div", {
 	    className: "ca-filter"
 	  }, react.createElement("ul", null, parameters.map(function (parameter) {
@@ -24953,7 +25081,7 @@
 	      key: parameter.id
 	    }, react.createElement(PopUp, {
 	      label: parameter.label,
-	      triggerClassName: popUpTriggerClassName,
+	      triggerClassName: getPopUpTriggerClassName ? getPopUpTriggerClassName(parameter) : '',
 	      render: function render() {
 	        return react.createElement(OptionsPanel, _extends$1({}, parameter, {
 	          onSelectAll: function onSelectAll() {
@@ -24976,7 +25104,7 @@
 	  onParameterSelectAll: propTypes.func.isRequired,
 	  onParameterDeselectAll: propTypes.func.isRequired,
 	  onParameterChangeOption: propTypes.func.isRequired,
-	  popUpTriggerClassName: propTypes.string
+	  getPopUpTriggerClassName: propTypes.func
 	};
 
 	function _interopDefault$2 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
@@ -25028,6 +25156,55 @@
 
 	var SearchIcon_1 = SearchIcon;
 
+	function _interopDefault$3 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+	var React$2 = _interopDefault$3(react);
+
+	var _extends$4 = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+
+	  return target;
+	};
+
+	var objectWithoutProperties$2 = function (obj, keys) {
+	  var target = {};
+
+	  for (var i in obj) {
+	    if (keys.indexOf(i) >= 0) continue;
+	    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	    target[i] = obj[i];
+	  }
+
+	  return target;
+	};
+
+	var CloseIcon = function CloseIcon(_ref) {
+	  var _ref$color = _ref.color,
+	      color = _ref$color === undefined ? 'currentColor' : _ref$color,
+	      _ref$size = _ref.size,
+	      size = _ref$size === undefined ? 24 : _ref$size,
+	      children = _ref.children,
+	      props = objectWithoutProperties$2(_ref, ['color', 'size', 'children']);
+
+	  var className = 'mdi-icon ' + (props.className || '');
+
+	  return React$2.createElement(
+	    'svg',
+	    _extends$4({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
+	    React$2.createElement('path', { d: 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z' })
+	  );
+	};
+
+	var CloseIcon_1 = CloseIcon;
+
 	var TextSearchForm =
 	/*#__PURE__*/
 	function (_React$Component) {
@@ -25052,9 +25229,10 @@
 	          value = _this$props.value,
 	          label = _this$props.label,
 	          _onChange = _this$props.onChange,
-	          _onSubmit = _this$props.onSubmit;
+	          _onSubmit = _this$props.onSubmit,
+	          className = _this$props.className;
 	      return react.createElement("form", {
-	        className: "ca-text-search-form",
+	        className: "ca-text-search-form ".concat(className ? className : ''),
 	        onSubmit: function onSubmit(e) {
 	          e.preventDefault();
 	          e.stopPropagation();
@@ -25070,7 +25248,13 @@
 	          _onChange(e.target.value);
 	        },
 	        placeholder: label
-	      }), react.createElement("button", {
+	      }), value !== '' ? react.createElement("button", {
+	        className: "ca-text-search-form__cancel-button",
+	        type: "button",
+	        onClick: function onClick() {
+	          _onChange('');
+	        }
+	      }, react.createElement(CloseIcon_1, null)) : null, react.createElement("button", {
 	        type: "submit"
 	      }, react.createElement(SearchIcon_1, null)));
 	    }
@@ -25083,7 +25267,8 @@
 	  value: propTypes.string.isRequired,
 	  label: propTypes.string.isRequired,
 	  onChange: propTypes.func.isRequired,
-	  onSubmit: propTypes.func.isRequired
+	  onSubmit: propTypes.func.isRequired,
+	  className: propTypes.stirng
 	};
 
 	var main = createCommonjsModule(function (module) {
@@ -26753,7 +26938,10 @@
 	var MaybeHighlightedText = function MaybeHighlightedText(_ref) {
 	  var highlightWords = _ref.highlightWords,
 	      text = _ref.text;
-	  return highlightWords ? react.createElement(Highlighter, {
+	  var shouldHighlight = highlightWords && highlightWords.every(function (word) {
+	    return word.length > 3;
+	  });
+	  return shouldHighlight ? react.createElement(Highlighter, {
 	    highlightClassName: "ca-output-card__search-highlight",
 	    searchWords: highlightWords,
 	    autoEscape: true,
@@ -26777,7 +26965,10 @@
 	    className: "ca-output-card"
 	  }, heading ? react.createElement("h2", {
 	    className: "ca-output-card__heading"
-	  }, heading) : null, react.createElement("div", {
+	  }, react.createElement(MaybeHighlightedText, {
+	    highlightWords: highlightWords,
+	    text: heading
+	  })) : null, react.createElement("div", {
 	    className: "ca-output-card__body"
 	  }, react.createElement("div", {
 	    className: "ca-output-card__body__main"
@@ -26854,55 +27045,6 @@
 	  highlightWords: propTypes.array
 	};
 
-	function _interopDefault$3 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-	var React$2 = _interopDefault$3(react);
-
-	var _extends$4 = Object.assign || function (target) {
-	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i];
-
-	    for (var key in source) {
-	      if (Object.prototype.hasOwnProperty.call(source, key)) {
-	        target[key] = source[key];
-	      }
-	    }
-	  }
-
-	  return target;
-	};
-
-	var objectWithoutProperties$2 = function (obj, keys) {
-	  var target = {};
-
-	  for (var i in obj) {
-	    if (keys.indexOf(i) >= 0) continue;
-	    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-	    target[i] = obj[i];
-	  }
-
-	  return target;
-	};
-
-	var ChevronLeftIcon = function ChevronLeftIcon(_ref) {
-	  var _ref$color = _ref.color,
-	      color = _ref$color === undefined ? 'currentColor' : _ref$color,
-	      _ref$size = _ref.size,
-	      size = _ref$size === undefined ? 24 : _ref$size,
-	      children = _ref.children,
-	      props = objectWithoutProperties$2(_ref, ['color', 'size', 'children']);
-
-	  var className = 'mdi-icon ' + (props.className || '');
-
-	  return React$2.createElement(
-	    'svg',
-	    _extends$4({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
-	    React$2.createElement('path', { d: 'M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z' })
-	  );
-	};
-
-	var ChevronLeftIcon_1 = ChevronLeftIcon;
-
 	function _interopDefault$4 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 	var React$3 = _interopDefault$4(react);
@@ -26933,7 +27075,7 @@
 	  return target;
 	};
 
-	var ChevronRightIcon = function ChevronRightIcon(_ref) {
+	var ChevronLeftIcon = function ChevronLeftIcon(_ref) {
 	  var _ref$color = _ref.color,
 	      color = _ref$color === undefined ? 'currentColor' : _ref$color,
 	      _ref$size = _ref.size,
@@ -26946,7 +27088,56 @@
 	  return React$3.createElement(
 	    'svg',
 	    _extends$5({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
-	    React$3.createElement('path', { d: 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z' })
+	    React$3.createElement('path', { d: 'M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z' })
+	  );
+	};
+
+	var ChevronLeftIcon_1 = ChevronLeftIcon;
+
+	function _interopDefault$5 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+	var React$4 = _interopDefault$5(react);
+
+	var _extends$6 = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+
+	  return target;
+	};
+
+	var objectWithoutProperties$4 = function (obj, keys) {
+	  var target = {};
+
+	  for (var i in obj) {
+	    if (keys.indexOf(i) >= 0) continue;
+	    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+	    target[i] = obj[i];
+	  }
+
+	  return target;
+	};
+
+	var ChevronRightIcon = function ChevronRightIcon(_ref) {
+	  var _ref$color = _ref.color,
+	      color = _ref$color === undefined ? 'currentColor' : _ref$color,
+	      _ref$size = _ref.size,
+	      size = _ref$size === undefined ? 24 : _ref$size,
+	      children = _ref.children,
+	      props = objectWithoutProperties$4(_ref, ['color', 'size', 'children']);
+
+	  var className = 'mdi-icon ' + (props.className || '');
+
+	  return React$4.createElement(
+	    'svg',
+	    _extends$6({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
+	    React$4.createElement('path', { d: 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z' })
 	  );
 	};
 
@@ -26995,11 +27186,11 @@
 	  buttonClassName: propTypes.string
 	};
 
-	function _interopDefault$5 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+	function _interopDefault$6 (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-	var React$4 = _interopDefault$5(react);
+	var React$5 = _interopDefault$6(react);
 
-	var _extends$6 = Object.assign || function (target) {
+	var _extends$7 = Object.assign || function (target) {
 	  for (var i = 1; i < arguments.length; i++) {
 	    var source = arguments[i];
 
@@ -27013,7 +27204,7 @@
 	  return target;
 	};
 
-	var objectWithoutProperties$4 = function (obj, keys) {
+	var objectWithoutProperties$5 = function (obj, keys) {
 	  var target = {};
 
 	  for (var i in obj) {
@@ -27031,14 +27222,14 @@
 	      _ref$size = _ref.size,
 	      size = _ref$size === undefined ? 24 : _ref$size,
 	      children = _ref.children,
-	      props = objectWithoutProperties$4(_ref, ['color', 'size', 'children']);
+	      props = objectWithoutProperties$5(_ref, ['color', 'size', 'children']);
 
 	  var className = 'mdi-icon ' + (props.className || '');
 
-	  return React$4.createElement(
+	  return React$5.createElement(
 	    'svg',
-	    _extends$6({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
-	    React$4.createElement('path', { d: 'M17.65,6.35C16.2,4.9 14.21,4 12,4C7.58,4 4,7.58 4,12C4,16.42 7.58,20 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18C8.69,18 6,15.31 6,12C6,8.69 8.69,6 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z' })
+	    _extends$7({}, props, { className: className, width: size, height: size, fill: color, viewBox: '0 0 24 24' }),
+	    React$5.createElement('path', { d: 'M17.65,6.35C16.2,4.9 14.21,4 12,4C7.58,4 4,7.58 4,12C4,16.42 7.58,20 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18C8.69,18 6,15.31 6,12C6,8.69 8.69,6 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z' })
 	  );
 	};
 
@@ -27056,27 +27247,6 @@
 
 	LoadingIndicator.propTypes = {
 	  active: propTypes.bool.isRequired
-	};
-
-	var SEARCHABLE_OUTPUT_DATA_PROPERTIES = ['heading', 'subHeadings', 'description', 'metadata', 'boldMetadata', 'tags'];
-	var mapOutputData = function mapOutputData(applicationConfig, data) {
-	  return {
-	    _id: data._id,
-	    heading: data[applicationConfig.outputHeadingColumn],
-	    subHeadings: applicationConfig.outputSubHeadingColumns.map(function (columnName) {
-	      return data[columnName];
-	    }),
-	    description: data[applicationConfig.outputDescriptionColumn],
-	    url: data[applicationConfig.outputUrlColumn],
-	    buttonText: applicationConfig.outputButtonText,
-	    metadata: applicationConfig.outputMetadataColumns.map(function (columnName) {
-	      return data[columnName];
-	    }),
-	    boldMetadata: applicationConfig.outputBoldMetadataColumns.map(function (columnName) {
-	      return data[columnName];
-	    }),
-	    tags: data[applicationConfig.outputTagsColumn] ? data[applicationConfig.outputTagsColumn].split(';') : []
-	  };
 	};
 
 	var App =
@@ -27140,10 +27310,13 @@
 
 	          _this.scrollToTop();
 	        },
-	        popUpTriggerClassName: "ca-bg-transparent ".concat(HOVER_CLASSNAME)
+	        getPopUpTriggerClassName: function getPopUpTriggerClassName(parameter) {
+	          return "ca-bg-transparent ".concat(HOVER_CLASSNAME, " ").concat(parameter.allSelected ? '' : 'active');
+	        }
 	      })), react.createElement("div", {
 	        className: "ca-csv-filter-app__header__bar__right"
 	      }, react.createElement(TextSearchForm, {
+	        className: "".concat(HOVER_CLASSNAME, " ").concat(this.props.textSearchValue ? 'active' : ''),
 	        value: this.props.textSearchValue,
 	        label: "Buscar por palavra",
 	        onChange: function onChange(value) {
@@ -27169,7 +27342,7 @@
 	        }, btn.text);
 	      })))), react.createElement("div", {
 	        className: "ca-csv-filter-app__body"
-	      }, this.props.shownEntries.map(function (entry) {
+	      }, this.props.pageEntries.map(function (entry) {
 	        return react.createElement(OutputCard, _extends$1({
 	          key: entry._id
 	        }, entry, {
@@ -27183,10 +27356,10 @@
 	        }));
 	      })), react.createElement("footer", {
 	        className: "ca-csv-filter-app__footer"
-	      }, react.createElement(PaginationControl, {
+	      }, this.props.pages.length > 1 ? react.createElement(PaginationControl, {
 	        hasPreviousPage: this.props.hasPreviousPage,
 	        hasNextPage: this.props.hasNextPage,
-	        pages: this.props.shownPages,
+	        pages: this.props.pages,
 	        currentPageIndex: this.props.currentPageIndex,
 	        onClickPrevious: function onClickPrevious() {
 	          _this.props.setCurrentPageIndex(_this.props.currentPageIndex - 1);
@@ -27204,7 +27377,7 @@
 	          _this.scrollToTop();
 	        },
 	        buttonClassName: "".concat(HOVER_CLASSNAME)
-	      })));
+	      }) : null));
 	    }
 	  }]);
 
@@ -27216,61 +27389,15 @@
 	};
 
 	var mapStateToProps = function mapStateToProps(state) {
-	  var applicationConfig = state.applicationConfig;
-	  var pageLength = state.pagination.pageLength;
-	  var currentPageIndex = state.pagination.currentPageIndex;
-	  var parameters = state.query.parameters.map(function (parameter) {
-	    var allSelectedValue = state.query.values[parameter.id].allSelected;
-	    var availableItemsForAllSelected = applyParametersQuery(state.entries, _objectSpread$1({}, state.query.values, _defineProperty$1({}, parameter.id, {
-	      allSelected: true,
-	      selected: []
-	    }))).length;
-	    return _objectSpread$1({}, parameter, {
-	      allSelected: allSelectedValue,
-	      allSelectedLabel: "Todos (".concat(availableItemsForAllSelected, ")"),
-	      optionLists: parameter.optionLists.map(function (optionList) {
-	        return _objectSpread$1({}, optionList, {
-	          options: optionList.options.map(function (option) {
-	            var optionIsSelected = state.query.values[parameter.id].selected.indexOf(option.id) !== -1;
-	            var availableItemsForOption = applyParametersQuery(state.entries, _objectSpread$1({}, state.query.values, _defineProperty$1({}, parameter.id, {
-	              allSelected: false,
-	              selected: [option.id]
-	            }))).length;
-	            return _objectSpread$1({}, option, {
-	              label: "".concat(option.label, " (").concat(availableItemsForOption, ")"),
-	              value: optionIsSelected,
-	              disabled: optionIsSelected ? false : availableItemsForOption === 0
-	            });
-	          })
-	        });
-	      })
-	    });
-	  });
-	  var parameterMatchedEntries = applyParametersQuery(state.entries, state.query.values);
-	  var matchedEntries = applyTextSearchQuery( // match the text search query against the output data (makes configuration easier)
-	  parameterMatchedEntries.map(function (entry) {
-	    return mapOutputData(state.applicationConfig, entry);
-	  }), SEARCHABLE_OUTPUT_DATA_PROPERTIES, state.query.textSearchValue);
-	  var shownEntriesStartingIndex = pageLength * currentPageIndex;
-	  var shownEntriesEndingIndex = shownEntriesStartingIndex + pageLength;
-	  var shownEntries = matchedEntries.slice(shownEntriesStartingIndex, shownEntriesEndingIndex + 1);
-	  var pageCount = matchedEntries.length % pageLength === 0 ? matchedEntries.length / pageLength : Math.floor(matchedEntries.length / pageLength) + 1;
-	  var shownPagesStartingIndex = Math.max(0, currentPageIndex - 2);
-	  var shownPagesEndingIndex = shownPagesStartingIndex + 4;
-	  var shownPages = Array.apply(null, Array(pageCount)).map(function (x, i) {
-	    return i;
-	  }).slice(shownPagesStartingIndex, shownPagesEndingIndex + 1);
-	  return {
+	  var matchingEntries = getMatchingEntries(state);
+	  var paginationData = getPaginationData(state, matchingEntries);
+	  paginationData.pageEntries = paginationData.pageEntries.map(getEntryOutputData.bind(null, state));
+	  return _objectSpread$1({
 	    applicationConfig: state.applicationConfig,
 	    textSearchValue: state.query.textSearchValue,
 	    loadingState: state.loadingState,
-	    parameters: parameters,
-	    shownEntries: shownEntries,
-	    currentPageIndex: currentPageIndex,
-	    hasPreviousPage: currentPageIndex > 0,
-	    hasNextPage: currentPageIndex < pageCount - 1,
-	    shownPages: shownPages
-	  };
+	    parameters: getFilterParameters(state)
+	  }, paginationData);
 	};
 
 	var mapDispatchToProps = {
@@ -27492,7 +27619,7 @@
 	var parseConfig = function parseConfig() {
 	  var configElement = document.getElementById('ca-csv-filter-config');
 	  var config = JSON.parse(configElement.innerHTML);
-	  return {
+	  var parsed = {
 	    csvFile: config.csv_file,
 	    backgroundColorScheme: config.background_color_scheme,
 	    hoverColorScheme: config.hover_color_scheme,
@@ -27537,6 +27664,9 @@
 	    }),
 	    outputTagsColumn: config.output_tags_column
 	  };
+	  return _objectSpread$1({}, parsed, {
+	    textSearchColumns: [parsed.outputHeadingColumn, parsed.outputDescriptionColumn, parsed.outputTagsColumn].concat(_toConsumableArray(parsed.outputSubHeadingColumns), _toConsumableArray(parsed.outputMetadataColumns), _toConsumableArray(parsed.outputBoldMetadataColumns)).filter(Boolean)
+	  });
 	};
 
 	var configureStore = function configureStore() {

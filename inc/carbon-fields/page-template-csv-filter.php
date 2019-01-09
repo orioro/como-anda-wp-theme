@@ -72,6 +72,9 @@ Container::make('post_meta', 'Configurações do output')
 		Field::make('text', 'ca_csv_filter__output_url_column', 'Nome da coluna de link'),
 	));
 
+/**
+ * Retrieves configuration to be exposed to the front-end React app
+ */
 function ca_csv_filter__get_config($post_id) {
 	$config_carbon_fields = array(
 		'parameters' => 'ca_csv_filter__parameters',

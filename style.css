@@ -5427,14 +5427,19 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-bottom: -10px;
 }
 .ca-filter > ul > li {
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 .ca-filter > ul > li:last-child {
   margin-right: 0;
 }
 .ca-text-search-form {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -5456,6 +5461,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   font-weight: bold;
   padding: 16px 4px 16px 20px;
   outline: none;
+  margin-right: 27px;
 }
 .ca-text-search-form > input::-webkit-input-placeholder {
   color: inherit;
@@ -5469,19 +5475,45 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 .ca-text-search-form > input::placeholder {
   color: inherit;
 }
-.ca-text-search-form > button[type="submit"] {
+.ca-text-search-form > button {
   -webkit-box-flex: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  width: 25px;
-  height: 25px;
-  margin-right: 8px;
-  color: inherit;
-  background-color: transparent;
-  border: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 0;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+}
+.ca-text-search-form > button > svg {
+  height: 100%;
+  width: 100%;
+}
+.ca-text-search-form > button.ca-text-search-form__cancel-button {
+  position: absolute;
+  top: 50%;
+  right: 40px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
+}
+.ca-text-search-form > button[type="submit"] {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  background-color: transparent;
 }
 .ca-option {
   display: -webkit-box;
@@ -5569,6 +5601,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   top: 110%;
   top: calc(100% + 10px);
   left: 0;
+  z-index: 10;
   border: 1px black solid;
   padding: 15px;
   -webkit-box-sizing: border-box;
@@ -5797,12 +5830,21 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  max-width: 50%;
 }
 .ca-csv-filter-app > .ca-csv-filter-app__header > .ca-csv-filter-app__header__bar > .ca-csv-filter-app__header__bar__left > h3 {
   margin-right: 30px;
+  white-space: nowrap;
+  height: 48px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 .ca-csv-filter-app > .ca-csv-filter-app__header > .ca-csv-filter-app__header__bar > .ca-csv-filter-app__header__bar__right > * {
   margin-left: 10px;
