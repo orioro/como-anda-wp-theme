@@ -14,7 +14,7 @@ const currentPageIndex = (state = 0, action) => {
 	}
 }
 
-const pageLength = (state = 10) => {
+const pageLength = (state = null) => {
 	return state
 }
 

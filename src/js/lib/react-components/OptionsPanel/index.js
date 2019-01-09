@@ -28,8 +28,8 @@ const OptionsPanel = ({
 			/>
 		</header>
 		<ul>
-			{optionLists.map(list => {
-				return <li key={list.id}>
+			{optionLists.map((list, index) => {
+				return <li key={list.id || index}>
 					<OptionList
 						{...list}
 						onChangeOption={(optionId, value) => {

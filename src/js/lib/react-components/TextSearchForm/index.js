@@ -57,7 +57,7 @@ TextSearchForm.propTypes = {
 	label: PropTypes.string.isRequired,
 	onChange: PropTypes.func.isRequired,
 	onSubmit: PropTypes.func.isRequired,
-	className: PropTypes.stirng
+	className: PropTypes.string
 }
 
 export default TextSearchForm

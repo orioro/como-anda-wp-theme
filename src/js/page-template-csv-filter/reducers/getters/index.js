@@ -13,10 +13,14 @@ export const getEntryOutputData = (state, entry) => {
 		heading: entry[cfg.outputHeadingColumn],
 		subHeadings: cfg.outputSubHeadingColumns.map(columnName => entry[columnName]),
 		description: entry[cfg.outputDescriptionColumn],
-		url: entry[cfg.outputUrlColumn],
-		buttonText: cfg.outputButtonText,
 		metadata: cfg.outputMetadataColumns.map(columnName => entry[columnName]),
 		boldMetadata: cfg.outputBoldMetadataColumns.map(columnName => entry[columnName]),
+		linkButtons: cfg.outputLinkButtons.map(linkButton => {
+			return {
+				buttonText: linkButton.buttonText,
+				url: entry[linkButton.columnName],
+			}
+		}),
 		tags: entry[cfg.outputTagsColumn] ?
 			entry[cfg.outputTagsColumn].split(/\s*;\s*/g) : [],
 	}
@@ -41,10 +45,12 @@ export const getMatchingEntries = state => {
  * Retrieves all data required for pagination given a set of entries
  */
 export const getPaginationData = (state, entries) => {
-	const {
+	let {
 		pageLength,
 		currentPageIndex,
 	} = state.pagination
+
+	pageLength = pageLength || state.applicationConfig.paginationPageLength || 10
 
 	const pageEntriesStart = pageLength * currentPageIndex
 	const pageEntriesEnd = pageEntriesStart + pageLength

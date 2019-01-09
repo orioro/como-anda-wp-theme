@@ -23,8 +23,7 @@ const OutputCard = ({
 	heading,
 	subHeadings,
 	description,
-	url,
-	buttonText,
+  linkButtons,
 	metadata,
 	boldMetadata,
 	tags,
@@ -32,6 +31,20 @@ const OutputCard = ({
   onTagClick,
   highlightWords
 }) => {
+  const renterLinkButtonList = () => {
+    return linkButtons ? <ul className='ca-output-card__link-button-list'>
+      {linkButtons.map(({ buttonText, url }, index) => {
+        return buttonText && url ? <li key={index}>
+          <a
+            target='_blank'
+            href={url}>
+            {buttonText}
+          </a>
+        </li> : null
+      })}
+    </ul> : null
+  }
+
 	return <div className='ca-output-card'>
     {heading ? <h2 className='ca-output-card__heading'>
       <MaybeHighlightedText
@@ -42,7 +55,7 @@ const OutputCard = ({
     <div className='ca-output-card__body'>
 
   		<div className='ca-output-card__body__main'>
-  			{subHeadings ? subHeadings.map((subHeading, index) => (subHeading ? <h3
+  			{subHeadings && subHeadings.length > 0 ? subHeadings.map((subHeading, index) => (subHeading ? <h3
   				key={index}
   				className='ca-output-card__body__main__subheading'>
           <MaybeHighlightedText
@@ -58,15 +71,10 @@ const OutputCard = ({
           />
   			</div> : null}
 
-  			{url && buttonText ? <a
-  				className='ca-output-card__body__main__button'
-          target='_blank'
-  				href={url}>
-  				{buttonText}
-  			</a> : null}
+        {renterLinkButtonList()}
   		</div>
   		<div className='ca-output-card__body__side'>
-  			{metadata ? <ul className='ca-output-card__body__side__metadata'>
+  			{metadata && metadata.length > 0 ? <ul className='ca-output-card__body__side__metadata'>
   				{metadata.map((data, index) => {
             return data ? <li key={index}>
               <MaybeHighlightedText
@@ -77,7 +85,7 @@ const OutputCard = ({
           })}
   			</ul> : null}
 
-  			{boldMetadata ? <ul className='ca-output-card__body__side__metadata ca-output-card__body__side__metadata--bold'>
+  			{boldMetadata && boldMetadata.length > 0 ? <ul className='ca-output-card__body__side__metadata ca-output-card__body__side__metadata--bold'>
   				{boldMetadata.map((data, index) => {
             return data ? <li key={index}>
               <MaybeHighlightedText
@@ -88,7 +96,7 @@ const OutputCard = ({
           })}
   			</ul> : null}
 
-  			{tags ? <ul className='ca-output-card__body__side__tags'>
+  			{tags && tags.length > 0 ? <ul className='ca-output-card__body__side__tags'>
   				{tags.map((tag, index) => (tag ? <li
   					key={index}
             className={classnames({
@@ -105,12 +113,7 @@ const OutputCard = ({
   				</li> : null))}
   			</ul> : null}
 
-        {url && buttonText ? <a
-          className='ca-output-card__body__side__button'
-          target='_blank'
-          href={url}>
-          {buttonText}
-        </a> : null}
+        {renterLinkButtonList()}
   		</div>
     </div>
 	</div>
@@ -120,8 +123,7 @@ OutputCard.propTypes = {
 	heading: PropTypes.string,
 	subHeadings: PropTypes.array,
 	description: PropTypes.string,
-	url: PropTypes.string,
-	buttonText: PropTypes.string,
+  linkButtons: PropTypes.array,
 	metadata: PropTypes.array,
 	boldMetadata: PropTypes.array,
 	tags: PropTypes.array,
