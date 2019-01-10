@@ -47,4 +47,20 @@
       border-color: @color-orange;
     }
   }
+
+  div.wpcf7 .ajax-loader {
+    background-image: url('resources/loading.svg');
+    background-size: 100% 100%;
+
+    animation: ca-form-loading-indicator-spin 1s infinite linear;
+  }
+}
+
+@keyframes ca-form-loading-indicator-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
