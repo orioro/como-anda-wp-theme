@@ -89,6 +89,7 @@ get_header(); ?>
 							<?php foreach ($ca_timeline__decades as $decade) : ?>
 							<li>
 								<a
+									data-in-page-navigation-anchor
 									<?php echo count($decade['events']) > 0 ? 'href="#decada-' . $decade['start'] . '"' : ''; ?>
 									class="<?php echo count($decade['events']) === 0 ? 'empty' : ''; ?>">
 									<?php echo $decade['start']; ?> (<?php echo count($decade['events']); ?>)
@@ -112,7 +113,8 @@ get_header(); ?>
 						<?php foreach ($ca_timeline__decades as $decade) : ?>
 						<li
 							id="decada-<?php echo $decade['start']; ?>"
-							data-in-page-navigation-offset="-42">
+							data-in-page-navigation-offset="-42"
+							data-in-page-navigation-target>
 							<ul class="ca-timeline__event-list">
 								<?php foreach ($decade['events'] as $event) : ?>
 								<li class="ca-timeline-event-list__item">

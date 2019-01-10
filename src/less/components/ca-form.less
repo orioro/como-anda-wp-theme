@@ -18,20 +18,33 @@
     background-color: @color-blue;
     border: @color-black 1px solid;
 
+    resize: none;
+
+    font-size: @font-size-base-desktop;
+    color: @color-white;
+    padding: 16px 20px;
+    font-weight: bold;
+
     &:focus {
       outline: transparent;
     }
   }
 
-  input{
-    font-size: @font-size-base-desktop;
-    color: @color-white;
-    padding: 16px 20px;
+  .wpcf7-submit {
+    display: block;
+    width: auto;
     font-weight: bold;
   }
 
-  .wpcf7-submit {
-    width: 180px;
-    font-weight: bold;
+  .wpcf7-not-valid-tip {
+    color: @color-orange;
+  }
+
+  .wpcf7-response-output {
+    margin: 0;
+
+    &.wpcf7-validation-errors {
+      border-color: @color-orange;
+    }
   }
 }

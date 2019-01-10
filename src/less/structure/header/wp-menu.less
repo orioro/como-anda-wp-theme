@@ -20,11 +20,24 @@ ul.menu {
 		padding-right: 10px;
 	}
 
+	ul.sub-menu {
+		list-style: none;
+		margin-top: 0;
+		margin-bottom: 0;
+		padding-left: 0;
+
+		padding-top: 15px;
+		padding-bottom: 15px;
+		
+		background-color: white;
+		box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+	}
+
 	> li {
 		position: relative;
 		white-space: nowrap;
-		padding-left: 10px;
-		padding-right: 10px;
+		padding-left: 25px;
+		padding-right: 25px;
 
 		> a:hover {
 			text-decoration: underline;
@@ -34,10 +47,6 @@ ul.menu {
 		 * 2nd level
 		 */
 		> ul.sub-menu {
-			list-style: none;
-			margin-top: 0;
-			margin-bottom: 0;
-			padding-left: 0;
 			display: none;
 
 			position: absolute;
@@ -47,7 +56,6 @@ ul.menu {
 
 			li {
 				white-space: nowrap;
-				background-color: white;
 
 				position: relative;
 
@@ -55,18 +63,14 @@ ul.menu {
 				 * 3rd level forwards
 				 */
 				ul.sub-menu {
-					list-style: none;
-					margin-top: 0;
-					margin-bottom: 0;
-					padding-left: 0;
-
 					display: none;
+					
 					// display: flex;
 					flex-direction: column;
 
 					position: absolute;
 					left: 100%;
-					top: 0;
+					top: -15px;
 				}
 
 				&:hover {
@@ -101,9 +105,17 @@ ul.menu {
 				display: flex;
 			}
 		}
+
+		&:last-child {
+			padding-right: 0;
+
+			> a {
+				padding-right: 0;
+			}
+		}
 	}
 
-	@media (max-width: @mobile-max-width) {
+	@media (max-width: @tablet-max-width) {
 		flex-direction: column;
 
 		> li {
@@ -115,6 +127,10 @@ ul.menu {
 				padding-right: 0;
 				margin-top: 10px;
 				margin-bottom: 10px;
+
+				&:hover {
+					text-decoration: underline;
+				}
 			}
 
 			> ul.sub-menu {
@@ -123,6 +139,11 @@ ul.menu {
 				position: static;
 
 				padding-left: 30px;
+
+				padding-top: 0;
+				padding-bottom: 0;
+				background-color: transparent;
+				box-shadow: none;
 
 				li {
 					background-color: inherit;
@@ -136,6 +157,8 @@ ul.menu {
 					}
 
 					&:hover {
+						background-color: inherit;
+						
 						ul.sub-menu {
 							display: none;
 						}

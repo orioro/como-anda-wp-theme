@@ -38,7 +38,7 @@ function ca_page__get_hover_color_scheme($page_color_scheme) {
     'green' => 'green-light',
     'green-light' => 'green',
 
-    'gray-light' => 'gray',
+    'gray-light' => 'gray-dark',
     'gray' => 'gray-dark',
     'gray-dark' => 'gray-light'
   );

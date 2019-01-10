@@ -1,18 +1,33 @@
 ul.ca-timeline__decades-nav {
   .ca-reset-list();
   position: relative;
-
-  padding-bottom: 15px;
   box-sizing: border-box;
 
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
 
-	a.empty {
-		opacity: 0.4;
-		text-decoration: none;
-	}
+  a {
+    display: flex;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    text-decoration: none;
+
+    &.empty {
+      opacity: 0.4;
+      text-decoration: none;
+      font-weight: normal;
+    }
+
+    &.active {
+      border-bottom-color: @color-blue;
+    }
+  }
+
+	a
 
   > li {
     flex-shrink: 0;

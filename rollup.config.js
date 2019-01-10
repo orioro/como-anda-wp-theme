@@ -24,7 +24,6 @@ const scripts = process.env.ROLLUP_SCRIPTS_NAMES ?
 	fs.readdirSync(SCRIPTS_DIR).filter(name => {
 		return isFile(path.join(SCRIPTS_DIR, name, 'index.js'))
 	})
-// const scripts = ['page-template-csv-filter']
 
 const scriptConfig = scriptName => ({
 	input: `src/js/${scriptName}/index.js`,

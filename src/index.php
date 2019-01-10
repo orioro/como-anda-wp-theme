@@ -28,7 +28,7 @@ get_header(); ?>
 	</section>
 
 	<section id="mural-postagens">
-		<div class="container max-width-container side-padding-container ca-section-header">
+		<div class="container max-width-container side-padding-container">
 			<div class="row">
 				<div class="col-md-8">
 					<div>
