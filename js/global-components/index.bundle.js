@@ -17997,8 +17997,11 @@
 	};
 
 	var inPageNavigation = (function () {
+	  var $window = jQuery(window);
 	  var $html = jQuery('html,body');
 	  var $mainHeader = jQuery('#main-header');
+	  var $possibleAnchors = Array.from(jQuery('[data-in-page-navigation-anchor]')).map(jQuery);
+	  var $possibleTargets = Array.from(jQuery('[data-in-page-navigation-target][id]')).map(jQuery);
 
 	  var getBaseUrl = function getBaseUrl(postfix) {
 	    var baseUrl = window.location.origin + window.location.pathname + window.location.search;
@@ -18054,6 +18057,29 @@
 
 	      jQuery('html, body').animate({
 	        scrollTop: targetScrollTop
+	      });
+	    }
+	  });
+	  $window.on('scroll', function (e) {
+	    var targetPosition = $window.scrollTop() + $window.height() / 2;
+	    var $activeTarget = $possibleTargets.find(function ($possibleTarget) {
+	      var _$possibleTarget$offs = $possibleTarget.offset(),
+	          top = _$possibleTarget$offs.top;
+
+	      var bottom = top + $possibleTarget.outerHeight();
+	      return top <= targetPosition && bottom > targetPosition;
+	    });
+
+	    if ($activeTarget) {
+	      var activeTargetId = $activeTarget.attr('id');
+	      $possibleAnchors.forEach(function ($anchor) {
+	        var href = $anchor.attr('href');
+
+	        if (href === "#".concat(activeTargetId) || href === getBaseUrl("#".concat(activeTargetId))) {
+	          $anchor.addClass('active');
+	        } else {
+	          $anchor.removeClass('active');
+	        }
 	      });
 	    }
 	  });
