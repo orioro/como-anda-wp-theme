@@ -172,7 +172,7 @@ var pagetemplateinfograficoroda = (function () {
     return x;
   }
 
-  function sequence(start, stop, step) {
+  function range(start, stop, step) {
     start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
 
     var i = -1,
@@ -265,7 +265,7 @@ var pagetemplateinfograficoroda = (function () {
       // Convert number of thresholds into uniform thresholds.
       if (!Array.isArray(tz)) {
         tz = tickStep(x0, x1, tz);
-        tz = sequence(Math.ceil(x0 / tz) * tz, Math.floor(x1 / tz) * tz, tz); // exclusive
+        tz = range(Math.ceil(x0 / tz) * tz, Math.floor(x1 / tz) * tz, tz); // exclusive
       }
 
       // Remove any thresholds outside the domain.
@@ -309,7 +309,7 @@ var pagetemplateinfograficoroda = (function () {
     return histogram;
   }
 
-  function threshold(values, p, valueof) {
+  function quantile(values, p, valueof) {
     if (valueof == null) valueof = number;
     if (!(n = values.length)) return;
     if ((p = +p) <= 0 || n < 2) return +valueof(values[0], 0, values);
@@ -324,7 +324,7 @@ var pagetemplateinfograficoroda = (function () {
 
   function freedmanDiaconis(values, min, max) {
     values = map.call(values, number).sort(ascending);
-    return Math.ceil((max - min) / (2 * (threshold(values, 0.75) - threshold(values, 0.25)) * Math.pow(values.length, -1 / 3)));
+    return Math.ceil((max - min) / (2 * (quantile(values, 0.75) - quantile(values, 0.25)) * Math.pow(values.length, -1 / 3)));
   }
 
   function scott(values, min, max) {
@@ -412,7 +412,7 @@ var pagetemplateinfograficoroda = (function () {
       }
     }
 
-    return threshold(numbers.sort(ascending), 0.5);
+    return quantile(numbers.sort(ascending), 0.5);
   }
 
   function merge(arrays) {
@@ -4709,7 +4709,7 @@ var pagetemplateinfograficoroda = (function () {
     function chord(matrix) {
       var n = matrix.length,
           groupSums = [],
-          groupIndex = sequence(n),
+          groupIndex = range(n),
           subgroupIndex = [],
           chords = [],
           groups = chords.groups = new Array(n),
@@ -4727,7 +4727,7 @@ var pagetemplateinfograficoroda = (function () {
           x += matrix[i][j];
         }
         groupSums.push(x);
-        subgroupIndex.push(sequence(n));
+        subgroupIndex.push(range(n));
         k += x;
       }
 
@@ -7006,7 +7006,7 @@ var pagetemplateinfograficoroda = (function () {
       p0, // previous 3D point
       deltaSum = adder(),
       ranges,
-      range;
+      range$1;
 
   var boundsStream = {
     point: boundsPoint,
@@ -7027,12 +7027,12 @@ var pagetemplateinfograficoroda = (function () {
       if (areaRingSum < 0) lambda0$1 = -(lambda1 = 180), phi0 = -(phi1 = 90);
       else if (deltaSum > epsilon$2) phi1 = 90;
       else if (deltaSum < -epsilon$2) phi0 = -90;
-      range[0] = lambda0$1, range[1] = lambda1;
+      range$1[0] = lambda0$1, range$1[1] = lambda1;
     }
   };
 
   function boundsPoint(lambda, phi) {
-    ranges.push(range = [lambda0$1 = lambda, lambda1 = lambda]);
+    ranges.push(range$1 = [lambda0$1 = lambda, lambda1 = lambda]);
     if (phi < phi0) phi0 = phi;
     if (phi > phi1) phi1 = phi;
   }
@@ -7079,7 +7079,7 @@ var pagetemplateinfograficoroda = (function () {
         }
       }
     } else {
-      ranges.push(range = [lambda0$1 = lambda, lambda1 = lambda]);
+      ranges.push(range$1 = [lambda0$1 = lambda, lambda1 = lambda]);
     }
     if (phi < phi0) phi0 = phi;
     if (phi > phi1) phi1 = phi;
@@ -7091,7 +7091,7 @@ var pagetemplateinfograficoroda = (function () {
   }
 
   function boundsLineEnd() {
-    range[0] = lambda0$1, range[1] = lambda1;
+    range$1[0] = lambda0$1, range$1[1] = lambda1;
     boundsStream.point = boundsPoint;
     p0 = null;
   }
@@ -7115,7 +7115,7 @@ var pagetemplateinfograficoroda = (function () {
     boundsRingPoint(lambda00$1, phi00$1);
     areaStream.lineEnd();
     if (abs(deltaSum) > epsilon$2) lambda0$1 = -(lambda1 = 180);
-    range[0] = lambda0$1, range[1] = lambda1;
+    range$1[0] = lambda0$1, range$1[1] = lambda1;
     p0 = null;
   }
 
@@ -7164,7 +7164,7 @@ var pagetemplateinfograficoroda = (function () {
       }
     }
 
-    ranges = range = null;
+    ranges = range$1 = null;
 
     return lambda0$1 === Infinity || phi0 === Infinity
         ? [[NaN, NaN], [NaN, NaN]]
@@ -8436,12 +8436,12 @@ var pagetemplateinfograficoroda = (function () {
   }
 
   function graticuleX(y0, y1, dy) {
-    var y = sequence(y0, y1 - epsilon$2, dy).concat(y1);
+    var y = range(y0, y1 - epsilon$2, dy).concat(y1);
     return function(x) { return y.map(function(y) { return [x, y]; }); };
   }
 
   function graticuleY(x0, x1, dx) {
-    var x = sequence(x0, x1 - epsilon$2, dx).concat(x1);
+    var x = range(x0, x1 - epsilon$2, dx).concat(x1);
     return function(y) { return x.map(function(x) { return [x, y]; }); };
   }
 
@@ -8457,10 +8457,10 @@ var pagetemplateinfograficoroda = (function () {
     }
 
     function lines() {
-      return sequence(ceil(X0 / DX) * DX, X1, DX).map(X)
-          .concat(sequence(ceil(Y0 / DY) * DY, Y1, DY).map(Y))
-          .concat(sequence(ceil(x0 / dx) * dx, x1, dx).filter(function(x) { return abs(x % DX) > epsilon$2; }).map(x))
-          .concat(sequence(ceil(y0 / dy) * dy, y1, dy).filter(function(y) { return abs(y % DY) > epsilon$2; }).map(y));
+      return range(ceil(X0 / DX) * DX, X1, DX).map(X)
+          .concat(range(ceil(Y0 / DY) * DY, Y1, DY).map(Y))
+          .concat(range(ceil(x0 / dx) * dx, x1, dx).filter(function(x) { return abs(x % DX) > epsilon$2; }).map(x))
+          .concat(range(ceil(y0 / dy) * dy, y1, dy).filter(function(y) { return abs(y % DY) > epsilon$2; }).map(y));
     }
 
     graticule.lines = function() {
@@ -11608,7 +11608,7 @@ var pagetemplateinfograficoroda = (function () {
       start += (stop - start - step * (n - paddingInner)) * align;
       bandwidth = step * (1 - paddingInner);
       if (round) start = Math.round(start), bandwidth = Math.round(bandwidth);
-      var values = sequence(n).map(function(i) { return start + step * i; });
+      var values = range(n).map(function(i) { return start + step * i; });
       return ordinalRange(reverse ? values.reverse() : values);
     }
 
@@ -11715,15 +11715,15 @@ var pagetemplateinfograficoroda = (function () {
     };
   }
 
-  function bimap(domain, range, deinterpolate, reinterpolate) {
-    var d0 = domain[0], d1 = domain[1], r0 = range[0], r1 = range[1];
+  function bimap(domain, range$$1, deinterpolate, reinterpolate) {
+    var d0 = domain[0], d1 = domain[1], r0 = range$$1[0], r1 = range$$1[1];
     if (d1 < d0) d0 = deinterpolate(d1, d0), r0 = reinterpolate(r1, r0);
     else d0 = deinterpolate(d0, d1), r0 = reinterpolate(r0, r1);
     return function(x) { return r0(d0(x)); };
   }
 
-  function polymap(domain, range, deinterpolate, reinterpolate) {
-    var j = Math.min(domain.length, range.length) - 1,
+  function polymap(domain, range$$1, deinterpolate, reinterpolate) {
+    var j = Math.min(domain.length, range$$1.length) - 1,
         d = new Array(j),
         r = new Array(j),
         i = -1;
@@ -11731,12 +11731,12 @@ var pagetemplateinfograficoroda = (function () {
     // Reverse descending domains.
     if (domain[j] < domain[0]) {
       domain = domain.slice().reverse();
-      range = range.slice().reverse();
+      range$$1 = range$$1.slice().reverse();
     }
 
     while (++i < j) {
       d[i] = deinterpolate(domain[i], domain[i + 1]);
-      r[i] = reinterpolate(range[i], range[i + 1]);
+      r[i] = reinterpolate(range$$1[i], range$$1[i + 1]);
     }
 
     return function(x) {
@@ -11757,7 +11757,7 @@ var pagetemplateinfograficoroda = (function () {
   // reinterpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding domain value x in [a,b].
   function continuous(deinterpolate, reinterpolate) {
     var domain = unit,
-        range = unit,
+        range$$1 = unit,
         interpolate$$1 = interpolateValue,
         clamp = false,
         piecewise,
@@ -11765,17 +11765,17 @@ var pagetemplateinfograficoroda = (function () {
         input;
 
     function rescale() {
-      piecewise = Math.min(domain.length, range.length) > 2 ? polymap : bimap;
+      piecewise = Math.min(domain.length, range$$1.length) > 2 ? polymap : bimap;
       output = input = null;
       return scale;
     }
 
     function scale(x) {
-      return (output || (output = piecewise(domain, range, clamp ? deinterpolateClamp(deinterpolate) : deinterpolate, interpolate$$1)))(+x);
+      return (output || (output = piecewise(domain, range$$1, clamp ? deinterpolateClamp(deinterpolate) : deinterpolate, interpolate$$1)))(+x);
     }
 
     scale.invert = function(y) {
-      return (input || (input = piecewise(range, domain, deinterpolateLinear, clamp ? reinterpolateClamp(reinterpolate) : reinterpolate)))(+y);
+      return (input || (input = piecewise(range$$1, domain, deinterpolateLinear, clamp ? reinterpolateClamp(reinterpolate) : reinterpolate)))(+y);
     };
 
     scale.domain = function(_) {
@@ -11783,11 +11783,11 @@ var pagetemplateinfograficoroda = (function () {
     };
 
     scale.range = function(_) {
-      return arguments.length ? (range = slice$5.call(_), rescale()) : range.slice();
+      return arguments.length ? (range$$1 = slice$5.call(_), rescale()) : range$$1.slice();
     };
 
     scale.rangeRound = function(_) {
-      return range = slice$5.call(_), interpolate$$1 = interpolateRound, rescale();
+      return range$$1 = slice$5.call(_), interpolate$$1 = interpolateRound, rescale();
     };
 
     scale.clamp = function(_) {
@@ -12092,24 +12092,24 @@ var pagetemplateinfograficoroda = (function () {
     return pow$1().exponent(0.5);
   }
 
-  function quantile$$1() {
+  function quantile$1() {
     var domain = [],
-        range = [],
+        range$$1 = [],
         thresholds = [];
 
     function rescale() {
-      var i = 0, n = Math.max(1, range.length);
+      var i = 0, n = Math.max(1, range$$1.length);
       thresholds = new Array(n - 1);
-      while (++i < n) thresholds[i - 1] = threshold(domain, i / n);
+      while (++i < n) thresholds[i - 1] = quantile(domain, i / n);
       return scale;
     }
 
     function scale(x) {
-      if (!isNaN(x = +x)) return range[bisectRight(thresholds, x)];
+      if (!isNaN(x = +x)) return range$$1[bisectRight(thresholds, x)];
     }
 
     scale.invertExtent = function(y) {
-      var i = range.indexOf(y);
+      var i = range$$1.indexOf(y);
       return i < 0 ? [NaN, NaN] : [
         i > 0 ? thresholds[i - 1] : domain[0],
         i < thresholds.length ? thresholds[i] : domain[domain.length - 1]
@@ -12125,7 +12125,7 @@ var pagetemplateinfograficoroda = (function () {
     };
 
     scale.range = function(_) {
-      return arguments.length ? (range = slice$5.call(_), rescale()) : range.slice();
+      return arguments.length ? (range$$1 = slice$5.call(_), rescale()) : range$$1.slice();
     };
 
     scale.quantiles = function() {
@@ -12133,9 +12133,9 @@ var pagetemplateinfograficoroda = (function () {
     };
 
     scale.copy = function() {
-      return quantile$$1()
+      return quantile$1()
           .domain(domain)
-          .range(range);
+          .range(range$$1);
     };
 
     return scale;
@@ -12146,10 +12146,10 @@ var pagetemplateinfograficoroda = (function () {
         x1 = 1,
         n = 1,
         domain = [0.5],
-        range = [0, 1];
+        range$$1 = [0, 1];
 
     function scale(x) {
-      if (x <= x) return range[bisectRight(domain, x, 0, n)];
+      if (x <= x) return range$$1[bisectRight(domain, x, 0, n)];
     }
 
     function rescale() {
@@ -12164,11 +12164,11 @@ var pagetemplateinfograficoroda = (function () {
     };
 
     scale.range = function(_) {
-      return arguments.length ? (n = (range = slice$5.call(_)).length - 1, rescale()) : range.slice();
+      return arguments.length ? (n = (range$$1 = slice$5.call(_)).length - 1, rescale()) : range$$1.slice();
     };
 
     scale.invertExtent = function(y) {
-      var i = range.indexOf(y);
+      var i = range$$1.indexOf(y);
       return i < 0 ? [NaN, NaN]
           : i < 1 ? [x0, domain[0]]
           : i >= n ? [domain[n - 1], x1]
@@ -12178,38 +12178,38 @@ var pagetemplateinfograficoroda = (function () {
     scale.copy = function() {
       return quantize$1()
           .domain([x0, x1])
-          .range(range);
+          .range(range$$1);
     };
 
     return linearish(scale);
   }
 
-  function threshold$1() {
+  function threshold() {
     var domain = [0.5],
-        range = [0, 1],
+        range$$1 = [0, 1],
         n = 1;
 
     function scale(x) {
-      if (x <= x) return range[bisectRight(domain, x, 0, n)];
+      if (x <= x) return range$$1[bisectRight(domain, x, 0, n)];
     }
 
     scale.domain = function(_) {
-      return arguments.length ? (domain = slice$5.call(_), n = Math.min(domain.length, range.length - 1), scale) : domain.slice();
+      return arguments.length ? (domain = slice$5.call(_), n = Math.min(domain.length, range$$1.length - 1), scale) : domain.slice();
     };
 
     scale.range = function(_) {
-      return arguments.length ? (range = slice$5.call(_), n = Math.min(domain.length, range.length - 1), scale) : range.slice();
+      return arguments.length ? (range$$1 = slice$5.call(_), n = Math.min(domain.length, range$$1.length - 1), scale) : range$$1.slice();
     };
 
     scale.invertExtent = function(y) {
-      var i = range.indexOf(y);
+      var i = range$$1.indexOf(y);
       return [domain[i - 1], domain[i]];
     };
 
     scale.copy = function() {
-      return threshold$1()
+      return threshold()
           .domain(domain)
-          .range(range);
+          .range(range$$1);
     };
 
     return scale;
@@ -16769,8 +16769,8 @@ var pagetemplateinfograficoroda = (function () {
     min: min,
     pairs: pairs,
     permute: permute,
-    quantile: threshold,
-    range: sequence,
+    quantile: quantile,
+    range: range,
     scan: scan,
     shuffle: shuffle,
     sum: sum,
@@ -16983,9 +16983,9 @@ var pagetemplateinfograficoroda = (function () {
     scaleImplicit: implicit,
     scalePow: pow$1,
     scaleSqrt: sqrt$1,
-    scaleQuantile: quantile$$1,
+    scaleQuantile: quantile$1,
     scaleQuantize: quantize$1,
-    scaleThreshold: threshold$1,
+    scaleThreshold: threshold,
     scaleTime: time,
     scaleUtc: utcTime,
     schemeCategory10: category10,
