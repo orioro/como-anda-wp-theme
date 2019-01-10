@@ -95,7 +95,7 @@ module.exports = function (app, options) {
       .select('text')
       .style('text-anchor', function(d) {
         var midAngle = ((d.startAngle + d.endAngle) / 2) - d.padAngle;
-        return midAngle > Math.PI ? 'end' : null;
+        return midAngle > Math.PI && midAngle <= 2 * Math.PI ? 'end' : null;
       })
       .attr('transform', function(d) {
         
@@ -103,7 +103,7 @@ module.exports = function (app, options) {
         
         return 'rotate(' + (midAngle * 180 / Math.PI - 90) + ')'
             + 'translate(' + (options.innerRadius + 26) + ')'
-            + (midAngle > Math.PI ? 'rotate(180)' : '');
+            + (midAngle > Math.PI && midAngle <= 2 * Math.PI ? 'rotate(180)' : '');
       });
     
     entityArcs
@@ -141,7 +141,7 @@ module.exports = function (app, options) {
       .style('font-size', 10)
       .style('text-anchor', function(d) {
         var midAngle = ((d.startAngle + d.endAngle) / 2) - d.padAngle;
-        return midAngle > Math.PI ? 'end' : null;
+        return midAngle > Math.PI && midAngle <= 2 * Math.PI ? 'end' : null;
       })
       .attr('transform', function(d) {
         
@@ -149,7 +149,7 @@ module.exports = function (app, options) {
         
         return 'rotate(' + (midAngle * 180 / Math.PI - 90) + ')'
             + 'translate(' + (options.innerRadius + 26) + ')'
-            + (midAngle > Math.PI ? 'rotate(180)' : '');
+            + (midAngle > Math.PI && midAngle <= 2 * Math.PI ? 'rotate(180)' : '');
       })
       .on('click', function (d) {
         

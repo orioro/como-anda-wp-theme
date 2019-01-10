@@ -28,11 +28,47 @@ window.addEventListener('DOMContentLoaded', function () {
      * Initialize the ui
      */
     require('./ui/init')(app, options);
+
+    // open criteria
+    setTimeout(() => {
+      app.ui.questions.openQuestion(
+        'Qual a abordagem da sua organização sobre o tema da mobilidade a pé?');
+    }, 1000)
+
+    setTimeout(() => {
+      app.ui.questions.openQuestion(
+        'Qual é a área de atuação da sua organização?');
+    }, 2000)
+
+    setTimeout(() => {
+      // deselect one by one all options for
+      // 'Qual a abordagem da sua organização sobre o tema da mobilidade a pé?'
+      
+      var question = 'Qual a abordagem da sua organização sobre o tema da mobilidade a pé?';
+      
+      var current = app.services.questionLinkFilter.get(question);
+      
+      // invert order of removal
+      current = current.concat([]);
+      current.reverse();
+      
+      current.forEach(function (opt, index) {
+        app.services.questionLinkFilter.arrayRemove(question, opt);
+      });
+
+      app.services.entityLinkFilter.set('_id', [
+        'Cidade Ativa'.replace(/\W+/g, '-').toLowerCase(),
+        'Corrida Amiga'.replace(/\W+/g, '-').toLowerCase(),
+      ]);
+    }, 3000)
+
+
     
+
     /**
      * Initialize intro
      */
-    require('./ui/intro')(app, options);
+    // require('./ui/intro')(app, options);
   })
   
 });

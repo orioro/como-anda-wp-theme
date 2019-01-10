@@ -77,6 +77,9 @@ module.exports = function (app, options) {
     outerRadius: OUTER_RADIUS,
     // entities: options.entities,
   });
+  app.ui.stateDropdown = require('./state-dropdown')(app, {
+    
+  })
   
   
   // listen to map filter changes
