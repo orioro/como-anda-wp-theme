@@ -655,8 +655,9 @@ ul.menu > li:last-child > a {
   display: block;
   position: absolute;
   z-index: 1;
-  top: 90%;
-  right: 0;
+  top: 105%;
+  top: calc(100% + 5px);
+  right: -10%;
   width: 60%;
   pointer-events: none;
   -webkit-transition: opacity 0.4s ease;

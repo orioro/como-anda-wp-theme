@@ -1,7 +1,13 @@
 const replace = require('gulp-replace')
+const gulpIf = require('gulp-if')
+const uglify = require('gulp-uglify')
+
+const isCompiledBundle = file => {
+	return /\.bundle\.js$/.test(file.path)
+}
 
 module.exports = (gulp) => {
-	gulp.task('distribute', () => {
+	gulp.task('distribute', ['compile:less', 'compile:js'], () => {
 
 		const WORDPRESS_FILES = [
 			'src/**/*.php',
@@ -42,6 +48,9 @@ module.exports = (gulp) => {
 		], { base: 'src' })
 		// Replaces the loading of development files
 		.pipe(replace("require_once('inc/development/load.php');", ''))
+
+		// uglify compiled bundles
+		.pipe(gulpIf(isCompiledBundle, uglify()))
 		.pipe(gulp.dest('dist'))
 	})
 }

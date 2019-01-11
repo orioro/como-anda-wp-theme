@@ -34,7 +34,7 @@ $queried_object = get_queried_object();
 	<div class="container max-width-container side-padding-container">
 		<?php
 		$ca_home__illustration_uris = array_map(function ($item) {
-			return get_template_directory_uri() . '/resources/ilustracoes/' . $item;
+			return get_template_directory_uri() . '/resources/ilustracoes/cortadas/' . $item;
 		}, array(
 			'ilustracao-1.png',
 			'ilustracao-2.png',
