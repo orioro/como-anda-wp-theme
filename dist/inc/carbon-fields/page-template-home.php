@@ -62,11 +62,13 @@ Container::make('post_meta', 'Sobre')
     Field::make('text', 'ca_home__sobre_title_quem_faz', 'Título de quem faz'),
     Field::make('complex', 'ca_home__sobre_quem_faz', 'Quem faz')
       ->add_fields(array(
+        Field::make('text', 'url', 'Link'),
         Field::make('image', 'image', 'Imagem'),
       )),
     Field::make('text', 'ca_home__sobre_title_quem_apoia', 'Título de quem apoia'),
     Field::make('complex', 'ca_home__sobre_quem_apoia', 'Quem apoia')
       ->add_fields(array(
+        Field::make('text', 'url', 'Link'),
         Field::make('image', 'image', 'Imagem'),
       ))
   ));

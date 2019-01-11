@@ -113,7 +113,11 @@ $ca_page__color_scheme = carbon_get_post_meta(
                 <ul>
                   <?php foreach($ca_home__sobre_quem_faz as $item) : ?>
                   <li>
-                    <img src="<?php echo wp_get_attachment_image_src($item['image'], 'full')[0]; ?>">
+                    <a
+                      href="<?php echo $item['url']; ?>"
+                      target="_blank">
+                      <img src="<?php echo wp_get_attachment_image_src($item['image'], 'full')[0]; ?>">
+                    </a>
                   </li>
                   <?php endforeach; ?>
                 </ul>
@@ -124,7 +128,11 @@ $ca_page__color_scheme = carbon_get_post_meta(
                 <ul>
                   <?php foreach($ca_home__sobre_quem_apoia as $item) : ?>
                   <li>
-                    <img src="<?php echo wp_get_attachment_image_src($item['image'], 'full')[0]; ?>">
+                    <a
+                      href="<?php echo $item['url']; ?>"
+                      target="_blank">
+                      <img src="<?php echo wp_get_attachment_image_src($item['image'], 'full')[0]; ?>">
+                    </a>
                   </li>
                   <?php endforeach; ?>
                 </ul>
@@ -166,7 +174,7 @@ $ca_page__color_scheme = carbon_get_post_meta(
           <ul class="ca-contact-icon-link-list">
             <?php if ($ca__instagram_url) : ?>
             <li>
-              <a class="ca-yellow"> target="_blank" href="<?php echo $ca__instagram_url; ?>">
+              <a class="ca-yellow" target="_blank" href="<?php echo $ca__instagram_url; ?>">
                 <?php require(dirname(__DIR__) . '/resources/icones/instagram.svg'); ?>
               </a>
             </li>
