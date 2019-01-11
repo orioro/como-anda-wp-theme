@@ -18,8 +18,11 @@ $queried_object = get_queried_object();
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
-
+	
 	<?php wp_head(); ?>
+
+	<?php echo carbon_get_theme_option('ca__google_analytics_script'); ?>
+	<?php require('partials/social-meta-tags.php'); ?>
 </head>
 
 <body <?php body_class(); ?>>

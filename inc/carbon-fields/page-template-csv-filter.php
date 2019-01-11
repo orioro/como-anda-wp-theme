@@ -12,6 +12,7 @@ function ca_csv_filter__prettify_complex_cf($field, $title_attribute) {
 }
 
 Container::make('post_meta', 'Configurações do Cabeçalho')
+	->where('post_template', '=', 'page-templates/csv-filter.php')
 	->add_fields(array(
 		ca_aux__make_link_buttons_field('ca_csv_filter__heading_link_buttons', 'Links')
 	));
