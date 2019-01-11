@@ -33,6 +33,63 @@ get_header(); ?>
     </h3>
     <h3>organizações mapeadas<br>atendem a esses critérios de seleção</h3>
   </div>
+
+  <div id="state-dropdown">
+    <button>
+      Estados
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/><path fill="none" d="M0 0h24v24H0V0z"/></svg>
+    </button>
+    <div>
+      <label>
+        <input
+          type="checkbox"
+          value="_all"
+          name="_all"
+          checked>
+        Todos
+      </label>
+      <?php
+      $ca_infografico_roda__states = array(
+        'AC' => 'Acre',
+        'AL' => 'Alagoas',
+        'AP' => 'Amapá',
+        'AM' => 'Amazonas',
+        'BA' => 'Bahia',
+        'CE' => 'Ceará',
+        'DF' => 'Distrito Federal',
+        'ES' => 'Espírito Santo',
+        'GO' => 'Goiás',
+        'MA' => 'Maranhão',
+        'MT' => 'Mato Grosso',
+        'MS' => 'Mato Grosso do Sul',
+        'MG' => 'Minas Gerais',
+        'PA' => 'Pará',
+        'PB' => 'Paraíba',
+        'PR' => 'Paraná',
+        'PE' => 'Pernambuco',
+        'PI' => 'Piauí',
+        'RJ' => 'Rio de Janeiro',
+        'RN' => 'Rio Grande do Norte',
+        'RS' => 'Rio Grande do Sul',
+        'RO' => 'Rondônia',
+        'RR' => 'Roraima',
+        'SC' => 'Santa Catarina',
+        'SP' => 'São Paulo',
+        'SE' => 'Sergipe',
+        'TO' => 'Tocantins',
+      );
+      ?>
+      <?php foreach ($ca_infografico_roda__states as $state_code => $state_name) : ?>
+      <label>
+        <input
+          type="checkbox"
+          value="<?php echo $state_code; ?>"
+          name="state">
+        <?php echo $state_name; ?>
+      </label>
+      <?php endforeach; ?>
+    </div>
+  </div>
   
   <dialog id="entity-details">
     <form method="dialog">  
@@ -61,87 +118,6 @@ get_header(); ?>
       <span data-bind="Site da organização:"></span>
     </footer>
   </dialog>
-  
-  <a id="timeline-link" href="/marcos-da-mobilidade">
-    <img src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/plus.svg" alt="ver mais">
-    <div>ver marcos da<br> mobilidade a pé</div>
-  </a>
-  <a id="know-more-link" href="<?php echo get_home_url(); ?>">saiba mais</a>
-  
-  <!-- intro -->
-  
-  <div id="intro-overlay">
-    
-  </div>
-  
-  <div id="intro-image-container">
-    <img src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/ilustracoes-home-0.svg">
-    <img src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/ilustracoes-home-1.svg">
-    <img src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/ilustracoes-home-2.svg">
-    <img src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/ilustracoes-home-3.svg">
-    <img src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/ilustracoes-home-4.svg">
-    <img src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/ilustracoes-home-5.svg">
-    <img src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/ilustracoes-home-6.svg">
-    <img src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/ilustracoes-home-7.svg">
-    <img src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/ilustracoes-home-8.svg">
-    <img src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/ilustracoes-home-9.svg">
-    
-    <div class="floor"></div>
-  </div>
-  
-  <div id="intro-container">
-    <img class="intro-control previous" src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/arrow-right.svg" alt="previous">
-    <img class="intro-control next" src="<?php echo get_template_directory_uri() ?>/js/page-template-infografico-roda/resources/img/arrow-right.svg" alt="next">
-    <a href="#" class="intro-skip">pular intro</a>
-    
-    <div id="intro-text-container">
-      <div id="intro-text-scroller">
-        <!-- 1 -->
-        <p>
-          <strong>A pé</strong> é a forma mais democrática, sustentável, saudável e econômica de se deslocar pela cidade.
-        </p>
-        <!-- 2 -->
-        <p>
-          Apesar disso, pouco foi feito pela <strong>mobilidade a pé</strong> nas cidades brasileiras.
-        </p>
-        <!-- 3 -->
-        <p>
-          De maneira <strong>descentralizada</strong>, nascem organizações com o objetivo de colocar a questão em pauta.
-        </p>
-        <!-- 4 -->
-        <p>
-          A partir de <strong>2013</strong>, estimuladas pelo contexto político, social e econômico do país, proliferam iniciativas levantando a bandeira da mobilidade a pé,
-        </p>
-        <!-- 5 -->
-        <p>
-          mas a falta de uma <strong>visão integrada</strong> do cenário ainda é uma barreira para que o movimento ganhe força e espaço.
-        </p>
-        <!-- 6 -->
-        <p>
-          Neste contexto surge a pesquisa <strong>COMO ANDA</strong>.
-        </p>
-        <!-- 7 -->
-        <p>
-          Nós queremos compreender o movimento pela <strong>mobilidade a pé</strong> no Brasil: quem são, onde estão e como atuam os agentes que a promovem.
-        </p>
-        <!-- 8 -->
-        <p>
-          Até agora, foram mapeadas <strong><span data-bind="totalCount"></span> organizações</strong>, localizadas em <strong><span data-bind="totalStateCount"></span> estados</strong> pelo Brasil.
-        </p>
-        <!-- 9 retirado -->
-        
-        <!-- 10 -->
-        <p>
-          Descubra a situação das <strong>organizações</strong> mapeadas, identifique atuações, viabilize parcerias e <strong>potencialize</strong> suas ações.
-        </p>
-        <!-- 11 -->
-        <p>
-          Navegue e entenda mais sobre o cenário da mobilidade a pé.<br>
-          Venha caminhar com a gente!
-        </p>
-      </div>
-    </div>
-  </div>
 </main>
 <?php endwhile; ?>
 

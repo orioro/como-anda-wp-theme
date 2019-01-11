@@ -29,7 +29,7 @@ exports.arcTextFontSize = function (options) {
 exports.arcTextAnchor = function (options) {
   return function calcTextAnchor(d) {
     var midAngle = (d.startAngle + d.endAngle) / 2;
-    return midAngle > Math.PI ? 'end' : null;
+    return midAngle > Math.PI && midAngle <= 2 * Math.PI ? 'end' : null;
   }
 };
 
@@ -44,7 +44,7 @@ exports.arcTextTransform = function (options) {
     
     return 'rotate(' + (midAngle * 180 / Math.PI - 90) + ')'
         + 'translate(' + (options.radius) + ')'
-        + (midAngle > Math.PI ? 'rotate(180)' : '');
+        + (midAngle > Math.PI && midAngle <= 2 * Math.PI ? 'rotate(180)' : '');
   }
 }
 

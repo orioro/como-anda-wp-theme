@@ -12,63 +12,6 @@ h1, h2, h3 {
 
 /**
  * 
- * Navigation
- * 
- */
-#timeline-link {
-  position: fixed;
-  z-index: 1;
-  bottom: 16px;
-  left: 67%;
-  line-height: 14px;
-  font-size: 12px;
-  text-decoration: none;
-  color: #808080;
-  opacity: 1;
-  transition: color ease 0.3s, opacity ease 0.5s;
-
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-}
-
-#timeline-link.hide {
-  opacity: 0;
-}
-
-
-#timeline-link img {
-  display: block;
-  padding-right: 10px;
-}
-
-#timeline-link div {
-  margin-top: -3px;
-}
-
-#timeline-link:hover {
-  color: #000000;
-}
-
-#know-more-link {
-  position: fixed;
-  z-index: 1;
-  bottom: 20px;
-  right: 20px;
-  opacity: 1;
-  text-decoration: none;
-  transition: opacity ease 0.5s;
-  
-  color: black;
-}
-
-#know-more-link.hide {
-  opacity: 0;
-}
-
-/**
- * 
  * Entity details
  * 
  */
@@ -418,21 +361,12 @@ transform: translate(-50%, -50%); */
 #map-container path {
   opacity: 0.8;
   fill: white;
-  cursor: pointer;
   
   stroke: #e0e0e0;
 }
 
-#map-container path:hover {
-  fill: #8bb7dc;
-}
-
 #map-container path.active {
   fill: #3c81bb;
-}
-
-#map-container path.active:hover {
-  fill: #124e7f;
 }
 /**
  * Link lines
@@ -442,174 +376,78 @@ transform: translate(-50%, -50%); */
 }
 
 
-
-
 /**
- * 
- * INTRO STYLES
- *
+ * State dropdown
  */
-#intro-overlay {
+#state-dropdown {
   position: fixed;
-  height: 100vh;
-  width: 100vw;
-  
-  opacity: 1;
-  transition: opacity 3s ease;
-  background-color: #A2B5B6;
-  
-  z-index: 2;
+  z-index: 10000;
+
+  top: 350px;
+  left: 50px;
 }
 
-#intro-overlay.fade-away {
-  opacity: 0;
-}
+#state-dropdown > button {
+  background-color: #3880BD;
+  color: white;
+  border: 1px black solid;
+  padding: 8px 20px;
+  font-size: 18px;
 
-#intro-container {
-  position: fixed;
-  height: 40vh;
-  min-height: 100px;
-  max-height: 250px;
-  width: 18vw;
-  min-width: 210px;
-  
-  top: 50%;
-  left: 3vw;
-  
-  transform: translateY(-50%);
-  
-  opacity: 1;
-  /* background-color: rgba(255, 255, 255, 0.4); */
-  
-  z-index: 2;
-}
-
-#intro-container .intro-control {
-  position: absolute;
-  top: 50%;
-  
-  height: 20px;
-  
-  transition: opacity 1s;
-  
-  opacity: 0.1;
-}
-#intro-container .intro-control.active {
-  opacity: 1;
-  cursor: pointer;
-}
-#intro-container .intro-control.previous {
-  left: 0;
-  transform: translate(-100%, -50%) rotate(180deg);
-}
-#intro-container .intro-control.next {
-  right: 0;
-  transform: translate(100%, -50%);
-}
-
-#intro-container .intro-skip {
-  position: absolute;
-  top: 104%;
-  right: 3vh;
-  text-decoration: none;
-  
-  /* color: #bcbcbc; */
-  /* color: #8C8C8C; */
-  color: black;
-  font-size: 12px;
-  font-weight: normal;
-}
-
-#intro-text-container {
-  
-  height: 100%;
-  width: 100%;
-  
-  /**
-   * Let only overflow-y hidden in order not to hide controls
-   */
-  overflow-y: hidden;
-  background-color: transparent;
-}
-#intro-text-container.opaque {
-  background-color: rgba(224,224,224,0.8); /* same color of bg-color of body, but with opacity */
-}
-
-#intro-text-scroller {
-  transition: transform ease 2s;
-}
-
-#intro-text-scroller p {
-  font-size: 20px;
-  line-height: 1.5;
-  text-align: right;
-  padding: 5px 20px;
-  margin: 0 0;
-  transition: opacity ease 3s;
-  opacity: 0.05;
-}
-
-#intro-text-scroller p strong{
-  font-weight: bold;
-}
-
-#intro-text-scroller p.current {
-  opacity: 1;
-}
-
-
-/**
- * Foot animation
- */
-#intro-image-container {
-  position: fixed;
-  z-index: 2;
-  top: 50%;
-  left: 50%;
-  
   display: flex;
-  
-  transition: transform 2s ease, opacity 2s ease;
-  opacity: 1;
-  
-  transform: translate(-10%, -50%);
+  align-items: center;
 }
 
-#intro-image-container.fade-away {
-  opacity: 0;
-  transform: translate(-50%, 120%) scaleX(0.1);
+#state-dropdown > button > svg {
+  margin-left: 20px;
 }
 
-#intro-image-container > img {
-  position: relative;
-  display: block;
-  margin-right: -150px;
-  
-  transition: opacity 1s ease;
-  
-  opacity: 0;
-}
-
-#intro-image-container > img.active {
-  opacity: 1;
-}
-
-#intro-image-container > .floor {
+#state-dropdown > div {
   position: absolute;
-  left: 0;
   top: 100%;
-  height: 2px;
-  width: 300px;
-  background-color: black;
-  
-  opacity: 0;
-  transition: width 6s ease, opacity 3s ease;
+  top: calc(100% - 1px);
+  left: 0;
+
+  width: 220px;
+
+  /*display: flex;*/
+  display: none;
+  flex-direction: column;
+
+  height: 270px;
+  background-color: white;
+  padding: 10px 20px;
+
+  overflow: auto;
+  border: 1px solid black;
 }
 
-#intro-image-container > .floor.active {
-  opacity: 1;
+#state-dropdown > div > label {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  font-size: 14px;
 }
 
-#intro-image-container > .floor.walkable {
-  width: 100%;
+#state-dropdown > div > label:first-child {
+  margin-top: 0;
+}
+
+#state-dropdown > div > label:last-child {
+  margin-bottom: 0;
+}
+
+#state-dropdown > div > label > input {
+  margin-right: 10px;
+}
+
+#state-dropdown.active > button > svg {
+  transform: rotate(180deg);
+}
+
+#state-dropdown.active > div {
+  display: flex;
 }

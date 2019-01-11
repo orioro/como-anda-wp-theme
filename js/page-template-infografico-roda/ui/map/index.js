@@ -39,7 +39,7 @@ module.exports = function (app, options) {
   var projection = d3.geoMercator()
     // brazil
     .center([0, 0])
-    .scale(300);
+    .scale(190);
     
   var geoPath = d3.geoPath()
     .projection(projection);
@@ -72,13 +72,16 @@ module.exports = function (app, options) {
       .data(states.features);
     
     mapFilter.on('change', function () {
+      // console.log('MAP CHANGED')
       mapContainer
         .selectAll('path')
-        .attr('fill', function (d) {
+        .attr('class', function (d) {
           var stateCode = getStateCode(d.properties.name);
           var active = mapFilter.get('Estado:').indexOf(stateCode) !== -1;
+
+          console.log(stateCode, active)
           
-          return active ? 'red' : 'transparent';
+          return active ? 'active' : '';
         });
     });
     
@@ -93,23 +96,6 @@ module.exports = function (app, options) {
         return active ? 'red' : 'transparent';
       })
       .attr('stroke', 'black')
-      .on('click', function (d) {
-        var stateCode = getStateCode(d.properties.name);
-          
-        // toggle the selected status of the filter
-        var isCurrentlyActive =
-          mapFilter.get('Estado:').indexOf(stateCode) !== -1;
-        
-        if (isCurrentlyActive) {
-        
-          d3.select(this).classed('active', false);
-          mapFilter.arrayRemove('Estado:', stateCode);
-        } else {
-          
-          d3.select(this).classed('active', true);
-          mapFilter.arrayPush('Estado:', stateCode);
-        }
-      });
       
     // once the map has been rendered, put it into the right
     // place
@@ -117,8 +103,8 @@ module.exports = function (app, options) {
     var rect = mapContainerEl.getBoundingClientRect();
     
     mapContainer.attr('transform', function () {
-      var targetTop  = (2 * options.centerY) - rect.height - 10;
-      var targetLeft = 20;
+      var targetTop  = 200;
+      var targetLeft = 50;
       
       var dTop  = targetTop - rect.top;
       var dLeft = targetLeft - rect.left;
