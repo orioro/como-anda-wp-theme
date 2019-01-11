@@ -8,21 +8,21 @@ function ca__enqueue_scripts_and_styles() {
 		'ca--main-style',
 		get_stylesheet_uri(),
 		array(),
-		'1.0.0'
+		'1.0.1'
 	);
 
 	wp_register_style(
 		'ca--font-face-news-cycle',
 		'https://fonts.googleapis.com/css?family=News+Cycle:400,700',
 		array(),
-		'1.0.0'
+		'1.0.1'
 	);
 
 	wp_register_style(
 		'ca--page-template-infografico-roda',
 		get_template_directory_uri() . '/js/page-template-infografico-roda/styles.css',
 		array(),
-		'1.0.0'
+		'1.0.1'
 	);
 
 	/**
@@ -40,14 +40,14 @@ function ca__enqueue_scripts_and_styles() {
 		'ca--header',
 		get_template_directory_uri() . '/js/header/index.bundle.js',
 		array('jquery'),
-		'1.0.0'
+		'1.0.1'
 	);
 
 	wp_register_script(
 		'ca--global-components',
 		get_template_directory_uri() . '/js/global-components/index.bundle.js',
 		array('jquery'),
-		'1.0.0'
+		'1.0.1'
 	);
 
 	/**
@@ -57,19 +57,19 @@ function ca__enqueue_scripts_and_styles() {
 		'ca--page-template-home',
 		get_template_directory_uri() . '/js/page-template-home/index.bundle.js',
 		array('jquery'),
-		'1.0.0'
+		'1.0.1'
 	);
 	wp_register_script(
 		'ca--page-template-csv-filter',
 		get_template_directory_uri() . '/js/page-template-csv-filter/index.bundle.js',
 		array('jquery'),
-		'1.0.0'
+		'1.0.1'
 	);
 	wp_register_script(
 		'ca--page-template-infografico-roda',
 		get_template_directory_uri() . '/js/page-template-infografico-roda/index.bundle.js',
 		array(),
-		'1.0.0'
+		'1.0.1'
 	);
 
 	/**
