@@ -15,4 +15,16 @@ Container::make('theme_options', 'Informações de contato e redes sociais')
       ->set_value_type('url'),
     Field::make('textarea', 'ca__social_description', 'Descrição de compartilhamento'),
     Field::make('textarea', 'ca__social_keywords', 'Palavras chave'),
+
+    // Google Analytics
+    Field::make('textarea', 'ca__google_analytics_script', 'Google Analytics Tracking Code'),
+  ));
+
+Container::make('theme_options', 'Redirecionamentos')
+  ->add_fields(array(
+    Field::make('complex', 'ca__redirects', 'Redirecionamentos')
+      ->add_fields(array(
+        Field::make('text', 'source', 'Endereço original'),
+        Field::make('text', 'destination', 'Endereço destino'),
+      ))
   ));
