@@ -361,25 +361,93 @@ transform: translate(-50%, -50%); */
 #map-container path {
   opacity: 0.8;
   fill: white;
-  cursor: pointer;
   
   stroke: #e0e0e0;
 }
 
-#map-container path:hover {
-  fill: #8bb7dc;
-}
-
 #map-container path.active {
   fill: #3c81bb;
-}
-
-#map-container path.active:hover {
-  fill: #124e7f;
 }
 /**
  * Link lines
  */
 #comoanda-viz .link-line path {
   opacity: 0.5;
+}
+
+
+/**
+ * State dropdown
+ */
+#state-dropdown {
+  position: fixed;
+  z-index: 10000;
+
+  top: 350px;
+  left: 50px;
+}
+
+#state-dropdown > button {
+  background-color: #3880BD;
+  color: white;
+  border: 1px black solid;
+  padding: 8px 20px;
+  font-size: 18px;
+
+  display: flex;
+  align-items: center;
+}
+
+#state-dropdown > button > svg {
+  margin-left: 20px;
+}
+
+#state-dropdown > div {
+  position: absolute;
+  top: 100%;
+  top: calc(100% - 1px);
+  left: 0;
+
+  width: 220px;
+
+  /*display: flex;*/
+  display: none;
+  flex-direction: column;
+
+  height: 270px;
+  background-color: white;
+  padding: 10px 20px;
+
+  overflow: auto;
+  border: 1px solid black;
+}
+
+#state-dropdown > div > label {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  font-size: 14px;
+}
+
+#state-dropdown > div > label:first-child {
+  margin-top: 0;
+}
+
+#state-dropdown > div > label:last-child {
+  margin-bottom: 0;
+}
+
+#state-dropdown > div > label > input {
+  margin-right: 10px;
+}
+
+#state-dropdown.active > button > svg {
+  transform: rotate(180deg);
+}
+
+#state-dropdown.active > div {
+  display: flex;
 }

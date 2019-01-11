@@ -136,7 +136,7 @@ module.exports = function (app, options) {
     stateEnter
       .append('text')
       .text(function (d) {
-        return d.data.key;
+        return d.data.key === 'undefined' ? '--' : d.data.key;
       })
       .style('font-size', 10)
       .style('text-anchor', function(d) {

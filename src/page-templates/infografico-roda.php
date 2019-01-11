@@ -33,6 +33,63 @@ get_header(); ?>
     </h3>
     <h3>organizações mapeadas<br>atendem a esses critérios de seleção</h3>
   </div>
+
+  <div id="state-dropdown">
+    <button>
+      Estados
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/><path fill="none" d="M0 0h24v24H0V0z"/></svg>
+    </button>
+    <div>
+      <label>
+        <input
+          type="checkbox"
+          value="_all"
+          name="_all"
+          checked>
+        Todos
+      </label>
+      <?php
+      $ca_infografico_roda__states = array(
+        'AC' => 'Acre',
+        'AL' => 'Alagoas',
+        'AP' => 'Amapá',
+        'AM' => 'Amazonas',
+        'BA' => 'Bahia',
+        'CE' => 'Ceará',
+        'DF' => 'Distrito Federal',
+        'ES' => 'Espírito Santo',
+        'GO' => 'Goiás',
+        'MA' => 'Maranhão',
+        'MT' => 'Mato Grosso',
+        'MS' => 'Mato Grosso do Sul',
+        'MG' => 'Minas Gerais',
+        'PA' => 'Pará',
+        'PB' => 'Paraíba',
+        'PR' => 'Paraná',
+        'PE' => 'Pernambuco',
+        'PI' => 'Piauí',
+        'RJ' => 'Rio de Janeiro',
+        'RN' => 'Rio Grande do Norte',
+        'RS' => 'Rio Grande do Sul',
+        'RO' => 'Rondônia',
+        'RR' => 'Roraima',
+        'SC' => 'Santa Catarina',
+        'SP' => 'São Paulo',
+        'SE' => 'Sergipe',
+        'TO' => 'Tocantins',
+      );
+      ?>
+      <?php foreach ($ca_infografico_roda__states as $state_code => $state_name) : ?>
+      <label>
+        <input
+          type="checkbox"
+          value="<?php echo $state_code; ?>"
+          name="state">
+        <?php echo $state_name; ?>
+      </label>
+      <?php endforeach; ?>
+    </div>
+  </div>
   
   <dialog id="entity-details">
     <form method="dialog">  
