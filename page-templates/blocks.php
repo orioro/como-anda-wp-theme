@@ -84,8 +84,8 @@ get_header(); ?>
 			<div class="row ca-page-block__library">
 				<div class="col-md-12">
 					<ul class="ca-link-image-list ca-link-image-list--vertical-images">
-						<?php foreach ($block['link_images'] as $image) : ?>
-						<li>
+						<?php foreach ($block['link_images'] as $image_index => $image) : ?>
+						<li class="<?php echo ca_rows_get_item_class(3, $image_index); ?>">
 							<a
 								target="<?php echo $button['target_blank'] ? '_blank' : ''; ?>"
 								href="<?php echo $image['file'] ? wp_get_attachment_url($image['file']) : $image['url']; ?>">
