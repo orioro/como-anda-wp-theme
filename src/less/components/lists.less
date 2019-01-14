@@ -21,11 +21,12 @@ ul.ca-link-image-list {
 	.ca-reset-list();
 
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	flex-wrap: wrap;
 
 	> li {
 		width: 23%;
+    margin-right: (100% - 23% * 3) / 2;
 
 		> a {
 			display: flex;
@@ -35,6 +36,10 @@ ul.ca-link-image-list {
 				width: 100%;
 			}
 		}
+
+    &.ca-last-column {
+      margin-right: 0;
+    }
 	}
 
 	&.ca-link-image-list--vertical-images {
@@ -63,9 +68,12 @@ ul.ca-link-image-list {
 			}
 		}
     @media (max-width: @tablet-max-width) {
-      // padding-bottom: 50px;
+      justify-content: space-between;
+
       > li {
-        width: 48%;        
+        width: 48%;
+        margin-right: 0;
+
         > a {
           > h4 {
             margin-bottom: 10px;

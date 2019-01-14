@@ -28,3 +28,8 @@ Container::make('theme_options', 'Redirecionamentos')
         Field::make('text', 'destination', 'Endereço destino'),
       ))
   ));
+
+/**
+ * Allow all kinds of users to access theme option containers
+ */
+add_filter('carbon_fields_theme_options_container_admin_only_access', '__return_false');

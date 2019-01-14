@@ -14,3 +14,20 @@ function ca_aux__make_link_buttons_field($field_name, $label) {
 		))
 		->set_header_template('<%- $_index + 1 %> <% if (text) { %>- <%- text %><% } %>');
 }
+
+/**
+ * Row management
+ */
+function ca_rows_is_last_column($row_length, $item_index) {
+	return ($item_index + 1) % $row_length === 0;
+}
+
+function ca_rows_get_item_class($row_length, $item_index) {
+	$classes = '';
+
+	if (ca_rows_is_last_column($row_length, $item_index)) {
+		$classes .= ' ca-last-column';
+	}
+
+	return $classes;
+}

@@ -106,7 +106,7 @@ get_header(); ?>
             <a
               class="ca-link-button ca-hover-<?php echo ca_page__get_hover_color_scheme($ca_page__color_scheme); ?>"
               href="mailto:<?php echo carbon_get_theme_option('ca__email'); ?>"> 
-              Incluir um marco
+              Indique um marco
             </a>
           </div>
 					<ul class="ca-timeline__decade-list">
