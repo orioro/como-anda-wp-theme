@@ -2,7 +2,12 @@
 use Carbon_Fields\Container;
 use Carbon_Fields\Field;
 
-Container::make('theme_options', 'Informações de contato e redes sociais')
+/**
+ * Allow all kinds of users to access theme option containers
+ */
+add_filter('carbon_fields_theme_options_container_admin_only_access', '__return_false');
+
+Container::make('theme_options', 'Contato e redes sociais')
   ->add_fields(array(
     // Contact info
     Field::make('text','ca__email', 'E-mail'),
@@ -28,8 +33,3 @@ Container::make('theme_options', 'Redirecionamentos')
         Field::make('text', 'destination', 'Endereço destino'),
       ))
   ));
-
-/**
- * Allow all kinds of users to access theme option containers
- */
-add_filter('carbon_fields_theme_options_container_admin_only_access', '__return_false');
