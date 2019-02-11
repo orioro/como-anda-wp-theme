@@ -224,7 +224,7 @@ module.exports = function (app, options) {
   // bootstrap
   app.intro.gotoStep(0, true)
     .then(function () {
-      console.log('done');
+      
     })
     .catch(function (err) {
       console.warn(err);

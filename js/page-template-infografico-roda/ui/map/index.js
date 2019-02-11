@@ -78,8 +78,6 @@ module.exports = function (app, options) {
         .attr('class', function (d) {
           var stateCode = getStateCode(d.properties.name);
           var active = mapFilter.get('Estado:').indexOf(stateCode) !== -1;
-
-          console.log(stateCode, active)
           
           return active ? 'active' : '';
         });

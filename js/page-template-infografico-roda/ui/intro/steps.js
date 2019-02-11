@@ -143,9 +143,6 @@ module.exports = function (app, options) {
             var current = startYear;
             
             while (current < endYear) {
-              
-              console.log((current - startYear) * timePerYear);
-              
               setTimeout(
                 app.ui.yearBrush.moveBrush.bind(
                   app.ui.yearBrush,
