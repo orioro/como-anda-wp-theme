@@ -5796,7 +5796,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
 }
 @media (min-width: 451px) {
   .ca-pop-up > .ca-pop-up__content-container {
-    max-width: 70vw;
+    max-width: 60vw;
     overflow: auto;
   }
 }

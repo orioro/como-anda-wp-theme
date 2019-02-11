@@ -8,7 +8,7 @@ function ca__enqueue_scripts_and_styles() {
 		'ca--main-style',
 		get_stylesheet_uri(),
 		array(),
-		'1.0.1'
+		'1.0.2'
 	);
 
 	wp_register_style(
