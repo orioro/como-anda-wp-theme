@@ -122,8 +122,6 @@ module.exports = function (app, options) {
       });
       
       if (yearInterval[0] === currentYearInterval[0] && yearInterval[1] === currentYearInterval[1]) {
-        console.log('repeated');
-        
         return;
       }
       

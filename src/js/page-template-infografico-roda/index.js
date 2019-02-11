@@ -17,8 +17,6 @@ window.addEventListener('DOMContentLoaded', function () {
     // parse the data
     options.displayQuestions = questionsParser(displayQuestions).parse();
     options.entities = tfParseData(TF_DATA);
-    
-    console.log('options', options);
     /**
      * Initialize services
      */
@@ -28,42 +26,40 @@ window.addEventListener('DOMContentLoaded', function () {
      * Initialize the ui
      */
     require('./ui/init')(app, options);
-
-    // open criteria
-    setTimeout(() => {
-      app.ui.questions.openQuestion(
-        'Qual a abordagem da sua organização sobre o tema da mobilidade a pé?');
-    }, 1000)
-
-    setTimeout(() => {
-      app.ui.questions.openQuestion(
-        'Qual é a área de atuação da sua organização?');
-    }, 2000)
-
-    setTimeout(() => {
-      // deselect one by one all options for
-      // 'Qual a abordagem da sua organização sobre o tema da mobilidade a pé?'
-      
-      var question = 'Qual a abordagem da sua organização sobre o tema da mobilidade a pé?';
-      
-      var current = app.services.questionLinkFilter.get(question);
-      
-      // invert order of removal
-      current = current.concat([]);
-      current.reverse();
-      
-      current.forEach(function (opt, index) {
-        app.services.questionLinkFilter.arrayRemove(question, opt);
-      });
-
-      app.services.entityLinkFilter.set('_id', [
-        'Cidade Ativa'.replace(/\W+/g, '-').toLowerCase(),
-        'Corrida Amiga'.replace(/\W+/g, '-').toLowerCase(),
-      ]);
-    }, 3000)
-
-
     
+    const yearsExtent = d3.extent(options.entities, function (d) {
+      return parseInt(d['Quando sua organização surgiu?'], 10);
+    });
+
+    // select all entities and use 'byEntity' criteria for link filter
+    app.services.entityLinkFilter.set(
+      '_id',
+      options.entities.map(function (e) {
+        return e._id;
+      })
+    );
+
+    app.ui.yearBrush.moveBrush(yearsExtent);
+
+    // let startYear = yearsExtent[0];
+    // let endYear   = yearsExtent[1];
+    
+    // let timePerYear = 5000 / (endYear - startYear);
+    
+    // let current = startYear;
+    
+    // while (current < endYear) {
+      
+    //   setTimeout(
+    //     app.ui.yearBrush.moveBrush.bind(
+    //       app.ui.yearBrush,
+    //       [startYear, current]
+    //     ),
+    //     (current - startYear) * timePerYear
+    //   );
+      
+    //   current += 1;
+    // }
 
     /**
      * Initialize intro
