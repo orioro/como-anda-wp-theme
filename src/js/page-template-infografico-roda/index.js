@@ -2,6 +2,7 @@ const d3 = require('d3');
 
 const displayQuestions = require('./data/display-questions');
 const tfParseData = require('./lib/tf-parse-data-v2');
+const tfNormalizeData = require('./lib/tf-normalize-data');
 const questionsParser = require('./lib/questions-parser');
 
 window.addEventListener('DOMContentLoaded', function () {
@@ -16,7 +17,7 @@ window.addEventListener('DOMContentLoaded', function () {
     
     // parse the data
     options.displayQuestions = questionsParser(displayQuestions).parse();
-    options.entities = tfParseData(TF_DATA);
+    options.entities = tfNormalizeData(tfParseData(TF_DATA));
     /**
      * Initialize services
      */

@@ -5794,6 +5794,12 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   background-color: white;
   color: black;
 }
+@media (min-width: 451px) {
+  .ca-pop-up > .ca-pop-up__content-container {
+    max-width: 70vw;
+    overflow: auto;
+  }
+}
 .ca-pop-up.open > .ca-pop-up__trigger > svg {
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);

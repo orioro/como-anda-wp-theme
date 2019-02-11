@@ -33,6 +33,12 @@ module.exports = function (app, options) {
       //   console.log(e['Quando sua organização surgiu?']);
       // });
       
+      // console.log(options.entities.filter(entity => {
+      //   return filteredEntities.findIndex(fentity => {
+      //     return fentity['Qual o nome da organização da qual faz parte?'] === entity['Qual o nome da organização da qual faz parte?']
+      //   }) === -1
+      // }))
+
       var percentage = (filteredEntities.length / options.entities.length) * 100;
       
       var stats = {

@@ -6,7 +6,7 @@ import pagination from './pagination'
 const entries = (state = [], action) => {
 	switch (action.type) {
 		case 'SET_ENTRIES':
-			return action.payload.entries
+			return action.payload.entries.filter(entry => Object.keys(entry).length > 0)
 		default:
 			return state
 	}

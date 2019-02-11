@@ -156,7 +156,7 @@ $ca_page__color_scheme = carbon_get_post_meta(
         </h1>
       </div>
       <div class="row ca-section-body ca-padding-top-4">
-        <div class="offset-md-4 col-md-5 ca-form">
+        <div class="offset-md-4 col-md-5 ca-form ca-padding-right-4">
           <?php echo do_shortcode(carbon_get_post_meta(get_the_ID(), 'ca_home__contact_form_shortcode')); ?>
         </div>
         <div class="col-md-3">

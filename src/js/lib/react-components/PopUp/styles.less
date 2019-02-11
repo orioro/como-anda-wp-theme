@@ -40,6 +40,13 @@
 	color: black;
 }
 
+@media (min-width: @tablet-min-width) {
+	.ca-pop-up > .ca-pop-up__content-container {
+		max-width: 70vw;
+		overflow: auto;
+	}
+}
+
 .ca-pop-up.open > .ca-pop-up__trigger > svg {
 	transform: rotate(180deg);
 }
