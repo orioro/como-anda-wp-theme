@@ -1,9 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 const Option = ({ label, id, value, disabled, onChange }) => {
 	return <label
-		className='ca-option'
+		className={classnames({
+			'ca-option': true,
+			'disabled': disabled || false,
+		})}
 		title={label}>
 		<input
 			type='checkbox'

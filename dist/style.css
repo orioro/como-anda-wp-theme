@@ -5703,6 +5703,9 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   align-items: flex-start;
   margin-bottom: 12px;
 }
+.ca-option.disabled {
+  opacity: 0.3;
+}
 .ca-option > input {
   margin-top: 0.3125rem;
   margin-right: 8px;
