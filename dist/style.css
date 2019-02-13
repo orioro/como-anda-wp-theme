@@ -5704,7 +5704,7 @@ ul.ca-timeline__event-list > .ca-timeline-event-list__item > .ca-timeline-event-
   margin-bottom: 12px;
 }
 .ca-option.disabled {
-  opacity: 0.3;
+  display: none;
 }
 .ca-option > input {
   margin-top: 0.3125rem;
