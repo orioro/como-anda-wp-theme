@@ -17,7 +17,7 @@ class OptionList extends React.Component {
 	render() {
 		const { label, options, onChangeOption } = this.props
 
-		return options.every(option => option.disabled) ? null : <div
+		return <div
 			className='ca-option-list'>
 			{label ? <h3>{label}</h3> : null}
 			<ul

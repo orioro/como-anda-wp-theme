@@ -29,7 +29,7 @@ const OptionsPanel = ({
 		</header>
 		<ul>
 			{optionLists.map((list, index) => {
-				return <li key={list.id || index}>
+				return list.options.every(option => option.disabled) ? null : <li key={list.id || index}>
 					<OptionList
 						{...list}
 						onChangeOption={(optionId, value) => {
