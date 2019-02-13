@@ -63,7 +63,7 @@ function ca__enqueue_scripts_and_styles() {
 		'ca--page-template-csv-filter',
 		get_template_directory_uri() . '/js/page-template-csv-filter/index.bundle.js',
 		array('jquery'),
-		'1.0.2'
+		'1.0.3'
 	);
 	wp_register_script(
 		'ca--page-template-infografico-roda',
