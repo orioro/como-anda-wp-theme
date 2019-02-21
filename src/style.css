@@ -4829,6 +4829,19 @@ img {
 .wysiwyg-content strong {
   font-weight: bold;
 }
+.wysiwyg-content figure {
+  margin-left: 0;
+  margin-right: 0;
+}
+.wysiwyg-content iframe {
+  width: 100%;
+  height: 50vh;
+}
+@media (max-width: 850px) {
+  .wysiwyg-content iframe {
+    height: 40vh;
+  }
+}
 .ca-form p {
   margin-top: 0px;
   margin-bottom: 40px;
